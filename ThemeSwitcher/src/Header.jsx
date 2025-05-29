@@ -10,7 +10,7 @@ export default function Header(){
     return(
        <>
         <header>
-        <button onClick={ShowMenu}>KS</button>
+        <button className="themebtn" onClick={ShowMenu}>KS</button>
 <nav>
   <ul>
     <li>About</li>

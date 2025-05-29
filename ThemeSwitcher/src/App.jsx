@@ -1,12 +1,15 @@
 
 import './App.css'
+import ThemeProvider from './ThemeContext'
 import Wrapper from './Wrapper'
 
 function App() {
 
   return (
   
-    <Wrapper/>
+   <ThemeProvider>
+     <Wrapper/>
+   </ThemeProvider>
   )
 }
 

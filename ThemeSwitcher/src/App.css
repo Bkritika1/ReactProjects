@@ -41,20 +41,34 @@
   color: #888;
 } */
 * {
-  margin: 0 ;
+  margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-.warapper{
+
+.warapper {
   width: 100%;
 }
-header{
+
+header {
   display: flex;
   justify-content: space-around;
   padding: 2rem;
 }
-nav ul{
+
+nav ul {
   display: flex;
   list-style: none;
   gap: 2rem;
+}
+
+
+
+header {
+color: inherit;
+background-color: inherit;
+}
+.themebtn{
+  color: inherit;
+  background-color: inherit;
 }
