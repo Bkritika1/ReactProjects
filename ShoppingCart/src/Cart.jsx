@@ -96,7 +96,7 @@ export default function Cart() {
                 });
               }}
             >
-              ❌
+              X
             </button>
           </li>
         ))}
