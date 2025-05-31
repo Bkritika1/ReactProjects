@@ -4,6 +4,10 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Toggle from './OnOff'
 import Chat from './Chat'
+import Form from './Form'
+import CatFriends from './ScrollingElement'
+import Count from './Count'
+import VideoPlayer from './ViMaker'
 function App() {
  
   return (
@@ -13,11 +17,14 @@ function App() {
      </h1>
      <Toggle/>
      <Chat/>
+    <div> <Form/></div>
+    <CatFriends/>
+    <Count/>
+    <VideoPlayer/>
     </>
   )
 }
 
 export default App
-
 
 
