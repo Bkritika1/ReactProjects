@@ -8,7 +8,7 @@ export default function Count() {
   }
 
   useEffect(() => {
-    console.log(`Count has changed to: ${count}`);
+    // console.log(`Count has changed to: ${count}`);
   }, [count]);
 
   return (
