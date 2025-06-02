@@ -11,6 +11,9 @@ import VideoPlayer from './ViMaker'
 import ConsoleLog from './Log'
 import AddCount from './AddCount'
 import Tab from './Tab'
+import Question5 from './Question5'
+import Question6 from './Question6'
+import Question7 from './Question7'
 // import Question4 from './Question4'
 function App() {
  
@@ -29,6 +32,9 @@ function App() {
     <AddCount/>
     <Tab/>
     {/* <Question4/> */}
+    <Question5/>
+    <Question6/>
+    <Question7/>
     </>
   )
 }
