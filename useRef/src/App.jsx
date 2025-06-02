@@ -8,6 +8,10 @@ import Form from './Form'
 import CatFriends from './ScrollingElement'
 import Count from './Count'
 import VideoPlayer from './ViMaker'
+import ConsoleLog from './Log'
+import AddCount from './AddCount'
+import Tab from './Tab'
+// import Question4 from './Question4'
 function App() {
  
   return (
@@ -21,6 +25,10 @@ function App() {
     <CatFriends/>
     <Count/>
     <VideoPlayer/>
+    <ConsoleLog/>
+    <AddCount/>
+    <Tab/>
+    {/* <Question4/> */}
     </>
   )
 }
