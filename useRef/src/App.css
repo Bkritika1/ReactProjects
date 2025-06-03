@@ -112,3 +112,15 @@ li {
   display: inline;
   padding: 0.5rem;
 }
+
+
+
+body.light {
+  background-color: white;
+  color: black;
+}
+
+body.dark {
+  background-color: black;
+  color: white;
+}

@@ -7,12 +7,16 @@ import { useEffect, useState } from "react";
 export default function Question4() {
     const [number, SetNumber] = useState(0);
 
- const id = 1;
+    //  const id = 1;
+
     useEffect(() => {
-        setInterval(SetNumber(prev =>
+        const id = setInterval(SetNumber(prev =>
             prev + 1
         ),1000)
-        clearInterval(id)
+      
+        return () =>clearInterval(id)
+              
+        
     }, [number])
 
     return (
