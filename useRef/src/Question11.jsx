@@ -7,35 +7,85 @@
 
 
 
+// import { useEffect, useState } from "react";
+
+// export default function Question11(){
+// const[theme, setTheme] = useState('light')
+
+
+// function handleTheme(){
+//     setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+// }
+
+// useEffect(()=>{
+//     const savedTheme = localStorage.getItem('theme')
+//     if(savedTheme){
+//         setTheme(savedTheme)
+//     }
+// }, [])
+
+//  useEffect(()=>{
+//     localStorage.setItem('theme', theme)
+//  }, [theme])
+
+
+
+//     return(
+//         <>
+//        <header className="{theme}">
+
+//         <nav>
+//             <ul>
+//                 <li>About</li>
+//                 <li>Contact</li>
+//                 <li>Home</li>
+//                 <li>Social</li>
+//             </ul>
+//         </nav>
+//         <button onClick={handleTheme}>Toggle Theme</button>
+//        </header>
+
+//         </>
+//     )
+// }
+
+
 import { useEffect, useState } from "react";
 
-export default function Question11(){
-const[theme, setTheme] = useState('light')
+export default function Question11() {
+  const [theme, setTheme] = useState("light");
 
-
-function handleTheme(){
+  // Toggles between 'light' and 'dark' theme
+  function handleTheme() {
     setTheme(theme === 'light' ? 'dark' : 'light')
-}
+  }
 
+  // On component mount, read theme from localStorage and apply it
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      setTheme(savedTheme);
+    }
+  }, []);
 
+  // Whenever theme changes, save it to localStorage
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
-
-
-    return(
-        <>
-       <header>
-
+  return (
+    <>
+      <header className={theme}>
         <nav>
-            <ul>
-                <li>About</li>
-                <li>Contact</li>
-                <li>Home</li>
-                <li>Social</li>
-            </ul>
+          <ul>
+            <li>About</li>
+            <li>Contact</li>
+            <li>Home</li>
+            <li>Social</li>
+          </ul>
         </nav>
-        <button onClick={handleTheme}></button>
-       </header>
-
-        </>
-    )
+        <button onClick={handleTheme}>Toggle Theme</button>
+      </header>
+    </>
+  );
 }

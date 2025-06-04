@@ -20,6 +20,8 @@ import Question9 from './Question9'
 import Question10 from './Question10'
 
 import Question11 from'./Question11'
+import Question12 from './Question12'
+import Question13 from './Question13'
 function App() {
  
   return (
@@ -44,6 +46,8 @@ function App() {
     <Question9/>
     <Question10/>
     <Question11/>
+    <Question12/>
+    <Question13/>
     </>
   )
 }
