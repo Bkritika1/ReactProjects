@@ -22,6 +22,8 @@ import Question10 from './Question10'
 import Question11 from'./Question11'
 import Question12 from './Question12'
 import Question13 from './Question13'
+import Question14Parent from './Question14'
+import Question15 from './Question15'
 function App() {
  
   return (
@@ -48,6 +50,8 @@ function App() {
     <Question11/>
     <Question12/>
     <Question13/>
+    <Question14Parent/>
+    <Question15/>
     </>
   )
 }
