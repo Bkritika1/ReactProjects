@@ -31,9 +31,6 @@ useEffect(()=>{
 
 
 
-// 3. Set the document title based on state (like count or input)  
-//    - Create a simple counter or input field, and use useEffect to update the page’s tab title using document.title whenever the state changes.
-
 
 
 
