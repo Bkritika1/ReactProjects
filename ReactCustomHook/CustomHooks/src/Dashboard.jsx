@@ -3,6 +3,7 @@ import React, { useCallback, useState } from 'react';
 import NotificationsList from './NotificationsList';
 import FilterBar from './FilterBar';
 import UserProfile from './Userprofile';
+import UsersList from './UsersList';
 
 const Dashboard = () => {
     const [user] = useState({
@@ -10,6 +11,12 @@ const Dashboard = () => {
         email: 'john@example.com',
     });
 
+
+    const [users] = useState([
+    { id: 1, name: 'Zara' },
+    { id: 2, name: 'Alice' },
+    { id: 3, name: 'Bob' },
+  ]);
     const [filter, setFilter] = useState('all');
 
     const [notifications, setNotifications] = useState([
@@ -47,6 +54,8 @@ const Dashboard = () => {
             <UserProfile user={user} />
             <FilterBar onFilter={handleFilter} />
             <NotificationsList notifications={filteredNotifications} />
+      <UsersList users={users} />
+
         </div>
     );
 };

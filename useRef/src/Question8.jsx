@@ -36,3 +36,10 @@ import { useEffect, useState } from "react";
        </div>
     )
  }
+
+
+  function Delay(){
+
+
+   
+  }

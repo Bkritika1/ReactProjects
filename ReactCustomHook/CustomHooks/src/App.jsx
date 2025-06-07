@@ -43,7 +43,10 @@ import React from 'react';
 // import Local from './Storage/Local';
 // import Local1 from './Storage/Local1';
 // import Parent from './Parent';
+import UseMemos from  './UseMemo'
 import Dashboard from './Dashboard';
+import Debounce from './Debounce';
+import ResizeExample from './ResizeExample';
 const App = () => {
   return (
     <div>
@@ -54,8 +57,14 @@ const App = () => {
       <Local1/> */}
       {/* <Parent/> */}
       <Dashboard/>
+      <UseMemos/>
+      <Debounce/>
+      <ResizeExample/>
     </div>
   );
 };
 
 export default App;
+
+
+//useGeolocation,usefetch, useLocalStorage, useSessionStorage, useWindowResize, useDebounce, useThrottle , useForm , useValidation, useHistory, useQuery * usefetch use local storage use seeeion storarage use window resize usedebouce usethrottle , useform , usevalidation
