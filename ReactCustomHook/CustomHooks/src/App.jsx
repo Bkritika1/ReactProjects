@@ -37,16 +37,23 @@
 
 // App.js
 import React from 'react';
-import UsersList from './UseEffect/UsersList';
-import PostsList from './UseEffect/PostsList';
-import CommentsList from './UseEffect/CommentsList';
-
+// import UsersList from './UseEffect/UsersList';
+// import PostsList from './UseEffect/PostsList';
+// import CommentsList from './UseEffect/CommentsList';
+// import Local from './Storage/Local';
+// import Local1 from './Storage/Local1';
+// import Parent from './Parent';
+import Dashboard from './Dashboard';
 const App = () => {
   return (
     <div>
-      <UsersList />
+      {/* <UsersList />
       <PostsList />
-      <CommentsList />
+      <CommentsList /> */}
+      {/* <Local/>
+      <Local1/> */}
+      {/* <Parent/> */}
+      <Dashboard/>
     </div>
   );
 };
