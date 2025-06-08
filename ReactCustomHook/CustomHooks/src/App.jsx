@@ -47,6 +47,7 @@ import UseMemos from  './UseMemo'
 import Dashboard from './Dashboard';
 import Debounce from './Debounce';
 import ResizeExample from './ResizeExample';
+import Form from './Form';
 const App = () => {
   return (
     <div>
@@ -60,6 +61,7 @@ const App = () => {
       <UseMemos/>
       <Debounce/>
       <ResizeExample/>
+      <Form/>
     </div>
   );
 };
