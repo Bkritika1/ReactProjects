@@ -23,7 +23,7 @@ import useForm from "./useform";
 import useLocalStorage from "./uselocalstorage";
 
 export default function Form() {
-  const { value, handleChange } = useForm(''); // ✅ correct destructuring
+//   const { value, handleChange } = useForm(''); // ✅ correct destructuring
  const[text , setText] = useLocalStorage('myText3' , '')
  
 
@@ -31,8 +31,8 @@ export default function Form() {
     <form>
       <input
         type="text"
-        value={value}
-        onChange={handleChange}
+        value={text}
+        // onChange={handleChange}
         placeholder="Type something..."
       />
     </form>

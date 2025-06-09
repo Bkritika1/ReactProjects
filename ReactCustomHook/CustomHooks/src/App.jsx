@@ -48,6 +48,8 @@ import Dashboard from './Dashboard';
 import Debounce from './Debounce';
 import ResizeExample from './ResizeExample';
 import Form from './Form';
+// import ToolTip from './useLayoutEffect';
+import Tooltip from './useLayoutEffect';
 const App = () => {
   return (
     <div>
@@ -62,6 +64,7 @@ const App = () => {
       <Debounce/>
       <ResizeExample/>
       <Form/>
+      <Tooltip/>
     </div>
   );
 };
