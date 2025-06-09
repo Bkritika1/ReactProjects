@@ -50,6 +50,7 @@ import ResizeExample from './ResizeExample';
 import Form from './Form';
 // import ToolTip from './useLayoutEffect';
 import Tooltip from './useLayoutEffect';
+import FruitFilter from './useTransition';
 const App = () => {
   return (
     <div>
@@ -65,6 +66,7 @@ const App = () => {
       <ResizeExample/>
       <Form/>
       <Tooltip/>
+      < FruitFilter/>
     </div>
   );
 };
