@@ -1,6 +1,7 @@
 
 //useTransition is a React Hook that lets you render a part of the UI in the background.
-//useTransition does not take any parameters.useTransition does not take any parameters.
+//useTransition does not take any parameters.
+// useTransition does not take any parameters.
 //useTransition returns an array with exactly two items:
 
 //The isPending flag that tells you whether there is a pending Transition.
@@ -62,7 +63,6 @@ function FruitFilter() {
     </div>
   );
 }
-
 export default FruitFilter;
 
 

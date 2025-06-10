@@ -1,13 +1,5 @@
 
 
-//  export default function useLayoutEffect(){
-
-//     return(
-
-//     )
-//  }
-
-
 //  🔹 useLayoutEffect is a React Hook that runs synchronously after the DOM has been updated but before the browser paints the screen.
 
 // This means:
@@ -31,41 +23,7 @@
 
 
 
-// import { useRef, useState, useLayoutEffect } from "react";
 
-
-//   export default function ToolTip(){
-
-//     const tooltipRef = useRef(null);
-//     const[height, setHeight] = useState(0);
-
-//     useLayoutEffect(()=>{
-//      if(tooltipRef.current){
-//         const box = tooltipRef.current;
-//         setHeight(box.getBoundingclientRect().height)
-//      }
-//     },[]);
-
-
-// return (
-//     <div style={{ padding: "20px", fontFamily: "Arial" }}>
-//       <div
-//         ref={tooltipRef}
-//         style={{
-//           background: "lightblue",
-//           padding: "15px",
-//           borderRadius: "8px",
-//           display: "inline-block",
-//         }}
-//       >
-//         📦 I am a tooltip!
-//       </div>
-
-//       <p>My real height is: <strong>{height}px</strong></p>
-//     </div>
-//   );
-
-//  }
 
 import React, { useRef, useState, useLayoutEffect } from "react";
 
