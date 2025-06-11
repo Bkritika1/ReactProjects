@@ -1,35 +1,57 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+import React from 'react'
+import { BrowserRouter as Router, Route, Routes, Link, useParams } from "react-router-dom"
 
+
+function Home() {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <h2>Home-Page</h2>
+  )
+}
+function About() {
+  return (
+    <h2>About Page</h2>
   )
 }
 
-export default App
+// function UserProfile(){
+//   const {userId} = useParams();
+//   return(
+//     <h2>User Profile of {userId}</h2>
+//   )
+// }
+
+function UserProfile(){
+    const {userId} = useParams();
+    return (
+        <h2>User Profile of {userId}</h2>
+    )
+}
+
+
+function Navigation(){
+    return (
+        <nav>
+            <ul>
+                <li><Link to="/">Home</Link></li>
+                <li><Link to="/about">About</Link></li>
+            </ul>
+        </nav>
+    )
+}
+
+
+export default function App(){
+    return (
+        <Router>
+            <Navigation />
+            <Routes>
+                <Route path="/" element={<Home />}/>
+                <Route path="/about" element={<About />}/>
+                {/* <Route path="/user/:userId" element={<UserProfile/>}/> */}
+                <Route path="/user/:userId" element={<UserProfile />}/>
+            </Routes>
+        </Router>
+
+    )
+}
