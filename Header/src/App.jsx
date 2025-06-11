@@ -29,22 +29,22 @@ function UserProfile(){
 }
 
 
-function Navigation(){
-    return (
-        <nav>
-            <ul>
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="/about">About</Link></li>
-            </ul>
-        </nav>
-    )
-}
+// function Navigation(){
+//     return (
+//         <nav>
+//             <ul>
+//                 <li><Link to="/">Home</Link></li>
+//                 <li><Link to="/about">About</Link></li>
+//             </ul>
+//         </nav>
+//     )
+// }
 
 
 export default function App(){
     return (
         <Router>
-            <Navigation />
+            {/* <Navigation /> */}
             <Routes>
                 <Route path="/" element={<Home />}/>
                 <Route path="/about" element={<About />}/>
