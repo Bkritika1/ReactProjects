@@ -62,6 +62,11 @@ function Dashboard() {
     <h2>Dashboard</h2>
   )
 }
+function  Dashboard1(){
+  return(
+    <h2>Dashboard1</h2>
+  )
+}
 
 function ProtectedRoute({ children, isLoggedIn }) {
   return (
@@ -76,6 +81,7 @@ export default function App() {
   return (
     <Router>
       <Navigation />
+      <Dashboard1/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />}>
