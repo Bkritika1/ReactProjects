@@ -11,5 +11,7 @@
 // </html>
 
  export default function Hooks(){
-    
+    return(
+        <h1>hello! world!</h1>
+    )
  }
