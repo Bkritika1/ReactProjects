@@ -1,0 +1,149 @@
+/* .todo-container {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.todo-input {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.todo-input input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.todo-input button {
+  padding: 8px 12px;
+  background-color: #4b49ac;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.todo-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.todo-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.todo-list li.completed span {
+  text-decoration: line-through;
+  color: gray;
+}
+
+.todo-list li button {
+  background: none;
+  border: none;
+  color: red;
+  cursor: pointer;
+} */
+
+.todo-wrapper {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.todo-input-box {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.todo-input-box input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #eee;
+  border-radius: 4px 0 0 4px;
+  outline: none;
+}
+
+.todo-input-box button {
+  background: linear-gradient(to right, #8e2de2, #4a00e0);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 0 4px 4px 0;
+}
+
+.todo-list {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.todo-list li {
+  display: flex;
+  align-items: center;
+  background-color: #fdfdfd;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #f2f2f2;
+  transition: background 0.3s ease;
+}
+
+.todo-list li.completed .todo-text {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.todo-text {
+  flex: 1;
+  margin-left: 12px;
+}
+
+.delete-btn {
+  color: #8e2de2;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.checkbox-container {
+  position: relative;
+  cursor: pointer;
+}
+
+.checkbox-container input[type="checkbox"] {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.checkbox-container .checkmark {
+  width: 16px;
+  height: 16px;
+  background: white;
+  border: 2px solid #8e2de2;
+  display: inline-block;
+  border-radius: 4px;
+  position: relative;
+}
+
+.checkbox-container input:checked + .checkmark::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 0px;
+  width: 4px;
+  height: 9px;
+  border: solid #8e2de2;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}

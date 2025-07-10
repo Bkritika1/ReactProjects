@@ -1,0 +1,42 @@
+.project-status {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+  width: 350px;
+}
+
+.project-status h3 {
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.project-status table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.project-status th,
+.project-status td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.project-status th {
+  font-weight: bold;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background-color: #eee;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 4px;
+}

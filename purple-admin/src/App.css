@@ -1,0 +1,17 @@
+.app-layout {
+  display: flex;
+  height: 100vh;
+}
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #f0f2f5;
+}
+.page {
+  padding: 20px;
+}
+.cards-row{
+  display: flex;
+  gap: 15rem;
+}

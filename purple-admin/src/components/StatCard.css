@@ -1,0 +1,23 @@
+.stat-card {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border-radius: 8px;
+  color: white;
+  width: 210px;
+  height: 210px;
+  gap: 15px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.stat-card .icon {
+  font-size: 24px;
+}
+.stat-card h4 {
+  margin: 0;
+  font-size: 16px;
+}
+.stat-card p {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+}
