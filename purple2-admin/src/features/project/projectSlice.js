@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 export const fetchProjects = createAsyncThunk(
     'project/fetchProjects',
     async (project) => {
-        const res = await fetch('/projects')
+        const res = await fetch('api/projects')
         return await res.json()
     }
 )
@@ -33,6 +33,17 @@ const projectSlice = createSlice({
 
 })
  export default projectSlice.reducer;
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -6,6 +6,7 @@ import {
   fetchToDos, toggleTodo,
   deleteTodo, addTodo
 } from '../features/toDo/toDoSlice';
+import './TodoList.css'
 
 const TodoList = () => {
   const dispatch = useDispatch();

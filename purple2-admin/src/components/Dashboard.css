@@ -1,0 +1,30 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.dashboard{
+   background-color: #f4edf8;
+   width: 100%;
+}
+
+
+.dashboard-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 40px;
+  min-height: auto;
+  gap: 30px;
+}
+.dashboard-container2{
+      display: flex;
+  justify-content: space-between;
+   padding: 40px;
+  min-height: auto;
+  gap: 30px;
+}
+.chart-Graph{
+    display: flex;
+    justify-content: space-between;
+}
