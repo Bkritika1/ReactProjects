@@ -28,3 +28,9 @@
     display: flex;
     justify-content: space-between;
 }
+.dash{
+    display: flex;
+    align-items: left;
+    margin: 1rem;
+    padding: 1rem;
+}

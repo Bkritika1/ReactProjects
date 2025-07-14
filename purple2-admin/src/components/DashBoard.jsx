@@ -12,6 +12,7 @@ import SummaryCards from "./SummaryCards";
 export default function Dashboard(){
     return(
         <div className="dashboard">
+            <h2 className="dash">Dashboard</h2>
             <SummaryCards/>
             <div className="chart-Graph">
                 <VisitStatsChart/>

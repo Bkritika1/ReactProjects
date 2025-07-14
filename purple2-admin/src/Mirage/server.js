@@ -4,35 +4,37 @@ export function makeServer() {
     return createServer({
         routes() {
             this.namespace = "api";
-            this.get("/stats", () => {
-                return {
-                    stats: [
-                        {
-                            id: 1,
-                            title: "Weekly Sales",
-                            value: "$ 15,0000",
-                            change: "Increased by 60%",
-                            icon: "📈",
-                        },
-                        {
-                            id: 2,
-                            title: "Weekly Orders",
-                            value: "45,6334",
-                            change: "Decreased by 10%",
-                            icon: "🔖",
-                            color: "from-blue-300 to-blue-500"
-                        },
-                        {
-                            id: 3,
-                            title: "Visitors Online",
-                            value: "95,5741",
-                            change: "Increased by 5%",
-                            icon: "💎",
-                            color: "from-teal-300 to-teal-500"
-                        }
-                    ]
-                };
-            });
+           this.get("/stats", () => {
+  return {
+    stats: [
+      {
+        id: 1,
+        title: "Weekly Sales",
+        value: "$ 15,0000",
+        change: "Increased by 60%",
+        icon: "📈",
+        bgColor: "#ff758c" // pink gradient start
+      },
+      {
+        id: 2,
+        title: "Weekly Orders",
+        value: "45,6334",
+        change: "Decreased by 10%",
+        icon: "🔖",
+        bgColor: "#4facfe" // blue
+      },
+      {
+        id: 3,
+        title: "Visitors Online",
+        value: "95,5741",
+        change: "Increased by 5%",
+        icon: "💎",
+        bgColor: "#43e97b" // green
+      }
+    ]
+  };
+});
+
 
             this.get("/visit-stats", () => {
                 return [
@@ -102,7 +104,9 @@ export function makeServer() {
                             subject: "Fund is not received",
                             status: "DONE",
                             date: "Dec 5, 2017",
-                            trackingId: "WD-12345"
+                            trackingId: "WD-12345",
+                              bgColor: "#ff758c" 
+                        
                         },
                         {
                             id: 2,

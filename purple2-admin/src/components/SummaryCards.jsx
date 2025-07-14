@@ -59,9 +59,7 @@ const SummaryCards = () => {
         <div
           key={card.id}
           className="summary-card"
-          style={{
-            background: `linear-gradient(to right, var(--${card.color}))`,
-          }}
+            style={{ backgroundColor: card.bgColor }}
         >
           <div className="summary-header">
             <h3>{card.title}</h3>
