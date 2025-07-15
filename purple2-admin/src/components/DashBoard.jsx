@@ -9,24 +9,24 @@ import TrafficSourceChart from "./TrafficSourceChart";
 import SummaryCards from "./SummaryCards";
 
 
-export default function Dashboard(){
-    return(
+export default function Dashboard() {
+    return (
         <div className="dashboard">
             <h2 className="dash">Dashboard</h2>
-            <SummaryCards/>
+            <SummaryCards />
             <div className="chart-Graph">
-                <VisitStatsChart/>
-                <TrafficSourceChart/>
+                <VisitStatsChart />
+                <TrafficSourceChart />
             </div>
-            <RecentTickets/>
-           <div className="dashboard-container">
-      <Calendar />
-      <RecentUpdates />
-    </div>
-           <div className="dashboard-container2">
-            <ProjectList/>
-            <TodoList/>
-           </div>
+            <RecentTickets />
+            <div className="dashboard-container">
+                <Calendar />
+                <RecentUpdates />
+            </div>
+            <div className="dashboard-container2">
+                <ProjectList />
+                <TodoList />
+            </div>
         </div>
     )
 }

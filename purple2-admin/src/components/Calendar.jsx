@@ -46,15 +46,12 @@ const Calendar = () => {
 
   const today = new Date();
 
-  // Create calendar cells
   const cells = [];
 
-  // Empty cells before first day
   for (let i = 0; i < firstDayOfMonth; i++) {
     cells.push(<div key={`empty-${i}`}></div>);
   }
 
-  // Actual days
   for (let day = 1; day <= daysInMonth; day++) {
     const isToday =
       day === today.getDate() &&
