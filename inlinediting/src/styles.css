@@ -1,0 +1,53 @@
+body {
+  font-family: sans-serif;
+  margin: 20px;
+  background: #f5f5f5;
+}
+
+.app {
+  max-width: 600px;
+  margin: auto;
+}
+
+.editable-section {
+  border: 1px solid transparent;
+  padding: 10px;
+  margin-bottom: 20px;
+  background: white;
+  position: relative;
+  transition: border 0.3s;
+}
+
+.editable-section.active {
+  border: 2px solid #3f51b5;
+}
+
+.editable-content {
+  min-height: 50px;
+  outline: none;
+  cursor: text;
+}
+
+.toolbar {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #ffffff;
+  padding: 5px;
+  border: 1px solid #ccc;
+  display: flex;
+  gap: 5px;
+  border-radius: 4px;
+}
+
+.toolbar button {
+  padding: 4px 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.buttons {
+  margin-top: 8px;
+  display: flex;
+  gap: 10px;
+}

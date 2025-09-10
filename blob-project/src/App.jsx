@@ -4,6 +4,8 @@ import { useDispatch } from 'react-redux';
 import { login } from './features/auth/authSlice';
 import UserProfile from './components/UserProfile';
 import PostsList from './components/PostsList';
+import SelectDropdown from './SelectdropDown';
+import CarouselImageSlider from './CarouselImageSlider';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -19,6 +21,8 @@ const App = () => {
       <UserProfile />
       <hr />
       <PostsList />
+      <SelectDropdown/>
+      <CarouselImageSlider/>
     </div>
   );
 };
