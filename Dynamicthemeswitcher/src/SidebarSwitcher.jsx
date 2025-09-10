@@ -80,7 +80,6 @@ export default function SidebarSwitcher() {
           width: "300px",
           height: "100%",
           background: "#fff",
-          background: "#fff",
           color: "#000",
           boxShadow: "2px 0 5px rgba(0,0,0,0.3)",
           padding: "20px",
