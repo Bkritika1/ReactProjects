@@ -1,17 +1,18 @@
-import Header from "../src/Header";
-import Hero from "../src/Hero";
-import Footer from "../src/Footer";
-import SidebarSwitcher from "./SidebarSwitcher";
-// import "./styles.css";
 
+// import "./styles.css";
+import Header from './Header'
+import Hero from './Hero'
+import Footer from './Footer'
+// import SidebarSwitcher from './SidebarSwitcher';
+import BottomToolbar from './BottomToolbar';
 export default function App() {
   return (
-    <div>
-
-      <Header />
-      <SidebarSwitcher/>
-      <Hero />
-      <Footer />
-    </div>
+         <div>
+          <Header/>
+          <Hero/>
+          <Footer/>
+          {/* <SidebarSwitcher/> */}
+          <BottomToolbar/>
+         </div>
   );
 }

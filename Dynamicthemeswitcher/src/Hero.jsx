@@ -7,7 +7,7 @@ export default function Hero() {
         <section className="hero">
             <div className="heroSec" style={{display:'flex', alignItems:'center'}}>
                 <div className="heroContent">
-                    <h1>Build your Resume Instantly</h1>
+                    <h1>Build your <span> Resume Instantly</span></h1>
                     <p>Create a professional resume using beautiful templates and your own data</p>
                     <div className="ctaButtons">
                         <button className="btnPrimary">Get Started</button>

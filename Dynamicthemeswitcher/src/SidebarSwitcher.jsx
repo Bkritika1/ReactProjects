@@ -4,7 +4,7 @@ import { settings } from "./setting";
 
 export default function SidebarSwitcher() {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState("theme"); 
+  const [activeTab, setActiveTab] = useState("theme");
 
   const [selectedThemeKey, setSelectedThemeKey] = useState("default");
   const [selectedGradientKey, setSelectedGradientKey] = useState("sunset");
@@ -13,12 +13,12 @@ export default function SidebarSwitcher() {
 
   const handleThemeChange = (themeKey) => {
     setSelectedThemeKey(themeKey);
-    setUseGradient(false);  
+    setUseGradient(false);
   };
 
   const handleGradientChange = (gradientKey) => {
     setSelectedGradientKey(gradientKey);
-    setUseGradient(true);  
+    setUseGradient(true);
   };
 
   const handleFontChange = (fontKey) => {
@@ -143,7 +143,7 @@ export default function SidebarSwitcher() {
           </button>
         </div>
 
-        {activeTab === "theme" &&
+        {/* {activeTab === "theme" &&
           Object.keys(settings.theme || {}).map((themeKey) => {
             const theme = settings.theme[themeKey];
             return (
@@ -196,7 +196,64 @@ export default function SidebarSwitcher() {
                 </span>
               </div>
             );
-          })}
+          })} */}
+{activeTab === "theme" &&
+  Object.keys(settings.theme || {}).map((themeKey) => {
+    const theme = settings.theme[themeKey];
+    const isActive = selectedThemeKey === themeKey;
+    return (
+      <div
+        key={themeKey}
+        onClick={() => handleThemeChange(themeKey)}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginBottom: "12px",
+          padding: "10px",
+          cursor: "pointer",
+          border: isActive ? "2px solid #3b82f6" : "1px solid #ddd",
+          borderRadius: "10px",
+          background: isActive ? "#f0f9ff" : "#fff",
+          transition: "all 0.3s ease"
+        }}
+      >
+        {/* Color Swatches */}
+        <div style={{ display: "flex", gap: "6px" }}>
+          <div style={{
+            width: "28px", height: "28px",
+            background: theme["--primary-bg-color"],
+            borderRadius: "50%", border: "1px solid #ccc"
+          }} />
+          <div style={{
+            width: "28px", height: "28px",
+            background: theme["--secondary-bg-color"],
+            borderRadius: "50%", border: "1px solid #ccc"
+          }} />
+          <div style={{
+            width: "28px", height: "28px",
+            background: theme["--button-text-color"],
+            borderRadius: "50%", border: "1px solid #ccc"
+          }} />
+          <div style={{
+            width: "28px", height: "28px",
+            background: theme["--gradient-bg"],
+            borderRadius: "50%", border: "1px solid #ccc"
+          }} />
+        </div>
+
+        {/* Theme Name */}
+        <span style={{
+          marginLeft: "10px",
+          fontWeight: "600",
+          textTransform: "capitalize",
+          flex: 1
+        }}>
+          {themeKey}
+        </span>
+      </div>
+    );
+  })}
 
         {activeTab === "gradient" &&
           Object.keys(settings.gradients || {}).map((gradientKey) => {
@@ -264,8 +321,8 @@ export default function SidebarSwitcher() {
         <button
           onClick={() => setIsOpen(false)}
           style={{
-            position:'absolute',
-            top:'20px',
+            position: 'absolute',
+            top: '20px',
             padding: "10px",
             background: "rgb(31 26 26 / 40%)",
             color: "#fff",
@@ -274,7 +331,7 @@ export default function SidebarSwitcher() {
             borderRadius: "6px",
           }}
         >
-         ×
+          ×
         </button>
       </div>
     </>
