@@ -1,0 +1,44 @@
+.palette-guide {
+  padding: 60px 20px;
+  background: var(--color-bg);
+  text-align: center;
+}
+
+.palette-guide .section-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.palette-guide .section-subtitle {
+  color: var(--colo-text);
+  margin-bottom: 2rem;
+}
+
+.color-roles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.color-role {
+  width: 240px;
+  padding: 20px;
+  background: var(--color-bg);
+  color: var(--colo-text);
+  border-radius: 12px;
+  box-shadow: var(--box-shadow-card-heavy);
+}
+
+.circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin: 0 auto 1rem auto;
+}
+
+.color-dominant { background: #1c2b49; }   /* Navy */
+.color-accent { background: var(--color-accent); }     /* Mustard */
+.color-neutral { background: var(--color-primary); }    /* Beige/Light Grey */
+.color-additional { background: var(--color-secondary); } /* Pinkish */

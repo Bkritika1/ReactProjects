@@ -56,6 +56,11 @@ export default function Heropallet() {
           </div>
         </div>
       </div>
+
+
+
+
+      
     </section>
   );
 }

@@ -1,359 +1,3 @@
-// export const themeData = {
-//   light: {
-//     '--color-bg': '#f9fafb',
-//     '--color-text': '#1f2937',
-//     '--color-primary': '#4f46e5',
-//     '--color-secondary': '#10b981',
-//     '--font-family': "'Poppins', sans-serif",
-//     '--font-size-heading': '2rem',
-//     '--font-size-body': '1rem',
-//     '--border-radius': '12px',
-//     '--box-shadow-card': '0 4px 12px rgba(0,0,0,0.1)',
-//     '--animation-speed': '0.3s',
-//   },
-//   dark: {
-//     '--color-bg': '#1f2937',
-//     '--color-text': '#f9fafb',
-//     '--color-primary': '#6366f1',
-//     '--color-secondary': '#22c55e',
-//     '--font-family': "'Poppins', sans-serif",
-//     '--font-size-heading': '2rem',
-//     '--font-size-body': '1rem',
-//     '--border-radius': '12px',
-//     // border,text-shadow,
-//     // glassmorphism,
-//     '--box-shadow-card': '0 4px 12px rgba(255,255,255,0.1)',
-//     '--animation-speed': '0.3s',
-//   },
-//   blue: {
-//     '--color-bg': '#e0f7fa',
-//     '--color-text': '#006064',
-//     '--color-primary': '#0288d1',
-//     '--color-secondary': '#4dd0e1',
-//     '--font-family': "'Poppins', sans-serif",
-//     '--font-size-heading': '2rem',
-//     '--font-size-body': '1rem',
-//     '--border-radius': '12px',
-//     '--box-shadow-card': '0 4px 12px rgba(0,0,0,0.1)',
-//     '--animation-speed': '0.3s',
-//   },
-// };
-
-
-// export const themeData = {
-//   light: {
-//     '--color-bg': '#f9fafb',
-//     '--color-text': '#1f2937',
-//     '--color-primary': '#4f46e5',
-//     '--color-secondary': '#10b981',
-//     '--font-family': "'Poppins', sans-serif",
-//     '--font-size-heading': '2rem',
-//     '--font-size-body': '1rem',
-//     '--border-radius': '12px',
-//     '--box-shadow-card': '0 4px 12px rgba(0,0,0,0.1)',
-//     '--animation-speed': '0.3s',
-//     '--border-style': '1px solid #ddd',
-//     '--text-shadow': '1px 1px 2px rgba(0,0,0,0.1)',
-//     '--glass-bg': 'rgba(255, 255, 255, 0.2)',
-//     '--glass-border': '1px solid rgba(255,255,255,0.3)',
-//     '--glass-blur': 'blur(8px)',
-//     '--blob-bg': '#ff00ff',           // blob ka color
-// '--blob-border-radius': '50% 40% 60% 50%', // irregular shape
-// '--blob-blur': 'blur(100px)',     // blur effect
-// '--blob-opacity': '0.7',          // transparency
-// '--blob-rotate': 'rotate(30deg)', // rotation
-// '--blob-x': '-50px',              // horizontal position
-// '--blob-y': '-50px',              // vertical position
-// '--blob-scale': 'scale(1)'        // optional scale
-
-//   },
-//   dark: {
-//     '--color-bg': '#1f2937',
-//     '--color-text': '#f9fafb',
-//     '--color-primary': '#6366f1',
-//     '--color-secondary': '#22c55e',
-//     '--font-family': "'Poppins', sans-serif",
-//     '--font-size-heading': '2rem',
-//     '--font-size-body': '1rem',
-//     '--border-radius': '12px',
-//     '--box-shadow-card': '0 4px 12px rgba(255,255,255,0.1)',
-//     '--animation-speed': '0.3s',
-//     '--border-style': '1px solid #444',
-//     '--text-shadow': '1px 1px 2px rgba(0,0,0,0.5)',
-//     '--glass-bg': 'rgba(255, 255, 255, 0.1)',
-//     '--glass-border': '1px solid rgba(255,255,255,0.2)',
-//     '--glass-blur': 'blur(8px)',
-//     '--blob-bg': '#ff00ff',           // blob ka color
-// '--blob-border-radius': '50% 40% 60% 50%', // irregular shape
-// '--blob-blur': 'blur(100px)',     // blur effect
-// '--blob-opacity': '0.7',          // transparency
-// '--blob-rotate': 'rotate(30deg)', // rotation
-// '--blob-x': '-50px',              // horizontal position
-// '--blob-y': '-50px',              // vertical position
-// '--blob-scale': 'scale(1)'        // optional scale
-
-//   },
-//   blue: {
-//     '--color-bg': '#e0f7fa',
-//     '--color-text': '#006064',
-//     '--color-primary': 'grey',
-//     '--color-secondary': '#4dd0e1',
-//     '--font-family': "'Poppins', sans-serif",
-//     '--font-size-heading': '2rem',
-//     '--font-size-body': '1rem',
-//     '--border-radius': '12px',
-//     '--box-shadow-card': '0 4px 12px rgba(0,0,0,0.1)',
-//     '--animation-speed': '0.3s',
-//     '--border-style': '1px solid #0288d1',
-//     '--text-shadow': '1px 1px 2px rgba(0,0,0,0.2)',
-//     '--glass-bg': 'rgba(255, 255, 255, 0.15)',
-//     '--glass-border': '1px solid rgba(255,255,255,0.25)',
-//     '--glass-blur': 'blur(8px)',
-//   },
-//   cyberpunk: {
-//     '--color-bg': '#0f0f1a',
-//     '--color-text': '#e0e0ff',
-//     '--color-primary': '#ff00ff',
-//     '--color-secondary': '#00ffff',
-//     '--font-family': "'Poppins', sans-serif",
-//     '--font-size-heading': '2rem',
-//     '--font-size-body': '1rem',
-//     '--border-radius': '16px',
-//     '--box-shadow-card': '0 6px 20px rgba(255, 0, 255, 0.4)',
-//     '--animation-speed': '0.3s',
-//     '--border-style': '1px solid #ff00ff',
-//     '--text-shadow': '2px 2px 5px rgba(255, 0, 255, 0.5)',
-//     '--glass-bg': 'rgba(255, 255, 255, 0.05)',
-//     '--glass-border': '1px solid rgba(255,255,255,0.2)',
-//     '--glass-blur': 'blur(12px)',
-//   },
-
-//   pastel: {
-//     '--color-bg': '#fdf6f0',
-//     '--color-text': '#333333',
-//     '--color-primary': '#ff6f61',
-//     '--color-secondary': '#6b5b95',
-//     '--font-family': "'Poppins', sans-serif",
-//     '--font-size-heading': '2rem',
-//     '--font-size-body': '1rem',
-//     '--border-radius': '12px',
-//     '--box-shadow-card': '0 4px 16px rgba(255,111,97,0.2)',
-//     '--animation-speed': '0.3s',
-//     '--border-style': '1px solid #ff6f61',
-//     '--text-shadow': '1px 1px 3px rgba(0,0,0,0.1)',
-//     '--glass-bg': 'rgba(255, 255, 255, 0.3)',
-//     '--glass-border': '1px solid rgba(255,255,255,0.5)',
-//     '--glass-blur': 'blur(10px)',
-//   },
-
-//   forest: {
-//     '--color-bg': '#1e2a1f',
-//     '--color-text': '#d4e157',
-//     '--color-primary': '#4caf50',
-//     '--color-secondary': '#81c784',
-//     '--font-family': "'Poppins', sans-serif",
-//     '--font-size-heading': '2rem',
-//     '--font-size-body': '1rem',
-//     '--border-radius': '12px',
-//     '--box-shadow-card': '0 4px 12px rgba(76,175,80,0.3)',
-//     '--animation-speed': '0.3s',
-//     '--border-style': '1px solid #4caf50',
-//     '--text-shadow': '1px 1px 3px rgba(76,175,80,0.4)',
-//     '--glass-bg': 'rgba(255, 255, 255, 0.15)',
-//     '--glass-border': '1px solid rgba(255,255,255,0.25)',
-//     '--glass-blur': 'blur(10px)',
-//   },
-
-//   sunset: {
-//     '--color-bg': '#fff5f0',
-//     '--color-text': '#333333',
-//     '--color-primary': '#ff7043',
-//     '--color-secondary': '#ffab91',
-//     '--font-family': "'Poppins', sans-serif",
-//     '--font-size-heading': '2rem',
-//     '--font-size-body': '1rem',
-//     '--border-radius': '12px',
-//     '--box-shadow-card': '0 4px 12px rgba(255,112,67,0.2)',
-//     '--animation-speed': '0.3s',
-//     '--border-style': '1px solid #ff7043',
-//     '--text-shadow': '1px 1px 2px rgba(0,0,0,0.1)',
-//     '--glass-bg': 'rgba(255, 255, 255, 0.25)',
-//     '--glass-border': '1px solid rgba(255,255,255,0.3)',
-//     '--glass-blur': 'blur(10px)',
-//   },
-
-//   ocean: {
-//     '--color-bg': '#e0f7fa',
-//     '--color-text': '#006064',
-//     '--color-primary': '#00acc1',
-//     '--color-secondary': '#26c6da',
-//     '--font-family': "'Poppins', sans-serif",
-//     '--font-size-heading': '2rem',
-//     '--font-size-body': '1rem',
-//     '--border-radius': '12px',
-//     '--box-shadow-card': '0 4px 12px rgba(0,172,193,0.3)',
-//     '--animation-speed': '0.3s',
-//     '--border-style': '1px solid #00acc1',
-//     '--text-shadow': '1px 1px 2px rgba(0,0,0,0.2)',
-//     '--glass-bg': 'rgba(255, 255, 255, 0.2)',
-//     '--glass-border': '1px solid rgba(255,255,255,0.3)',
-//     '--glass-blur': 'blur(10px)',
-//   },
-// };
-
-
-// export const themeData = {
-//  light: {
-//   '--color-bg': '#f9fafb',
-//   '--color-text': '#1f2937',
-//   '--color-primary': '#4f46e5',
-//   '--color-secondary': '#10b981',
-//   '--font-family': "'Poppins', sans-serif",
-//   '--font-size-heading': '2rem',
-//   '--font-size-body': '1rem',
-//   '--border-radius': '12px',
-//   '--box-shadow-card': '0 4px 12px rgba(0,0,0,0.1)',
-//   '--animation-speed': '0.3s',
-//   '--border-style': '1px solid #ddd',
-//   '--text-shadow': '1px 1px 2px rgba(0,0,0,0.1)',
-//   '--glass-bg': 'rgba(255, 255, 255, 0.2)',
-//   '--glass-border': '1px solid rgba(255,255,255,0.3)',
-//   '--glass-blur': 'blur(8px)',
-  
-//   // Blob
-//   '--blob-bg': 'linear-gradient(135deg, #4f46e5 0%, #10b981 100%)',
-//   '--blob-border-radius': ' 60% 40% 55% 45% / 55% 60% 40% 45%',
-//   '--blob-blur': 'blur(80px)',
-//   '--blob-opacity': '0.7',
-//   '--blob-rotate': 'rotate(25deg)',
-//   '--blob-x': '-60px',
-//   '--blob-y': '-40px',
-//   '--blob-scale': 'scale(1.1)',
-//   '--blob-transition': 'all 1.2s ease-in-out',
-  
-
-//   // Gradient text
-//   '--gradient-text': 'linear-gradient(90deg, #4f46e5, #10b981)', 
-//   '--gradient-text-animation': 'moveGradient 3s linear infinite',
-//   '--card-bg-gradient': 'linear-gradient(135deg, #e21a4cff 0%, #10b981 100%)',
-//     '--animation-speed': '0.3s',
-// },
-
-//   dark: {
-//     '--color-bg': '#1f2937',
-//     '--color-text': '#f9fafb',
-//     '--color-primary': '#6366f1',
-//     '--color-secondary': '#22c55e',
-//     '--font-family': "'Poppins', sans-serif",
-//     '--font-size-heading': '2rem',
-//     '--font-size-body': '1rem',
-//     '--border-radius': '12px',
-//     '--box-shadow-card': '0 4px 12px rgba(255,255,255,0.1)',
-//     '--animation-speed': '0.3s',
-//     '--border-style': '1px solid #444',
-//     '--text-shadow': '1px 1px 2px rgba(0,0,0,0.5)',
-//     '--glass-bg': 'rgba(255, 255, 255, 0.1)',
-//     '--glass-border': '1px solid rgba(255,255,255,0.2)',
-//     '--glass-blur': 'blur(8px)',
-//     // Blob
-//     '--blob-bg': '#6366f1',
-//     '--blob-border-radius': '40% 60% 50% 50%',
-//     '--blob-blur': 'blur(100px)',
-//     '--blob-opacity': '0.6',
-//     '--blob-rotate': 'rotate(-20deg)',
-//     '--blob-x': '-80px',
-//     '--blob-y': '-60px',
-//     '--blob-scale': 'scale(1.2)',
-//     '--blob-transition': 'all 1.5s ease-in-out',
-//     // Gradient text
-//   '--gradient-text': 'linear-gradient(90deg, #4f46e5, #10b981)', 
-//   '--gradient-text-animation': 'moveGradient 3s linear infinite'
-//   },
-
-//   cyberpunk: {
-//     '--color-bg': '#0f0f1a',
-//     '--color-text': '#e0e0ff',
-//     '--color-primary': '#ff00ff',
-//     '--color-secondary': '#00ffff',
-//     '--font-family': "'Poppins', sans-serif",
-//     '--font-size-heading': '2rem',
-//     '--font-size-body': '1rem',
-//     '--border-radius': '16px',
-//     '--box-shadow-card': '0 6px 20px rgba(255, 0, 255, 0.4)',
-//     '--animation-speed': '0.3s',
-//     '--border-style': '1px solid #ff00ff',
-//     '--text-shadow': '2px 2px 5px rgba(255, 0, 255, 0.5)',
-//     '--glass-bg': 'rgba(255, 255, 255, 0.05)',
-//     '--glass-border': '1px solid rgba(255,255,255,0.2)',
-//     '--glass-blur': 'blur(12px)',
-//     // Blob
-//     '--blob-bg': '#ff00ff',
-//     '--blob-border-radius': '60% 40% 50% 60%',
-//     '--blob-blur': 'blur(120px)',
-//     '--blob-opacity': '0.8',
-//     '--blob-rotate': 'rotate(45deg)',
-//     '--blob-x': '-100px',
-//     '--blob-y': '-50px',
-//     '--blob-scale': 'scale(1.3)',
-//     '--blob-transition': 'all 1.4s ease-in-out',
-//   },
-
-//   pastel: {
-//     '--color-bg': '#fdf6f0',
-//     '--color-text': '#333333',
-//     '--color-primary': '#ff6f61',
-//     '--color-secondary': '#6b5b95',
-//     '--font-family': "'Poppins', sans-serif",
-//     '--font-size-heading': '2rem',
-//     '--font-size-body': '1rem',
-//     '--border-radius': '12px',
-//     '--box-shadow-card': '0 4px 16px rgba(255,111,97,0.2)',
-//     '--animation-speed': '0.3s',
-//     '--border-style': '1px solid #ff6f61',
-//     '--text-shadow': '1px 1px 3px rgba(0,0,0,0.1)',
-//     '--glass-bg': 'rgba(255, 255, 255, 0.3)',
-//     '--glass-border': '1px solid rgba(255,255,255,0.5)',
-//     '--glass-blur': 'blur(10px)',
-//     // Blob
-//     '--blob-bg': '#ff6f61',
-//     '--blob-border-radius': '55% 45% 60% 50%',
-//     '--blob-blur': 'blur(90px)',
-//     '--blob-opacity': '0.7',
-//     '--blob-rotate': 'rotate(-30deg)',
-//     '--blob-x': '-40px',
-//     '--blob-y': '-30px',
-//     '--blob-scale': 'scale(1.1)',
-//     '--blob-transition': 'all 1.3s ease-in-out',
-//   },
-
-//   forest: {
-//     '--color-bg': '#1e2a1f',
-//     '--color-text': '#d4e157',
-//     '--color-primary': '#4caf50',
-//     '--color-secondary': '#81c784',
-//     '--font-family': "'Poppins', sans-serif",
-//     '--font-size-heading': '2rem',
-//     '--font-size-body': '1rem',
-//     '--border-radius': '12px',
-//     '--box-shadow-card': '0 4px 12px rgba(76,175,80,0.3)',
-//     '--animation-speed': '0.3s',
-//     '--border-style': '1px solid #4caf50',
-//     '--text-shadow': '1px 1px 3px rgba(76,175,80,0.4)',
-//     '--glass-bg': 'rgba(255, 255, 255, 0.15)',
-//     '--glass-border': '1px solid rgba(255,255,255,0.25)',
-//     '--glass-blur': 'blur(10px)',
-//     // Blob
-//     '--blob-bg': '#4caf50',
-//     '--blob-border-radius': '50% 50% 40% 60%',
-//     '--blob-blur': 'blur(85px)',
-//     '--blob-opacity': '0.65',
-//     '--blob-rotate': 'rotate(20deg)',
-//     '--blob-x': '-60px',
-//     '--blob-y': '-50px',
-//     '--blob-scale': 'scale(1.2)',
-//     '--blob-transition': 'all 1.4s ease-in-out',
-//   },
-// };
 
 const baseTheme = {
   '--font-family': "'Poppins', sans-serif",
@@ -387,10 +31,11 @@ const baseTheme = {
   export const themeData = {
       light2: {
         ...baseTheme,
-         palette: "pastel",
+         themeName: "pastel",
     '--color-bg': '#f8f3f5',
     '--color-text': '#120409',
     '--color-primary': ' #781d42',
+    '--color-accent':'#f59e0b',
     '--color-secondary': '#a3423c',
     '--box-shadow-card': '0 4px 12px rgba(0,0,0,0.1)',
     '--box-shadow-card-heavy': ' 8px 8px 10px rgb(0 0 0 / 29%)',
@@ -402,10 +47,13 @@ const baseTheme = {
 
 
   light: {
+       ...baseTheme,
+         themeName: "pastel",
     '--color-bg': '#f9fafb',
     '--color-text': '#1f2937',
     '--color-primary': '#4f46e5',
     '--color-secondary': '#10b981',
+    '--color-accent':'#f43f5e',
     '--font-family': "'Poppins', sans-serif",
     '--font-size-heading': '2rem',
     '--font-size-body': '1rem',
@@ -413,136 +61,64 @@ const baseTheme = {
      '--box-shadow-card-heavy': ' 8px 8px 10px rgb(0 0 0 / 29%)',
     '--animation-speed': '0.3s',
     '--border-style': '1px solid #ddd',
-    '--text-shadow': '1px 1px 2px rgba(0,0,0,0.1)',
-    '--glass-bg': 'rgba(255, 255, 255, 0.2)',
-    '--glass-border': '1px solid rgba(255,255,255,0.3)',
-    '--glass-blur': 'blur(8px)',
-    // '--blob-bg': 'linear-gradient(135deg, #4f46e5, #10b981)',
-    // '--blob-border-radius': '60% 40% 55% 45% / 55% 60% 40% 45%',
-    // '--blob-blur': 'blur(80px)',
-    // '--blob-opacity': '0.7',
-    // '--blob-rotate': 'rotate(25deg)',
-    // '--blob-x': '-60px',
-    // '--blob-y': '-40px',
-    // '--blob-scale': 'scale(1.1)',
-    // '--blob-transition': 'all 1.2s ease-in-out',
-       '--gradient-text': 'linear-gradient(to top right, var(--color-primary), var(--color-secondary), var(--color-accent))',
-
-    '--gradient-text-animation': 'moveGradient 3s linear infinite',
+   
     '--card-bg-gradient': 'linear-gradient(135deg, #4f46e5 0%, #10b981 100%)',
   },
-
-  dark: {
+dark: {
+   ...baseTheme,
+         themeName: "warm",
     '--color-bg': '#1f2937',
     '--color-text': '#f9fafb',
     '--color-primary': '#6366f1',
     '--color-secondary': '#22c55e',
-    '--font-family': "'Poppins', sans-serif",
-    '--font-size-heading': '2rem',
-    '--font-size-body': '1rem',
+    '--color-accent': '#f59e0b', 
     '--box-shadow-card': '0 4px 12px rgba(255,255,255,0.1)',
-      '--box-shadow-card-heavy': ' 8px 8px 10px rgb(0 0 0 / 29%)',
-
-    '--animation-speed': '0.3s',
+    '--box-shadow-card-heavy': '8px 8px 10px rgb(0 0 0 / 29%)',
     '--border-style': '1px solid #444',
-    '--text-shadow': '1px 1px 2px rgba(0,0,0,0.5)',
-    '--glass-bg': 'rgba(255, 255, 255, 0.1)',
-    '--glass-border': '1px solid rgba(255,255,255,0.2)',
-    '--glass-blur': 'blur(8px)',
-    // '--blob-bg': 'linear-gradient(135deg, #6366f1, #22c55e)',
-    // '--blob-border-radius': '40% 60% 50% 50%',
-    // '--blob-blur': 'blur(100px)',
-    // '--blob-opacity': '0.6',
-    // '--blob-rotate': 'rotate(-20deg)',
-    // '--blob-x': '-80px',
-    // '--blob-y': '-60px',
-    // '--blob-scale': 'scale(1.2)',
-    // '--blob-transition': 'all 1.5s ease-in-out',
-      '--gradient-text': 'linear-gradient(to top right, var(--color-primary), var(--color-secondary), var(--color-accent))',
+      '--card-bg-gradient': 'linear-gradient(135deg, #333333 0%, #444444 100%)',
+},
 
-    '--gradient-text-animation': 'moveGradient 3s linear infinite',
-    '--card-bg-gradient': 'linear-gradient(135deg, #333333 0%, #444444 100%)',
-  },
-
-  cyberpunk: {
+cyberpunk: {
+   ...baseTheme,
+         themeName: "happy",
     '--color-bg': '#0f0f1a',
     '--color-text': '#e0e0ff',
     '--color-primary': '#ff00ff',
     '--color-secondary': '#00ffff',
-    '--font-family': "'Poppins', sans-serif",
-    '--font-size-heading': '2rem',
-    '--font-size-body': '1rem',
-    '--border-radius': '16px',
+    '--color-accent': '#ffea00', // bright yellow for cyberpunk vibe
     '--box-shadow-card': '0 6px 20px rgba(255, 0, 255, 0.4)',
-
-    '--animation-speed': '0.3s',
-    '--border-style': '1px solid #ff00ff',
-    '--text-shadow': '2px 2px 5px rgba(255, 0, 255, 0.5)',
-    '--glass-bg': 'rgba(255, 255, 255, 0.05)',
-    '--glass-border': '1px solid rgba(255,255,255,0.2)',
-    '--glass-blur': 'blur(12px)',
-    // '--blob-bg': 'linear-gradient(135deg, #ff00ff, #00ffff)',
-    // '--blob-border-radius': '60% 40% 50% 60%',
-    // '--blob-blur': 'blur(120px)',
-    // '--blob-opacity': '0.8',
-    // '--blob-rotate': 'rotate(45deg)',
-    // '--blob-x': '-100px',
-    // '--blob-y': '-50px',
-    // '--blob-scale': 'scale(1.3)',
-    // '--blob-transition': 'all 1.4s ease-in-out',
-        '--gradient-text': 'linear-gradient(to top right, var(--color-primary), var(--color-secondary), var(--color-accent))',
-
-    '--gradient-text-animation': 'moveGradient 3s linear infinite',
+    '--box-shadow-card-heavy': ' 8px 8px 10px rgb(0 0 0 / 29%)',
     '--card-bg-gradient': 'linear-gradient(135deg, #ff00ff 0%, #00ffff 100%)',
-  },
+},
 
-  pastel: {
+pastel: {
+    ...baseTheme,
+         themeName: "warm",
     '--color-bg': '#fdf6f0',
     '--color-text': '#333333',
     '--color-primary': '#ff6f61',
     '--color-secondary': '#6b5b95',
-    '--font-family': "'Poppins', sans-serif",
-    '--font-size-heading': '2rem',
-    '--font-size-body': '1rem',
-    '--border-radius': '12px',
-    '--box-shadow-card': '0 4px 16px rgba(255,111,97,0.2)',
-      '--box-shadow-card-heavy': ' 8px 8px 10px rgb(0 0 0 / 29%)',
+    '--color-accent': '#ffb347', // soft orange/yellow
 
-    '--animation-speed': '0.3s',
+    '--box-shadow-card': '0 4px 16px rgba(255,111,97,0.2)',
+    '--box-shadow-card-heavy': '8px 8px 10px rgb(0 0 0 / 29%)',
     '--border-style': '1px solid #ff6f61',
     '--text-shadow': '1px 1px 3px rgba(0,0,0,0.1)',
-    '--glass-bg': 'rgba(255, 255, 255, 0.3)',
-    '--glass-border': '1px solid rgba(255,255,255,0.5)',
-    '--glass-blur': 'blur(10px)',
-    // '--blob-bg': 'linear-gradient(135deg, #ff6f61, #6b5b95)',
-    // '--blob-border-radius': '55% 45% 60% 50%',
-    // '--blob-blur': 'blur(90px)',
-    // '--blob-opacity': '0.7',
-    // '--blob-rotate': 'rotate(-30deg)',
-    // '--blob-x': '-40px',
-    // '--blob-y': '-30px',
-    // '--blob-scale': 'scale(1.1)',
-    // '--blob-transition': 'all 1.3s ease-in-out',
-    '--gradient-text': 'linear-gradient(to top right, var(--color-primary), var(--color-secondary), var(--color-accent))',
-
-    '--gradient-text-animation': 'moveGradient 3s linear infinite',
     '--card-bg-gradient': 'linear-gradient(135deg, #ff6f61 0%, #6b5b95 100%)',
-  },
+},
 
- 
-  // ✅ Additional Themes
-  ocean: {
+ocean: {
     '--color-bg': '#e0f7fa',
     '--color-text': '#006064',
     '--color-primary': '#00acc1',
     '--color-secondary': '#00838f',
+    '--color-accent': '#00e5ff', // bright cyan accent
     '--font-family': "'Poppins', sans-serif",
     '--font-size-heading': '2rem',
     '--font-size-body': '1rem',
     '--border-radius': '12px',
     '--box-shadow-card': '0 4px 12px rgba(0,172,193,0.3)',
-      '--box-shadow-card-heavy': ' 8px 8px 10px rgb(0 0 0 / 29%)',
-
+    '--box-shadow-card-heavy': '8px 8px 10px rgb(0 0 0 / 29%)',
     '--animation-speed': '0.3s',
     '--border-style': '1px solid #00acc1',
     '--text-shadow': '1px 1px 3px rgba(0,172,193,0.3)',
@@ -558,24 +134,23 @@ const baseTheme = {
     '--blob-y': '-30px',
     '--blob-scale': 'scale(1.2)',
     '--blob-transition': 'all 1.3s ease-in-out',
-        '--gradient-text': 'linear-gradient(to top right, var(--color-primary), var(--color-secondary), var(--color-accent))',
-
+    '--gradient-text': 'linear-gradient(to top right, var(--color-primary), var(--color-secondary), var(--color-accent))',
     '--gradient-text-animation': 'moveGradient 3s linear infinite',
     '--card-bg-gradient': 'linear-gradient(135deg, #00acc1 0%, #00838f 100%)',
-  },
+},
 
-  sunset: {
+sunset: {
     '--color-bg': '#ffefd5',
     '--color-text': '#5a3e36',
     '--color-primary': '#ff6f61',
     '--color-secondary': '#ffb347',
+    '--color-accent': '#ff3f34', // bright coral/red
     '--font-family': "'Poppins', sans-serif",
     '--font-size-heading': '2rem',
     '--font-size-body': '1rem',
     '--border-radius': '12px',
     '--box-shadow-card': '0 4px 12px rgba(255,111,97,0.3)',
-      '--box-shadow-card-heavy': ' 8px 8px 10px rgb(0 0 0 / 29%)',
-
+    '--box-shadow-card-heavy': '8px 8px 10px rgb(0 0 0 / 29%)',
     '--animation-speed': '0.3s',
     '--border-style': '1px solid #ff6f61',
     '--text-shadow': '1px 1px 3px rgba(255,111,97,0.4)',
@@ -591,10 +166,11 @@ const baseTheme = {
     '--blob-y': '-40px',
     '--blob-scale': 'scale(1.1)',
     '--blob-transition': 'all 1.2s ease-in-out',
-      '--gradient-text': 'linear-gradient(to top right, var(--color-primary), var(--color-secondary), var(--color-accent))',
+    '--gradient-text': 'linear-gradient(to top right, var(--color-primary), var(--color-secondary), var(--color-accent))',
     '--gradient-text-animation': 'moveGradient 3s linear infinite',
     '--card-bg-gradient': 'linear-gradient(135deg, #ff6f61 0%, #ffb347 100%)',
-  },
+},
+
 
  
 
@@ -1246,7 +822,8 @@ theme13: {
     '--card-bg-gradient': 'linear-gradient(to top right, var(--color-primary), var(--color-secondary), var(--color-accent))',
 },
 
- Pastel :['pastel1', 'pastel2', 'pastel3', 'pastel4','pastel5' ]
+ themeName :['pastel', 'warm', 'cold','angry','happy', 'sunset' ]
+
 
 };
 

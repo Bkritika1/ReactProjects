@@ -1,0 +1,65 @@
+
+
+.site-header {
+  width: 100%;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* center everything */
+  gap: 20rem;
+  padding: 20px 40px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 6px;
+  background: var(--color-primary);
+  color: #fff;
+  font-weight: 700;
+  font-size: 18px;
+  padding: 5px;
+}
+
+.brand-title {
+  font-weight: 700;
+  font-size: var(--font-size-body);
+  width: max-content;
+}
+
+.main-nav {
+  display: flex;
+  gap: 28px;
+}
+
+.main-nav a {
+  color: var(--color-text);
+  text-decoration: none;
+  font-size: var(--font-size-body);
+}
+
+.header-cta .btn-ghost {
+  background: var(--color-primary);
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  transition: all var(--animation-speed);
+}
+
+.header-cta .btn-ghost:hover {
+  background: var(--color-secondary);
+}

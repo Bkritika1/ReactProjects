@@ -98,12 +98,11 @@ function App() {
 
   return (
     <>
-      <Navbar
-       
-      />
+      <Navbar/>
 
      
       <main>
+      
         <HeroSection />
         <Features />
         <AdvancedColorTools/>
