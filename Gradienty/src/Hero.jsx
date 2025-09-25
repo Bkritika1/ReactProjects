@@ -11,7 +11,7 @@
   ];
 import './Hero.css';
 
-export default function Hero(){
+export default function Hero({setSidebarOpen}){
     
     return(
            <section className="hero-section">
@@ -25,7 +25,8 @@ export default function Hero(){
             <p className="hero-sub">Save and share your favorite palettes with one click..</p>
 
             <div className="hero-ctas">
-              <button className="btn btn-primary">Get Started</button>
+             <button className='btn btn-primary'  onClick={() => setSidebarOpen(true)}>Get Started</button>
+
               <a className="login-link" href="#">Generate Your Own Palettes ➜</a>
             </div>
           </div>
@@ -49,11 +50,11 @@ export default function Hero(){
           <p >
             Change colors & theme in real-time
           </p>
-          <button
+          {/* <button
           
           >
             Try Now
-          </button>
+          </button> */}
         </div>
       </div>
 

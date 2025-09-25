@@ -6,9 +6,9 @@ import { themeData } from "../src/themeData";
     import { PaintbrushVertical, ExternalLink  } from "lucide-react";
 
 
-export default function BottomToolbar({ changeTheme, currentTheme }) {
+export default function BottomToolbar({ changeTheme, currentTheme,sidebarOpen, setSidebarOpen  }) {
     const [shareOpen, setShareOpen] = useState(false);
-    const [sidebarOpen, setSidebarOpen] = useState(false);
+    // const [sidebarOpen, setSidebarOpen] = useState(false);
     const [activeColor, setActiveColor] = useState(null);
     const [colorValue, setColorValue] = useState("#000000");
     const [pickerPos, setPickerPos] = useState({ left: 0, top: 0 });
