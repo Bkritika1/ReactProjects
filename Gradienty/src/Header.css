@@ -36,6 +36,9 @@
   font-weight: 700;
   font-size: var(--font-size-body);
   width: max-content;
+  background: var(--gradient-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .main-nav {

@@ -98,6 +98,10 @@ body {
   opacity: 1;
 }
 
+.random-btn:active + .tooltip-text {
+  visibility: hidden;
+  opacity: 0;
+}
 
 
 /* Bottom Toolbar Styling */
@@ -203,4 +207,41 @@ body {
 }
 
 
+.tooltip-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* Tooltip default */
+.tooltip-text1 {
+  visibility: hidden;
+  opacity: 1;
+  background-color: #333;
+  color: #fff;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: opacity 0.3s, visibility 0.3s;
+  white-space: nowrap;
+  pointer-events: none; /* prevent interaction with tooltip */
+  z-index: 100;
+}
+.tooltip-wrapper:hover .tooltip-text1{
+  visibility: visible;
+  opacity: 1;
+}
+/* Rotate button on click */
+.random-btn:active {
+  transform: rotate(360deg);
+}
+
+/* Hide tooltip when button is active (while mouse held) */
+.random-btn:active + .tooltip-text {
+  visibility: hidden;
+  opacity: 0;
+}
 

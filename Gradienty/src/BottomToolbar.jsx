@@ -3,7 +3,7 @@ import { Palette, Sun, Moon, Dice6,Share2  } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { HexColorPicker } from "react-colorful";
 import { themeData } from "../src/themeData";
-    import { PaintbrushVertical } from "lucide-react";
+    import { PaintbrushVertical, ExternalLink  } from "lucide-react";
 
 
 export default function BottomToolbar({ changeTheme, currentTheme }) {
@@ -26,10 +26,10 @@ export default function BottomToolbar({ changeTheme, currentTheme }) {
 
 
 const filterColors = [
-  "#000000", "#ffffff", "#ff0000", "#00ff00", "#0000ff", 
-  "#f59e0b", "#4f46e5", "#10b981", "#f43f5e", "#781d42",
-  "#22c55e", "#6366f1", "#ff7f50", "#ff69b4", "#8a2be2",
-  "#a3423c", "#120409", "#f8f3f5", "#1f2937", "#f9fafb",
+  "#1a1a1a", "#5f6f52", "#f9e0ae", "#be3144", "#102c57", 
+  "#f59e0b", "#ff7b54", "#10b981", "#f43f5e", "#4793af",
+  "#22c55e", "#6366f1", "#ff7f50", "#fc819e", "#8a2be2",
+  "#ffbe98", "#a79277", "#4c3f91", "#424769", "#fac213",
   "#cccccc", "#333333"
 ];
 
@@ -170,14 +170,21 @@ console.log(filterThemesByName("pastel"));
                 </button>
 
                 {/* Random Theme */}
-                <button className="random-btn tooltip" onClick={handleRandomTheme} style={{
-                    background: "var(--color-primary)",
-                    color: iconColor,
-                    border: "1px solid #ccc",
-                }}>
-                    <Dice6 />
-                    <span className="tooltip-text">Randomize Theme</span>
-                </button>
+                <div className="tooltip-wrapper">
+  <button
+    className="random-btn"
+    onClick={handleRandomTheme}
+    style={{
+      background: "var(--color-primary)",
+      color: iconColor,
+      border: "1px solid #ccc",
+    }}
+  >
+    <Dice6 />
+  </button>
+  <span className="tooltip-text1">Randomize Theme</span>
+</div>
+
 
                 {/* Dark/Light Toggle */}
                 <button
@@ -368,10 +375,10 @@ console.log(filterThemesByName("pastel"));
             {/* Sidebar for Themes */}
             <div className={`theme-sidebar ${sidebarOpen ? "open" : ""}`}>
                  <div style={{display:'flex',justifyContent:'space-between', fontFamily: "sans-serif",alignItems:'center',color:'#fff' }}>
-     <h3>Generate Your Own Palettes ➜</h3>
+     <h3 style={{fontSize:'15px',display:'flex',alignItems:'center',gap:'.5rem'}}>Generate Your Own Palettes   <ExternalLink width='20px'/> </h3>
      <div style={{display:'flex',gap:'.5rem'}}>
           <select
-          style={{background:'#2e2c2c',display:'flex',alignItems:'center',color:'#fff',padding:'6px',borderRadius:'8px'}}
+          style={{background:'#2e2c2c',display:'flex',alignItems:'center',color:'#fff',padding: '8px 12px',borderRadius:'8px',fontSize:'13px'}}
         id="tags"
         value={selectedTag}
         onChange={(e) => {
@@ -413,6 +420,7 @@ console.log(filterThemesByName("pastel"));
       alignItems:'center',
 justifyContent:'center',
       gap: "8px",
+      fontSize:'13px'
     }}
   >
     {selectedColor ? (
@@ -457,14 +465,14 @@ justifyContent:'center',
       style={{
         position: "absolute",
         top: "110%",
-        left: 0,
+        left: "-50px",
         background: "#000",
         border: "1px solid #ddd",
         borderRadius: "8px",
-        padding: "10px",
+        padding: "15px",
         display: "grid",
         gridTemplateColumns: "repeat(4, 21px)",
-        gap: "6px",
+        gap: "16px",
         boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
         zIndex: 100,
       }}
@@ -475,8 +483,8 @@ justifyContent:'center',
           className={`color-swatch ${selectedColor === color ? "active" : ""}`}
           style={{
             backgroundColor: color,
-            width: "26px",
-            height: "26px",
+            width: "30px",
+            height: "30px",
             borderRadius: "50%",
             border: "1px solid #aaa",
             cursor: "pointer",
