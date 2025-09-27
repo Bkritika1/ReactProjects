@@ -49,14 +49,27 @@
 
 
 
-// import './index.css'
-import { themeData } from './themeData'
-import LandPage from './LandPage'
-// import HeaderHero from "./HeaderHero"
-export default function App(){
-  return(
-    <>
-      <LandPage/>
-    </>
-  )
+// import LandPage from './LandPage'
+// export default function App(){
+//   return(
+//     <>
+//       <LandPage/>
+//     </>
+//   )
+// }
+
+
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import LandPage from "./Page/LandPage";
+import PaletteGenerator from "./Page/PalleteGen";
+
+export default function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<LandPage />} />
+        <Route path="/palette-generator" element={<PaletteGenerator />} />
+      </Routes>
+    </Router>
+  );
 }

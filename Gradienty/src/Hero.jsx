@@ -10,7 +10,7 @@
     { type: "text", text: "500+ Companies" },
   ];
 import './Hero.css';
-
+import { Link } from "react-router-dom";
 export default function Hero({setSidebarOpen}){
     
     return(
@@ -27,7 +27,9 @@ export default function Hero({setSidebarOpen}){
             <div className="hero-ctas">
              <button className='btn btn-primary'  onClick={() => setSidebarOpen(true)}>Get Started</button>
 
-              <a className="login-link" href="#">Generate Your Own Palettes ➜</a>
+             <Link className="login-link" to="/palette-generator">
+            Generate Your Own Palettes ➜
+          </Link>
             </div>
           </div>
 

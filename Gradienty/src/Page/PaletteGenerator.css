@@ -1,0 +1,159 @@
+.container {
+  padding: 20px;
+  font-family: sans-serif;
+  max-width: 1200px;
+  margin: auto;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.categories {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.categories button {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #fff;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.categories button.active,
+.categories button:hover {
+  background: #000;
+  color: #fff;
+}
+
+.palette-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.palette-card {
+  border: 2px solid #ddd;
+  border-radius: 12px;
+  padding: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  background: #fff;
+}
+
+.palette-card.selected {
+  border-color: #000;
+}
+
+.color-bars {
+  display: flex;
+  height: 60px;
+  margin-bottom: 6px;
+}
+
+.color-block {
+  flex: 1;
+  border-radius: 4px;
+  margin-right: 4px;
+}
+
+.color-block:last-child {
+  margin-right: 0;
+}
+
+.paw-icons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.editor-section {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.color-wheel,
+.gradient-editor {
+  background: #fff;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.gradient-editor .gradient-inputs {
+  display: flex;
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.gradient-editor input {
+  margin-top: 4px;
+}
+
+.live-preview {
+  flex: 1;
+  min-width: 300px;
+  padding: 30px;
+  border-radius: 12px;
+  color: #fff;
+  text-align: center;
+}
+
+.live-preview button {
+  margin: 10px;
+  padding: 10px 20px;
+  border: none;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+/* Modal Content */
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  min-width: 300px;
+  text-align: center;
+}
+
+.modal-colors {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.modal-color-block {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  font-size: 12px;
+  font-weight: bold;
+}

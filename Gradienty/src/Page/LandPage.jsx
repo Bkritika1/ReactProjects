@@ -49,14 +49,14 @@
 
 // LandPage.jsx
 import { useState, useEffect } from "react";
-import Footer from "./Footer";
-import Header from "./Header";
-import Hero from "./Hero";
-import HeroSection from "./HeroSection";
-import PaletteGuide from "./PaletteGuide";
-import { applyTheme } from "./themeManager";
-import BottomToolbar from "./BottomToolbar";
-import PaletteGenerator from "./Page/PalleteGen";
+import Footer from "../Footer";
+import Header from "../Header";
+import Hero from "../Hero";
+import HeroSection from "../HeroSection";
+import PaletteGuide from "../PaletteGuide";
+import { applyTheme } from "../themeManager";
+import BottomToolbar from "../BottomToolbar";
+// import PaletteGenerator from "./PalleteGen";
 
 export default function LandPage() {
   const [currentTheme, setCurrentTheme] = useState("light");
@@ -93,7 +93,7 @@ export default function LandPage() {
         <Hero setSidebarOpen={setSidebarOpen} /> {/* ✅ pass function */}
         <HeroSection />
         <PaletteGuide />
-        <PaletteGenerator/>
+        {/* <PaletteGenerator/> */}
         <Footer />
       </div>
     </>
