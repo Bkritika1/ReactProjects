@@ -1,0 +1,163 @@
+// import { useState } from "react";
+
+
+// export default function PaletteGenerator() {
+//   const Palettes = {
+//     1: [
+//       { id: "warm-001", colors: ["#7B4019", "#FF7D29", "#FFBF78", "#FFEEA9"] },
+//       { id: "warm-002", colors: ["#FCEF91", "#FB9E3A", "#E6521F", "#EA2F14"] }
+//     ],
+//     2: [
+//       { id: "rainbow-020", colors: ["#FCEF91", "#FB9E3A", "#E6521F", "#EA2F14"] },
+//       { id: "rainbow-021", colors: ["#FBDB93", "#BE5B50", "#8A2D3B", "#641B2E"] }
+//     ]
+    
+//   };
+
+
+//   const [selectedCategory, setSelectedCategory] = useState("1");
+
+// const categories = Object.keys(Palettes); // ["1", "2"]
+
+// const palettesToShow = selectedCategory === "1" 
+//   ? Palettes 
+//   : { [selectedCategory]: Palettes[selectedCategory] };
+//   return (
+//     <div style={{ padding: "20px" }}>
+//       {Object.entries(Palettes).map(([categoryId, palettes]) => (
+//         <div key={categoryId} style={{ marginBottom: "40px" }}>
+//           <h2>Category {categoryId}</h2>
+//           <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
+//             {palettes.map((p) => (
+//               <div key={p.id} style={{ textAlign: "center" }}>
+//                 <div style={{ display: "flex", gap: "5px", marginBottom: "5px" }}>
+//                   {p.colors.map((color, i) => (
+//                     <div
+//                       key={i}
+//                       style={{
+//                         width: "50px",
+//                         height: "50px",
+//                         backgroundColor: color,
+//                         borderRadius: "6px",
+//                       }}
+//                     />
+//                   ))}
+//                 </div>
+//                 <p>{p.id}</p>
+//               </div>
+//             ))}
+//           </div>
+//         </div>
+//       ))}
+//     </div>
+//   );
+// }
+
+import Palettes from '../Data';
+import { useState } from "react";
+import { FaPaw } from "react-icons/fa";
+
+// const Palettes = {
+//   warm: [
+//     { id: "warm-001", colors: ["#7B4019", "#FF7D29", "#FFBF78", "#FFEEA9"] },
+//     { id: "warm-002", colors: ["#FCEF91", "#FB9E3A", "#E6521F", "#EA2F14"] }
+//   ],
+//   pastel: [
+//     { id: "pastel-001", colors: ["#FFB3BA", "#FFDFBA", "#FFFFBA", "#BAFFC9"] },
+//     { id: "pastel-002", colors: ["#BAE1FF", "#D5BAFF", "#FFC4E1", "#FFD6A5"] }
+//   ],
+//   cool: [
+//     { id: "cool-001", colors: ["#003F5C", "#2F4B7C", "#665191", "#A05195"] },
+//     { id: "cool-002", colors: ["#70A9A1", "#40798C", "#133C55", "#BFD7EA"] }
+//   ],
+//     happy: [
+//     { id: "cool-001", colors: ["#003F5C", "#2F4B7C", "#665191", "#A05195"] },
+//     { id: "cool-002", colors: ["#70A9A1", "#40798C", "#133C55", "#BFD7EA"] }
+//   ]
+// };
+
+export default function PaletteGenerator() {
+  const [selectedCategory, setSelectedCategory] = useState("all");
+
+  // Decide what to render (all or one category)
+  const palettesToShow =
+    selectedCategory === "all"
+      ? Object.values(Palettes).flat()
+      : Palettes[selectedCategory];
+
+  return (
+    <div style={{ padding: "20px", fontFamily: "sans-serif" }}>
+      {/* Category Tabs */}
+      <div style={{ display: "flex", gap: "1rem", marginBottom: "2rem" }}>
+        <button
+          onClick={() => setSelectedCategory("all")}
+          style={{
+            padding: "6px 12px",
+            borderRadius: "8px",
+            border: "1px solid #ccc",
+            background: selectedCategory === "all" ? "#000" : "#fff",
+            color: selectedCategory === "all" ? "#fff" : "#000",
+            cursor: "pointer"
+          }}
+        >
+          All
+        </button>
+        {Object.keys(Palettes).map((cat) => (
+          <button
+            key={cat}
+            onClick={() => setSelectedCategory(cat)}
+            style={{
+              padding: "6px 12px",
+              borderRadius: "8px",
+              border: "1px solid #ccc",
+              background: selectedCategory === cat ? "#000" : "#fff",
+              color: selectedCategory === cat ? "#fff" : "#000",
+              cursor: "pointer"
+            }}
+          >
+            {cat.toUpperCase()}
+          </button>
+        ))}
+      </div>
+
+      {/* Palette Grid */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))",
+          gap: "1rem"
+        }}
+      >
+        {palettesToShow.map((palette) => (
+          <div
+            key={palette.id}
+            style={{
+              border: "1px solid #ddd",
+              borderRadius: "12px",
+              overflow: "hidden",
+              display: "flex",
+              flexDirection: "column",
+              boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
+              background: "#fff",
+              padding: "8px"
+            }}
+          >
+            {/* Color Bars */}
+            <div style={{ display: "flex", height: "60px", marginBottom: "6px" }}>
+              {palette.colors.map((c, index) => (
+                <div key={index} style={{ flex: 1, background: c, borderRadius: "4px" }} />
+              ))}
+            </div>
+
+            {/* Paw Icons */}
+            <div style={{ display: "flex", justifyContent: "center", gap: "27px" }}>
+              {palette.colors.map((_, index) => (
+                <FaPaw key={index} style={{ color: palette.colors[index], fontSize: "14px" }} />
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
