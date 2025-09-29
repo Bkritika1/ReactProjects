@@ -18,6 +18,35 @@ export default function BottomToolbar({ changeTheme, currentTheme,sidebarOpen, s
     const [selectedTag,setselectedTag] = useState('');
     const [selectedColor, setSelectedColor] = useState('');
     const [colorFilterOpen, setColorFilterOpen] = useState(false);
+    const [showGradients, setShowGradients] = useState(false);
+const themeVarss = themeData[currentTheme] || {};
+const resetBackground = () => {
+  const defaultBg = themeVarss["--color-bg"] || "#ffffff";
+  document.body.style.background = defaultBg;
+};
+
+    const [themeGradients, setThemeGradients] = useState(() => {
+  // Initialize all theme gradients
+  const gradients = {};
+  Object.entries(themeData).forEach(([key, theme]) => {
+    gradients[key] = theme["--card-bg-gradient"] || `linear-gradient(135deg, ${theme["--color-primary"]}, ${theme["--color-secondary"]})`;
+  });
+  return gradients;
+});
+
+// Shuffle function
+const shuffleGradient = (key) => {
+  const theme = themeData[key];
+  const types = ["linear-gradient", "radial-gradient", "conic-gradient"];
+  const randomType = types[Math.floor(Math.random() * types.length)];
+  const colors = [theme["--color-primary"], theme["--color-secondary"], theme["--color-accent"]].sort(() => Math.random() - 0.5);
+  const newGradient = randomType === "linear-gradient"
+    ? `linear-gradient(${Math.floor(Math.random()*360)}deg, ${colors.join(", ")})`
+    : `${randomType}(circle, ${colors.join(", ")})`;
+  
+  setThemeGradients(prev => ({ ...prev, [key]: newGradient }));
+  document.body.style.background = newGradient;
+};
 
 
 
@@ -54,6 +83,9 @@ const filteredThemes = Object.entries(themeData).filter(([themeKey, vars]) => {
   return matchesTag && matchesColor;
 })
 
+const toggleGradients = () => {
+  setShowGradients((prev) => !prev);
+};
 
 
     const colorLabels = {
@@ -79,6 +111,9 @@ const filteredThemes = Object.entries(themeData).filter(([themeKey, vars]) => {
         const randomTheme = themes[Math.floor(Math.random() * themes.length)];
         changeTheme(randomTheme);
     };
+
+
+
 
     const openPicker = (colorVar, e) => {
         const rect = e.target.getBoundingClientRect();
@@ -375,8 +410,144 @@ console.log(filterThemesByName("pastel"));
             {/* Sidebar for Themes */}
             <div className={`theme-sidebar ${sidebarOpen ? "open" : ""}`}>
                  <div style={{display:'flex',justifyContent:'space-between', fontFamily: "sans-serif",alignItems:'center',color:'#fff' }}>
-     <h3 style={{fontSize:'15px',display:'flex',alignItems:'center',gap:'.5rem'}}>Generate Your Own Palettes   <ExternalLink width='20px'/> </h3>
-     <div style={{display:'flex',gap:'.5rem'}}>
+     {/* <h3 style={{fontSize:'15px',display:'flex',alignItems:'center',gap:'.5rem'}}>Generate Your Own Palettes   <ExternalLink width='20px'/> </h3> */}
+{/* <div style={{ marginTop: "1rem" }}>
+  <button
+    onClick={toggleGradients}
+    style={{
+      padding: "8px 12px",
+      borderRadius: "8px",
+      background: "#2e2c2c",
+      color: "#fff",
+      cursor: "pointer",
+      fontSize: "13px",
+    }}
+  >
+    🎨 Show Background Gradients
+  </button>
+
+  {showGradients && (
+    <div
+      style={{
+        marginTop: "10px",
+        display: "grid",
+        gridTemplateColumns: "repeat(3, 60px)",
+        gap: "10px",
+      }}
+    >
+      {Object.entries(themeData).map(([key, theme]) => {
+        const gradient = theme["--card-bg-gradient"] || `linear-gradient(135deg, ${theme["--color-primary"]}, ${theme["--color-secondary"]})`;
+        return (
+          <div
+            key={key}
+            onClick={() => {
+              document.documentElement.style.setProperty("--color-bg", theme["--color-bg"]);
+              document.documentElement.style.setProperty("--color-primary", theme["--color-primary"]);
+              document.documentElement.style.setProperty("--color-secondary", theme["--color-secondary"]);
+              document.documentElement.style.setProperty("--color-accent", theme["--color-accent"]);
+            }}
+            style={{
+              width: "60px",
+              height: "60px",
+              borderRadius: "8px",
+              background: gradient,
+              cursor: "pointer",
+              border: "2px solid #444",
+            }}
+            title={theme.themeName || key}
+          />
+        );
+      })}
+    </div>
+  )}
+</div> */}
+
+<div style={{ marginTop: "10px", display: "flex", gap: "10px", alignItems: "center" }}>
+  {/* Reset Background Button */}
+  <button
+    onClick={resetBackground}
+    style={{
+      padding: "8px 12px",
+      borderRadius: "8px",
+      background: "#2e2c2c",
+      color: "#fff",
+      cursor: "pointer",
+      fontSize: "13px",
+      border: "1px solid #555"
+    }}
+  >
+    🔄 Reset Background
+  </button>
+</div>
+
+<div style={{ marginTop: "1rem" }}>
+  <button
+    onClick={toggleGradients}
+    style={{
+      padding: "8px 12px",
+      borderRadius: "8px",
+      background: "#2e2c2c",
+      color: "#fff",
+      cursor: "pointer",
+      fontSize: "13px",
+    }}
+  >
+    🎨 Show Background Gradients
+  </button>
+
+  {showGradients && (
+    <div
+      style={{
+        marginTop: "10px",
+        display: "grid",
+        gridTemplateColumns: "repeat(4, 60px)",
+        gap: "2.5rem",
+      }}
+    >
+   {Object.entries(themeData).map(([key, theme]) => (
+  <div key={key} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
+    <div
+      onClick={() => {
+        document.body.style.background = themeGradients[key];
+        document.documentElement.style.setProperty("--color-primary", theme["--color-primary"]);
+        document.documentElement.style.setProperty("--color-secondary", theme["--color-secondary"]);
+        document.documentElement.style.setProperty("--color-accent", theme["--color-accent"]);
+      }}
+      style={{
+        width: "100px",
+        height: "100px",
+        borderRadius: "8px",
+        background: themeGradients[key],
+        cursor: "pointer",
+        border: "2px solid #444",
+      }}
+    />
+    <button
+      onClick={() => shuffleGradient(key)}
+      style={{
+        fontSize: "10px",
+        padding: "2px 6px",
+        borderRadius: "4px",
+        cursor: "pointer",
+        background: "#222",
+        color: "#fff",
+      }}
+    >
+      🔀
+    </button>
+  </div>
+))}
+
+    </div>
+  )}
+</div>
+
+
+
+ <div style={{display:'flex',gap:'.5rem'}}>
+
+
+      
           <select
           style={{background:'#2e2c2c',display:'flex',alignItems:'center',color:'#fff',padding: '8px 12px',borderRadius:'8px',fontSize:'13px'}}
         id="tags"
