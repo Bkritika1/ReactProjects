@@ -3,7 +3,7 @@ import { Palette, Sun, Moon, Dice6,Share2  } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { HexColorPicker } from "react-colorful";
 import { themeData } from "../src/themeData";
-    import { PaintbrushVertical, ExternalLink,RefreshCw  } from "lucide-react";
+    import { PaintbrushVertical, ExternalLink,RefreshCw,Copy  } from "lucide-react";
 
 
 export default function BottomToolbar({ changeTheme, currentTheme,sidebarOpen, setSidebarOpen  }) {
@@ -678,7 +678,7 @@ console.log(filterThemesByName("pastel"));
                 color: "#fff",
               }}
             >
-             <RefreshCw/>
+             <RefreshCw width="18px"/>
             </button>
 
             <button
@@ -696,7 +696,7 @@ console.log(filterThemesByName("pastel"));
                 color: "#fff",
               }}
             >
-              📋
+              <Copy width="18px"/>
             </button>
           </div>
         </div>
@@ -1000,3 +1000,5 @@ justifyContent:'center',
         </div>
     );
 }
+
+
