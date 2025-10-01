@@ -319,6 +319,7 @@ import React, { useState } from "react";
 import Palettes from "../Data";
 import { FaPaw, FaEllipsisV } from "react-icons/fa";
 import "./PaletteGenerator.css";
+import ColorExtractor from "../ColorExtractor";
 
 export default function PaletteGenerator() {
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -348,9 +349,11 @@ export default function PaletteGenerator() {
     navigator.clipboard.writeText(palette.colors.join(", "));
     alert("Palette colors copied!");
   };
-
+console.log("Extracted colors:", palettesToShow);
   return (
     <div className="container">
+
+      <ColorExtractor/>
       <h1>Color Mesh Palette Generator</h1>
 
       {/* Category Tabs */}
