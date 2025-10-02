@@ -244,7 +244,7 @@ function rgbToHex(r, g, b) {
     [r, g, b].map((x) => x.toString(16).padStart(2, "0")).join("")
   );
 }
-
+console.log('chgvbj')
 export default function ColorExtractor() {
   const [imageSrc, setImageSrc] = useState("");
   const [colors, setColors] = useState([]);
