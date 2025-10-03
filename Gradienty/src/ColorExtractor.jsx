@@ -1408,223 +1408,182 @@
 // }
 
 
-// import React, { useRef, useState, useEffect } from "react";
-// import "./ColorExtractor.css";
+import React, { useRef, useState, useEffect } from "react";
+import "./ColorExtractor.css";
 
-// function rgbToHex(r, g, b) {
-//   return (
-//     "#" +
-//     [r, g, b].map((x) => x.toString(16).padStart(2, "0")).join("")
-//   ).toUpperCase();
-// }
-
-// export default function ColorExtractor() {
-//   const [imageSrc, setImageSrc] = useState("");
-//   const [picked, setPicked] = useState([]);
-//   const [topColors, setTopColors] = useState(10);
-//   const imgRef = useRef(null);
-
-//   const handleFileChange = (e) => {
-//     const file = e.target.files[0];
-//     if (!file) return;
-//     if (file.size > 10 * 1024 * 1024) {
-//       alert("Max file size 10 MB");
-//       return;
-//     }
-//     const url = URL.createObjectURL(file);
-//     setImageSrc(url);
-//     setPicked([]);
-//   };
-
-//   const handleURLSubmit = (e) => {
-//     e.preventDefault();
-//     const url = e.target.elements.url.value.trim();
-//     if (!url) return;
-//     setImageSrc(url);
-//     setPicked([]);
-//   };
-
-//   const extractColors = () => {
-//     if (!imgRef.current) return;
-//     const img = imgRef.current;
-
-//     if (img.complete && img.naturalWidth > 0) {
-//       const canvas = document.createElement("canvas");
-//       const ctx = canvas.getContext("2d");
-
-//       // Downscale image for performance
-//       const width = 300;
-//       const height = Math.round((img.height / img.width) * width);
-//       canvas.width = width;
-//       canvas.height = height;
-//       ctx.drawImage(img, 0, 0, width, height);
-
-//       const { data } = ctx.getImageData(0, 0, width, height);
-//       const colorFreq = {};
-
-//       // Count each pixel
-//       for (let i = 0; i < data.length; i += 4) {
-//         const r = data[i];
-//         const g = data[i + 1];
-//         const b = data[i + 2];
-//         const hex = rgbToHex(r, g, b);
-//         colorFreq[hex] = (colorFreq[hex] || 0) + 1;
-//       }
-
-//       // Sort colors by frequency descending
-//       const sortedColors = Object.entries(colorFreq)
-//         .sort((a, b) => b[1] - a[1])
-//         .map(([hex]) => hex);
-
-//       // Remove duplicates & pick top visible colors
-//       const uniqueColors = [...new Set(sortedColors)];
-
-//       setPicked(uniqueColors.slice(0, topColors)); // top visible colors
-//     } else {
-//       img.onload = () => extractColors();
-//     }
-//   };
-
-//   // Copy single color
-//   const copyHex = (hex) => navigator.clipboard.writeText(hex).catch(() => alert("Copy failed"));
-
-//   // Export CSS
-//   const exportCSS = () => {
-//     if (!picked.length) return alert("No colors to export");
-//     const css = picked.map((c, i) => `--color-${i + 1}: ${c};`).join("\n");
-//     const blob = new Blob([`:root {\n${css}\n}`], { type: "text/css" });
-//     const url = URL.createObjectURL(blob);
-//     const a = document.createElement("a");
-//     a.href = url;
-//     a.download = "palette.css";
-//     a.click();
-//     URL.revokeObjectURL(url);
-//   };
-
-//   // Export image palette
-//   const exportImage = () => {
-//     if (!picked.length) return alert("No colors to export");
-//     const canvas = document.createElement("canvas");
-//     const w = 500;
-//     const h = 100;
-//     canvas.width = w;
-//     canvas.height = h;
-//     const ctx = canvas.getContext("2d");
-//     const blockW = w / picked.length;
-//     picked.forEach((c, i) => {
-//       ctx.fillStyle = c;
-//       ctx.fillRect(i * blockW, 0, blockW, h);
-//     });
-//     const url = canvas.toDataURL("image/png");
-//     const a = document.createElement("a");
-//     a.href = url;
-//     a.download = "palette.png";
-//     a.click();
-//   };
-
-//   useEffect(() => {
-//     if (imageSrc) extractColors();
-//     // eslint-disable-next-line react-hooks/exhaustive-deps
-//   }, [imageSrc, topColors]);
-
-//   return (
-//     <div className="ip-container">
-//       <header className="ip-header">
-//         <h1>Extract Top Dominant Colors</h1>
-//       </header>
-
-//       <div className="ip-main">
-//         <div className="ip-left">
-//           <label className="ip-upload">
-//             <input type="file" accept="image/*" onChange={handleFileChange} />
-//             Upload image
-//           </label>
-
-//           <form onSubmit={handleURLSubmit} className="ip-url-form">
-//             <input name="url" placeholder="Paste image URL" />
-//             <button type="submit">Use URL</button>
-//           </form>
-
-//           <div className="ip-options">
-//             <label>
-//               Top Colors:
-//               <select value={topColors} onChange={(e) => setTopColors(Number(e.target.value))}>
-//                 {[5, 10, 15, 20, 30, 50].map((n) => (
-//                   <option key={n} value={n}>{n}</option>
-//                 ))}
-//               </select>
-//             </label>
-//             <button onClick={extractColors} className="primary">Extract Colors</button>
-//           </div>
-
-//           <div className="ip-exports">
-//             <button onClick={exportCSS}>Export CSS</button>
-//             <button onClick={exportImage}>Export Image</button>
-//             <button onClick={() => navigator.clipboard.writeText(picked.join(", "))}>Copy all HEX</button>
-//           </div>
-
-//           <div className="ip-picked-list">
-//             <h3>Top Colors</h3>
-//             <div className="swatches-row">
-//               {picked.length === 0 && <div>No colors yet.</div>}
-//               {picked.map((hex) => (
-//                 <div key={hex} className="swatch" style={{ background: hex }}>
-//                   <div className="swatch-hex">{hex}</div>
-//                   <button onClick={() => copyHex(hex)}>Copy</button>
-//                 </div>
-//               ))}
-//             </div>
-//           </div>
-//         </div>
-
-//         <div className="ip-right">
-//           <div className="image-preview">
-//             {imageSrc ?  <img ref={imgRef} src={imageSrc} alt="preview" crossOrigin="anonymous" /> : <div className="placeholder">Browse or drop an image</div>}
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-{/* <img ref={imgRef} src={imageSrc} alt="preview" crossOrigin="anonymous" /> */}
-
-import React, { useState, useEffect } from "react";
-import Vibrant from "node-vibrant";
+function rgbToHex(r, g, b) {
+  return (
+    "#" +
+    [r, g, b].map((x) => x.toString(16).padStart(2, "0")).join("")
+  ).toUpperCase();
+}
 
 export default function ColorExtractor() {
-  const [palette, setPalette] = useState([]);
+  const [imageSrc, setImageSrc] = useState("");
+  const [picked, setPicked] = useState([]);
+  const [topColors, setTopColors] = useState(10);
+  const imgRef = useRef(null);
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (file.size > 10 * 1024 * 1024) {
+      alert("Max file size 10 MB");
+      return;
+    }
+    const url = URL.createObjectURL(file);
+    setImageSrc(url);
+    setPicked([]);
+  };
+
+  const handleURLSubmit = (e) => {
+    e.preventDefault();
+    const url = e.target.elements.url.value.trim();
+    if (!url) return;
+    setImageSrc(url);
+    setPicked([]);
+  };
+
+  const extractColors = () => {
+    if (!imgRef.current) return;
+    const img = imgRef.current;
+
+    if (img.complete && img.naturalWidth > 0) {
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+
+      // Downscale image for performance
+      const width = 300;
+      const height = Math.round((img.height / img.width) * width);
+      canvas.width = width;
+      canvas.height = height;
+      ctx.drawImage(img, 0, 0, width, height);
+
+      const { data } = ctx.getImageData(0, 0, width, height);
+      const colorFreq = {};
+
+      // Count each pixel
+      for (let i = 0; i < data.length; i += 4) {
+        const r = data[i];
+        const g = data[i + 1];
+        const b = data[i + 2];
+        const hex = rgbToHex(r, g, b);
+        colorFreq[hex] = (colorFreq[hex] || 0) + 1;
+      }
+
+      // Sort colors by frequency descending
+      const sortedColors = Object.entries(colorFreq)
+        .sort((a, b) => b[1] - a[1])
+        .map(([hex]) => hex);
+
+      // Remove duplicates & pick top visible colors
+      const uniqueColors = [...new Set(sortedColors)];
+
+      setPicked(uniqueColors.slice(0, topColors)); // top visible colors
+    } else {
+      img.onload = () => extractColors();
+    }
+  };
+
+  // Copy single color
+  const copyHex = (hex) => navigator.clipboard.writeText(hex).catch(() => alert("Copy failed"));
+
+  // Export CSS
+  const exportCSS = () => {
+    if (!picked.length) return alert("No colors to export");
+    const css = picked.map((c, i) => `--color-${i + 1}: ${c};`).join("\n");
+    const blob = new Blob([`:root {\n${css}\n}`], { type: "text/css" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "palette.css";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  // Export image palette
+  const exportImage = () => {
+    if (!picked.length) return alert("No colors to export");
+    const canvas = document.createElement("canvas");
+    const w = 500;
+    const h = 100;
+    canvas.width = w;
+    canvas.height = h;
+    const ctx = canvas.getContext("2d");
+    const blockW = w / picked.length;
+    picked.forEach((c, i) => {
+      ctx.fillStyle = c;
+      ctx.fillRect(i * blockW, 0, blockW, h);
+    });
+    const url = canvas.toDataURL("image/png");
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "palette.png";
+    a.click();
+  };
 
   useEffect(() => {
-    const imgUrl =
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/960px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg";
-
-    Vibrant.from(imgUrl).getPalette().then((palette) => {
-      const colors = Object.values(palette)
-        .filter(Boolean)
-        .map((swatch) => swatch.getHex());
-
-      setPalette(colors);
-    });
-  }, []);
+    if (imageSrc) extractColors();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [imageSrc, topColors]);
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>Extracted Palette (Coolors style)</h2>
-      <div style={{ display: "flex", gap: "10px" }}>
-        {palette.map((color, i) => (
-          <div
-            key={i}
-            style={{
-              width: "100px",
-              height: "100px",
-              background: color,
-              border: "1px solid #ccc",
-            }}
-          >
-            <p style={{ color: "#fff", textAlign: "center" }}>{color}</p>
+    <div className="ip-container">
+      <header className="ip-header">
+        <h1>Extract Top Dominant Colors</h1>
+      </header>
+
+      <div className="ip-main">
+        <div className="ip-left">
+          <label className="ip-upload">
+            <input type="file" accept="image/*" onChange={handleFileChange} />
+            Upload image
+          </label>
+
+          <form onSubmit={handleURLSubmit} className="ip-url-form">
+            <input name="url" placeholder="Paste image URL" />
+            <button type="submit">Use URL</button>
+          </form>
+
+          <div className="ip-options">
+            <label>
+              Top Colors:
+              <select value={topColors} onChange={(e) => setTopColors(Number(e.target.value))}>
+                {[5, 10, 15, 20, 30, 50,100,200].map((n) => (
+                  <option key={n} value={n}>{n}</option>
+                ))}
+              </select>
+            </label>
+            <button onClick={extractColors} className="primary">Extract Colors</button>
           </div>
-        ))}
+
+          <div className="ip-exports">
+            <button onClick={exportCSS}>Export CSS</button>
+            <button onClick={exportImage}>Export Image</button>
+            <button onClick={() => navigator.clipboard.writeText(picked.join(", "))}>Copy all HEX</button>
+          </div>
+
+          <div className="ip-picked-list">
+            <h3>Top Colors</h3>
+            <div className="swatches-row">
+              {picked.length === 0 && <div>No colors yet.</div>}
+              {picked.map((hex) => (
+                <div key={hex} className="swatch" style={{ background: hex }}>
+                  <div className="swatch-hex">{hex}</div>
+                  <button onClick={() => copyHex(hex)}>Copy</button>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="ip-right">
+          <div className="image-preview">
+            {imageSrc ?  <img ref={imgRef} src={imageSrc} alt="preview" crossOrigin="anonymous" /> : <div className="placeholder">Browse or drop an image</div>}
+          </div>
+        </div>
       </div>
     </div>
   );
 }
+{/* <img ref={imgRef} src={imageSrc} alt="preview" crossOrigin="anonymous" /> */}
