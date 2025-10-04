@@ -1587,3 +1587,13 @@ export default function ColorExtractor() {
   );
 }
 {/* <img ref={imgRef} src={imageSrc} alt="preview" crossOrigin="anonymous" /> */}
+
+
+
+// emaail excel sheet..
+// linkedin excel sheet
+// startups find
+//  refrence
+// 
+
+// https://chatgpt.com/c/68dfd8a6-358c-8321-aefb-25e6be569362
