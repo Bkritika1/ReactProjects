@@ -34,18 +34,18 @@ h1 {
 
 .palette-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 16px;
   margin-bottom: 30px;
 }
 
 .palette-card {
-  border: 2px solid #ddd;
+  /* border: 2px solid #ddd; */
   border-radius: 12px;
   padding: 8px;
   cursor: pointer;
   transition: 0.3s;
-  background: #fff;
+  /* background: #fff; */
 }
 
 .palette-card.selected {
