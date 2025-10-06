@@ -6,7 +6,7 @@
 //   2: [ { id: "rainbow-020", colors: ["#FCEF91", "#FB9E3A", "#E6521F", "#EA2F14"] }, { id: "rainbow-021", colors: ["#FBDB93", "#BE5B50", "#8A2D3B", "#641B2E"] } ],
 
 // };
-
+// https://chatgpt.com/c/68dfd8a6-358c-8321-aefb-25e6be569362
 
 const Palettes = {
   warm: [
