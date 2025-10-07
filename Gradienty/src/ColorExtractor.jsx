@@ -1597,6 +1597,486 @@
 // 
 
 
+// import React, { useRef, useState, useEffect } from "react";
+// import "./ColorExtractor.css";
+
+// /* --- utility fns --- */
+// function clamp(v, a = 0, b = 255) { return Math.max(a, Math.min(b, v)); }
+
+// function rgbToHex(r, g, b) {
+//   return (
+//     "#" +
+//     [r, g, b].map((x) => x.toString(16).padStart(2, "0")).join("")
+//   ).toUpperCase();
+// }
+
+// /* RGB <-> XYZ <-> LAB conversions (needed for perceptual clustering) */
+// function rgbToXyz(r, g, b) {
+//   // r,g,b in [0,255]
+//   r = r / 255; g = g / 255; b = b / 255;
+//   // sRGB gamma inverse
+//   r = r > 0.04045 ? Math.pow((r + 0.055) / 1.055, 2.4) : r / 12.92;
+//   g = g > 0.04045 ? Math.pow((g + 0.055) / 1.055, 2.4) : g / 12.92;
+//   b = b > 0.04045 ? Math.pow((b + 0.055) / 1.055, 2.4) : b / 12.92;
+
+//   // Observer = 2°, Illuminant = D65
+//   const x = r * 0.4124564 + g * 0.3575761 + b * 0.1804375;
+//   const y = r * 0.2126729 + g * 0.7151522 + b * 0.0721750;
+//   const z = r * 0.0193339 + g * 0.1191920 + b * 0.9503041;
+//   return [x * 100, y * 100, z * 100];
+// }
+
+// function xyzToLab(x, y, z) {
+//   // ref white D65
+//   const xr = x / 95.047;
+//   const yr = y / 100.000;
+//   const zr = z / 108.883;
+//   const fx = xr > 0.008856 ? Math.cbrt(xr) : (7.787 * xr) + (16 / 116);
+//   const fy = yr > 0.008856 ? Math.cbrt(yr) : (7.787 * yr) + (16 / 116);
+//   const fz = zr > 0.008856 ? Math.cbrt(zr) : (7.787 * zr) + (16 / 116);
+
+//   const L = (116 * fy) - 16;
+//   const a = 500 * (fx - fy);
+//   const b = 200 * (fy - fz);
+//   return [L, a, b];
+// }
+
+// function rgbToLab(r, g, b) {
+//   const [x, y, z] = rgbToXyz(r, g, b);
+//   return xyzToLab(x, y, z);
+// }
+
+// /* Euclidean distance in LAB space */
+// function labDist(a, b) {
+//   const dl = a[0] - b[0];
+//   const da = a[1] - b[1];
+//   const db = a[2] - b[2];
+//   return Math.sqrt(dl * dl + da * da + db * db);
+// }
+
+// /* --- simple k-means implementation on LAB vectors --- */
+// function kmeans(samplesLab, k, maxIters = 30) {
+//   if (!samplesLab.length) return [];
+
+//   // pick k distinct random seeds
+//   const centers = [];
+//   const used = new Set();
+//   while (centers.length < Math.min(k, samplesLab.length)) {
+//     const idx = Math.floor(Math.random() * samplesLab.length);
+//     if (!used.has(idx)) {
+//       used.add(idx);
+//       centers.push(samplesLab[idx].lab.slice());
+//     }
+//   }
+
+//   let assignments = new Array(samplesLab.length).fill(-1);
+
+//   for (let iter = 0; iter < maxIters; iter++) {
+//     let changed = false;
+//     // assignment step
+//     for (let i = 0; i < samplesLab.length; i++) {
+//       const lab = samplesLab[i].lab;
+//       let best = 0;
+//       let bestDist = labDist(lab, centers[0]);
+//       for (let c = 1; c < centers.length; c++) {
+//         const d = labDist(lab, centers[c]);
+//         if (d < bestDist) { bestDist = d; best = c; }
+//       }
+//       if (assignments[i] !== best) { assignments[i] = best; changed = true; }
+//     }
+
+//     // update step
+//     const sums = new Array(centers.length).fill(0).map(() => ({ L:0,a:0,b:0,count:0 }));
+//     for (let i = 0; i < samplesLab.length; i++) {
+//       const c = assignments[i];
+//       const s = samplesLab[i].lab;
+//       sums[c].L += s[0]; sums[c].a += s[1]; sums[c].b += s[2]; sums[c].count++;
+//     }
+//     for (let c = 0; c < centers.length; c++) {
+//       if (sums[c].count === 0) {
+//         // re-seed empty cluster with random sample
+//         const rIdx = Math.floor(Math.random() * samplesLab.length);
+//         centers[c] = samplesLab[rIdx].lab.slice();
+//       } else {
+//         centers[c][0] = sums[c].L / sums[c].count;
+//         centers[c][1] = sums[c].a / sums[c].count;
+//         centers[c][2] = sums[c].b / sums[c].count;
+//       }
+//     }
+
+//     if (!changed) break;
+//   }
+
+//   // Build clusters array containing indices
+//   const clusters = new Array(centers.length).fill(0).map(() => []);
+//   for (let i = 0; i < assignments.length; i++) clusters[assignments[i]].push(i);
+//   return { centers, clusters, assignments };
+// }
+
+// /* --- component --- */
+// export default function ColorExtractor() {
+//   const [imageSrc, setImageSrc] = useState("");
+//   const [picked, setPicked] = useState([]); // [{hex, count, coords: [{x,y}], sample}] 
+//   const [topColors, setTopColors] = useState(10);
+//   const [markers, setMarkers] = useState([]); // overlay info for image
+//   const imgRef = useRef(null);
+//   const canvasRef = useRef(null); // offscreen canvas
+
+//   const handleFileChange = (e) => {
+//     const file = e.target.files[0];
+//     if (!file) return;
+//     if (file.size > 10 * 1024 * 1024) {
+//       alert("Max file size 10 MB");
+//       return;
+//     }
+//     const url = URL.createObjectURL(file);
+//     setImageSrc(url);
+//     setPicked([]);
+//     setMarkers([]);
+//   };
+
+//   const handleURLSubmit = (e) => {
+//     e.preventDefault();
+//     const url = e.target.elements.url.value.trim();
+//     if (!url) return;
+//     setImageSrc(url);
+//     setPicked([]);
+//     setMarkers([]);
+//   };
+
+//   // main improved extractor
+//   const extractColors = (options = {}) => {
+//     if (!imgRef.current) return;
+//     const img = imgRef.current;
+
+//     if (!(img.complete && img.naturalWidth > 0)) {
+//       img.onload = () => extractColors(options);
+//       return;
+//     }
+
+//     // create offscreen canvas sized for sampling (downscale for perf)
+//     const targetWidth = 300; // you can tune
+//     const targetHeight = Math.round((img.naturalHeight / img.naturalWidth) * targetWidth);
+
+//     const canvas = document.createElement("canvas");
+//     canvas.width = targetWidth;
+//     canvas.height = targetHeight;
+//     const ctx = canvas.getContext("2d");
+//     ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
+
+//     try {
+//       const imgd = ctx.getImageData(0, 0, targetWidth, targetHeight);
+//       const data = imgd.data;
+
+//       // Sample pixels with a stride to speed up (tune stride for speed/quality)
+//       const stride = options.stride || 2; // 1 = every pixel, 2 = every 2nd pixel
+//       const samples = []; // {lab, r,g,b, x,y}
+//       for (let y = 0; y < targetHeight; y += stride) {
+//         for (let x = 0; x < targetWidth; x += stride) {
+//           const i = (y * targetWidth + x) * 4;
+//           const r = data[i], g = data[i+1], b = data[i+2], a = data[i+3];
+//           if (a === 0) continue; // skip transparent
+//           // optionally skip near-white or near-black if you want
+//           const lab = rgbToLab(r, g, b);
+//           samples.push({ lab, r, g, b, x, y });
+//         }
+//       }
+
+//       if (!samples.length) {
+//         setPicked([]);
+//         return;
+//       }
+
+//       // Run k-means on LAB (k = topColors)
+//       const k = Math.min(topColors, 40, Math.floor(samples.length / 5) || 1); // prevent too-large clusters
+//       const { centers, clusters } = kmeans(samples, k, 30);
+
+//       // Build cluster summary: count & representative sample (closest to center)
+//       const clusterSummaries = centers.map((center, idx) => {
+//         const indices = clusters[idx];
+//         let bestIdx = indices[0];
+//         let bestDist = labDist(samples[bestIdx].lab, center);
+//         for (let ii = 1; ii < indices.length; ii++) {
+//           const sIdx = indices[ii];
+//           const d = labDist(samples[sIdx].lab, center);
+//           if (d < bestDist) { bestDist = d; bestIdx = sIdx; }
+//         }
+//         const sample = samples[bestIdx];
+//         return {
+//           center,
+//           count: indices.length,
+//           sample, // representative pixel (r,g,b,x,y)
+//         };
+//       });
+
+//       // sort clusters by count desc and pick topColors
+//       clusterSummaries.sort((a,b)=> b.count - a.count);
+//       const chosen = clusterSummaries.slice(0, topColors);
+
+//       // map representative to original image coordinates
+//       const imgNaturalW = img.naturalWidth;
+//       const imgNaturalH = img.naturalHeight;
+//       const scaleX = imgNaturalW / targetWidth;
+//       const scaleY = imgNaturalH / targetHeight;
+
+//       const pickedColors = chosen.map((c, i) => {
+//         const px = Math.round(c.sample.x * scaleX);
+//         const py = Math.round(c.sample.y * scaleY);
+//         const hex = rgbToHex(c.sample.r, c.sample.g, c.sample.b);
+//         return {
+//           hex,
+//           count: c.count,
+//           coord: { x: px, y: py }, // natural image coordinates
+//           samplePixel: { r: c.sample.r, g: c.sample.g, b: c.sample.b },
+//         };
+//       });
+
+//       setPicked(pickedColors);
+
+//       // prepare overlay markers in displayed coordinates
+//       // compute displayed image size & position
+//       const rect = img.getBoundingClientRect();
+//       const displayedW = rect.width;
+//       const displayedH = rect.height;
+//       const left = rect.left + window.scrollX;
+//       const top = rect.top + window.scrollY;
+
+//       const markersOut = pickedColors.map((p, idx) => {
+//         const leftPos = (p.coord.x / imgNaturalW) * displayedW;
+//         const topPos = (p.coord.y / imgNaturalH) * displayedH;
+//         return {
+//           hex: p.hex,
+//           x: left + leftPos,
+//           y: top + topPos,
+//           relX: leftPos,
+//           relY: topPos,
+//           idx,
+//           coordNatural: p.coord,
+//         };
+//       });
+
+//       setMarkers(markersOut);
+
+//     } catch (err) {
+//       console.error("Error extracting image data (CORS?)", err);
+//       alert("Unable to read image data. Check image CORS or use a local file upload.");
+//       setPicked([]);
+//       setMarkers([]);
+//     }
+//   };
+
+//   // Click handler on image -> pick that pixel color (exact)
+//   const handleImageClick = (e) => {
+//     const img = imgRef.current;
+//     if (!img) return;
+//     const rect = img.getBoundingClientRect();
+//     const clickX = e.clientX - rect.left;
+//     const clickY = e.clientY - rect.top;
+//     // map to natural coordinates
+//     const nx = Math.round((clickX / rect.width) * img.naturalWidth);
+//     const ny = Math.round((clickY / rect.height) * img.naturalHeight);
+
+//     // draw small canvas to read exact pixel
+//     const c = document.createElement("canvas");
+//     c.width = img.naturalWidth;
+//     c.height = img.naturalHeight;
+//     const ctx = c.getContext("2d");
+//     try {
+//       ctx.drawImage(img, 0, 0, c.width, c.height);
+//       const d = ctx.getImageData(nx, ny, 1, 1).data;
+//       const hex = rgbToHex(d[0], d[1], d[2]);
+//       // add this color to top of picked
+//       const newPicked = [{ hex, count: 1, coord: { x: nx, y: ny }, samplePixel: {r:d[0],g:d[1],b:d[2]} }, ...picked];
+//       setPicked(newPicked.slice(0, topColors));
+//       // add marker at click pos
+//       const rectD = img.getBoundingClientRect();
+//       const leftPos = (nx / img.naturalWidth) * rectD.width;
+//       const topPos = (ny / img.naturalHeight) * rectD.height;
+//       setMarkers(prev => [{ hex, x: rectD.left + leftPos, y: rectD.top + topPos, relX: leftPos, relY: topPos, idx: -1, coordNatural: {x:nx,y:ny}} , ...prev].slice(0, topColors));
+//     } catch (err) {
+//       console.error(err);
+//       alert("Can't read pixel (CORS?). Try local upload.");
+//     }
+//   };
+
+//   // Random-sample like Coolors "random circles" — picks N random pixel coords and reads their hex
+//   const randomPick = (n = 5) => {
+//     if (!imgRef.current) return;
+//     const img = imgRef.current;
+//     if (!(img.complete && img.naturalWidth > 0)) return;
+//     const c = document.createElement("canvas");
+//     c.width = img.naturalWidth;
+//     c.height = img.naturalHeight;
+//     const ctx = c.getContext("2d");
+//     try {
+//       ctx.drawImage(img, 0, 0, c.width, c.height);
+//       const results = [];
+//       for (let i = 0; i < n; i++) {
+//         const nx = Math.floor(Math.random() * img.naturalWidth);
+//         const ny = Math.floor(Math.random() * img.naturalHeight);
+//         const d = ctx.getImageData(nx, ny, 1, 1).data;
+//         results.push({ hex: rgbToHex(d[0], d[1], d[2]), coord: { x: nx, y: ny }, samplePixel: {r:d[0],g:d[1],b:d[2]} });
+//       }
+//       setPicked(results);
+//       // update markers
+//       const rect = img.getBoundingClientRect();
+//       const marks = results.map((r, idx) => ({
+//         hex: r.hex,
+//         x: rect.left + (r.coord.x / img.naturalWidth) * rect.width,
+//         y: rect.top + (r.coord.y / img.naturalHeight) * rect.height,
+//         relX: (r.coord.x / img.naturalWidth) * rect.width,
+//         relY: (r.coord.y / img.naturalHeight) * rect.height,
+//         idx
+//       }));
+//       setMarkers(marks);
+//     } catch (err) {
+//       console.error(err);
+//       alert("Can't random-pick (CORS?). Try local upload.");
+//     }
+//   };
+
+//   // copy, export same as your original but now using picked array
+//   const copyHex = (hex) => navigator.clipboard.writeText(hex).catch(() => alert("Copy failed"));
+//   const exportCSS = () => {
+//     if (!picked.length) return alert("No colors to export");
+//     const css = picked.map((c, i) => `--color-${i + 1}: ${c.hex};`).join("\n");
+//     const blob = new Blob([`:root {\n${css}\n}`], { type: "text/css" });
+//     const url = URL.createObjectURL(blob);
+//     const a = document.createElement("a");
+//     a.href = url;
+//     a.download = "palette.css";
+//     a.click();
+//     URL.revokeObjectURL(url);
+//   };
+//   const exportImage = () => {
+//     if (!picked.length) return alert("No colors to export");
+//     const canvas = document.createElement("canvas");
+//     const w = 500;
+//     const h = 100;
+//     canvas.width = w;
+//     canvas.height = h;
+//     const ctx = canvas.getContext("2d");
+//     const blockW = w / picked.length;
+//     picked.forEach((c, i) => { ctx.fillStyle = c.hex; ctx.fillRect(i * blockW, 0, blockW, h); });
+//     const url = canvas.toDataURL("image/png");
+//     const a = document.createElement("a");
+//     a.href = url;
+//     a.download = "palette.png";
+//     a.click();
+//   };
+
+//   useEffect(() => {
+//     if (imageSrc) {
+//       // small delay to allow image to layout for accurate marker placement
+//       setTimeout(() => extractColors({ stride: 2 }), 100);
+//     } else {
+//       setPicked([]);
+//       setMarkers([]);
+//     }
+//     // eslint-disable-next-line react-hooks/exhaustive-deps
+//   }, [imageSrc, topColors]);
+
+//   return (
+//     <div className="ip-container">
+//       <header className="ip-header">
+//         <h1>Extract Top Dominant Colors (quantized + markers)</h1>
+//       </header>
+
+//       <div className="ip-main">
+//         <div className="ip-left">
+//           <label className="ip-upload">
+//             <input type="file" accept="image/*" onChange={handleFileChange} />
+//             Upload image
+//           </label>
+
+//           <form onSubmit={handleURLSubmit} className="ip-url-form">
+//             <input name="url" placeholder="Paste image URL" />
+//             <button type="submit">Use URL</button>
+//           </form>
+
+//           <div className="ip-options">
+//             <label>
+//               Top Colors:
+//               <select value={topColors} onChange={(e) => setTopColors(Number(e.target.value))}>
+//                 {[5, 10, 15, 20, 30, 50].map((n) => (
+//                   <option key={n} value={n}>{n}</option>
+//                 ))}
+//               </select>
+//             </label>
+//             <button onClick={() => extractColors({ stride: 2 })} className="primary">Extract Colors</button>
+//             <button onClick={() => randomPick(6)}>Random Pick</button>
+//           </div>
+
+//           <div className="ip-exports">
+//             <button onClick={exportCSS}>Export CSS</button>
+//             <button onClick={exportImage}>Export Image</button>
+//             <button onClick={() => navigator.clipboard.writeText(picked.map(p=>p.hex).join(", "))}>Copy all HEX</button>
+//           </div>
+
+//           <div className="ip-picked-list">
+//             <h3>Top Colors</h3>
+//             <div className="swatches-row">
+//               {picked.length === 0 && <div>No colors yet.</div>}
+//               {picked.map((p, idx) => (
+//                 <div key={`${p.hex}-${idx}`} className="swatch" style={{ background: p.hex }}>
+//                   <div className="swatch-hex">{p.hex}</div>
+//                   {/* <div style={{ fontSize: 11 }}>
+//                     from: {p.coord ? `${p.coord.x}, ${p.coord.y}` : "unknown"}
+//                   </div> */}
+//                   <div style={{ display:'flex', gap:6, marginTop:6 }}>
+//                     <button onClick={() => copyHex(p.hex)}>Copy</button>
+//                     {/* <button onClick={() => { navigator.clipboard.writeText(`${p.hex} @ ${p.coord ? `${p.coord.x},${p.coord.y}` : ''}`) }}>Copy with pos</button> */}
+//                   </div>
+//                 </div>
+//               ))}
+//             </div>
+//           </div>
+//         </div>
+
+//         <div className="ip-right">
+//           <div className="image-preview" style={{ position: "relative" }}>
+//             {imageSrc ? (
+//               <>
+//                 <img
+//                   ref={imgRef}
+//                   src={imageSrc}
+//                   alt="preview"
+//                   crossOrigin="anonymous"
+//                   onClick={handleImageClick}
+//                   style={{ maxWidth: "100%", height: "auto", display: "block" }}
+//                 />
+//                 {/* overlay markers */}
+//                 <div style={{ position: "absolute", left: 0, top: 0, right: 0, bottom: 0, pointerEvents: "none" }}>
+//                   {markers.map((m, i) => (
+//                     <div
+//                       key={`${m.hex}-${i}`}
+//                       title={`${m.hex} (${Math.round(m.coordNatural?.x || 0)}, ${Math.round(m.coordNatural?.y || 0)})`}
+//                       style={{
+//                         position: "absolute",
+//                         left: m.relX - 10, // center marker
+//                         top: m.relY - 10,
+//                         width: 20,
+//                         height: 20,
+//                         borderRadius: "50%",
+//                         border: "2px solid white",
+//                         boxShadow: "0 1px 3px rgba(0,0,0,0.4)",
+//                         background: m.hex,
+//                         pointerEvents: "auto",
+//                       }}
+//                     />
+//                   ))}
+//                 </div>
+//               </>
+//             ) : (
+//               <div className="placeholder">Browse or drop an image</div>
+//             )}
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
 import React, { useRef, useState, useEffect } from "react";
 import "./ColorExtractor.css";
 
@@ -1612,14 +2092,10 @@ function rgbToHex(r, g, b) {
 
 /* RGB <-> XYZ <-> LAB conversions (needed for perceptual clustering) */
 function rgbToXyz(r, g, b) {
-  // r,g,b in [0,255]
   r = r / 255; g = g / 255; b = b / 255;
-  // sRGB gamma inverse
   r = r > 0.04045 ? Math.pow((r + 0.055) / 1.055, 2.4) : r / 12.92;
   g = g > 0.04045 ? Math.pow((g + 0.055) / 1.055, 2.4) : g / 12.92;
   b = b > 0.04045 ? Math.pow((b + 0.055) / 1.055, 2.4) : b / 12.92;
-
-  // Observer = 2°, Illuminant = D65
   const x = r * 0.4124564 + g * 0.3575761 + b * 0.1804375;
   const y = r * 0.2126729 + g * 0.7151522 + b * 0.0721750;
   const z = r * 0.0193339 + g * 0.1191920 + b * 0.9503041;
@@ -1627,14 +2103,12 @@ function rgbToXyz(r, g, b) {
 }
 
 function xyzToLab(x, y, z) {
-  // ref white D65
   const xr = x / 95.047;
   const yr = y / 100.000;
   const zr = z / 108.883;
   const fx = xr > 0.008856 ? Math.cbrt(xr) : (7.787 * xr) + (16 / 116);
   const fy = yr > 0.008856 ? Math.cbrt(yr) : (7.787 * yr) + (16 / 116);
   const fz = zr > 0.008856 ? Math.cbrt(zr) : (7.787 * zr) + (16 / 116);
-
   const L = (116 * fy) - 16;
   const a = 500 * (fx - fy);
   const b = 200 * (fy - fz);
@@ -1646,7 +2120,6 @@ function rgbToLab(r, g, b) {
   return xyzToLab(x, y, z);
 }
 
-/* Euclidean distance in LAB space */
 function labDist(a, b) {
   const dl = a[0] - b[0];
   const da = a[1] - b[1];
@@ -1654,11 +2127,8 @@ function labDist(a, b) {
   return Math.sqrt(dl * dl + da * da + db * db);
 }
 
-/* --- simple k-means implementation on LAB vectors --- */
 function kmeans(samplesLab, k, maxIters = 30) {
   if (!samplesLab.length) return [];
-
-  // pick k distinct random seeds
   const centers = [];
   const used = new Set();
   while (centers.length < Math.min(k, samplesLab.length)) {
@@ -1668,12 +2138,9 @@ function kmeans(samplesLab, k, maxIters = 30) {
       centers.push(samplesLab[idx].lab.slice());
     }
   }
-
   let assignments = new Array(samplesLab.length).fill(-1);
-
   for (let iter = 0; iter < maxIters; iter++) {
     let changed = false;
-    // assignment step
     for (let i = 0; i < samplesLab.length; i++) {
       const lab = samplesLab[i].lab;
       let best = 0;
@@ -1684,8 +2151,6 @@ function kmeans(samplesLab, k, maxIters = 30) {
       }
       if (assignments[i] !== best) { assignments[i] = best; changed = true; }
     }
-
-    // update step
     const sums = new Array(centers.length).fill(0).map(() => ({ L:0,a:0,b:0,count:0 }));
     for (let i = 0; i < samplesLab.length; i++) {
       const c = assignments[i];
@@ -1694,7 +2159,6 @@ function kmeans(samplesLab, k, maxIters = 30) {
     }
     for (let c = 0; c < centers.length; c++) {
       if (sums[c].count === 0) {
-        // re-seed empty cluster with random sample
         const rIdx = Math.floor(Math.random() * samplesLab.length);
         centers[c] = samplesLab[rIdx].lab.slice();
       } else {
@@ -1703,11 +2167,8 @@ function kmeans(samplesLab, k, maxIters = 30) {
         centers[c][2] = sums[c].b / sums[c].count;
       }
     }
-
     if (!changed) break;
   }
-
-  // Build clusters array containing indices
   const clusters = new Array(centers.length).fill(0).map(() => []);
   for (let i = 0; i < assignments.length; i++) clusters[assignments[i]].push(i);
   return { centers, clusters, assignments };
@@ -1715,12 +2176,28 @@ function kmeans(samplesLab, k, maxIters = 30) {
 
 /* --- component --- */
 export default function ColorExtractor() {
+  const placeholderImages = [
+    "https://picsum.photos/id/1015/600/400",
+    "https://picsum.photos/id/1025/600/400",
+    "https://picsum.photos/id/1035/600/400",
+    "https://picsum.photos/id/1045/600/400",
+    "https://picsum.photos/id/1055/600/400",
+  ];
+
   const [imageSrc, setImageSrc] = useState("");
-  const [picked, setPicked] = useState([]); // [{hex, count, coords: [{x,y}], sample}] 
+  const [picked, setPicked] = useState([]);
   const [topColors, setTopColors] = useState(10);
-  const [markers, setMarkers] = useState([]); // overlay info for image
+  const [markers, setMarkers] = useState([]);
   const imgRef = useRef(null);
-  const canvasRef = useRef(null); // offscreen canvas
+
+  // pick random placeholder image on mount if no image uploaded
+  useEffect(() => {
+    if (!imageSrc) {
+      const randIndex = Math.floor(Math.random() * placeholderImages.length);
+      setImageSrc(placeholderImages[randIndex]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -1735,16 +2212,29 @@ export default function ColorExtractor() {
     setMarkers([]);
   };
 
-  const handleURLSubmit = (e) => {
-    e.preventDefault();
-    const url = e.target.elements.url.value.trim();
-    if (!url) return;
-    setImageSrc(url);
-    setPicked([]);
-    setMarkers([]);
-  };
+// const handleURLSubmit = (e) => {
+//   e.preventDefault();
+//   const url = e.target.elements.url.value.trim();
+//   if (!url) return;
 
-  // main improved extractor
+//  const safeURL = `http://localhost:3001/proxy?url=${encodeURIComponent(url)}`;
+// setImageSrc(safeURL);
+//   setPicked([]);
+//   setMarkers([]);
+// };
+const handleURLSubmit = (e) => {
+  e.preventDefault();
+  const url = e.target.elements.url.value.trim();
+  if (!url) return;
+
+  // only use proxy if it's an external URL
+  const safeURL = `http://localhost:4000/proxy?url=${encodeURIComponent(url)}`;
+  setImageSrc(safeURL);
+  setPicked([]);
+  setMarkers([]);
+};
+
+
   const extractColors = (options = {}) => {
     if (!imgRef.current) return;
     const img = imgRef.current;
@@ -1754,10 +2244,8 @@ export default function ColorExtractor() {
       return;
     }
 
-    // create offscreen canvas sized for sampling (downscale for perf)
-    const targetWidth = 300; // you can tune
+    const targetWidth = 300;
     const targetHeight = Math.round((img.naturalHeight / img.naturalWidth) * targetWidth);
-
     const canvas = document.createElement("canvas");
     canvas.width = targetWidth;
     canvas.height = targetHeight;
@@ -1767,16 +2255,13 @@ export default function ColorExtractor() {
     try {
       const imgd = ctx.getImageData(0, 0, targetWidth, targetHeight);
       const data = imgd.data;
-
-      // Sample pixels with a stride to speed up (tune stride for speed/quality)
-      const stride = options.stride || 2; // 1 = every pixel, 2 = every 2nd pixel
-      const samples = []; // {lab, r,g,b, x,y}
+      const stride = options.stride || 2;
+      const samples = [];
       for (let y = 0; y < targetHeight; y += stride) {
         for (let x = 0; x < targetWidth; x += stride) {
           const i = (y * targetWidth + x) * 4;
           const r = data[i], g = data[i+1], b = data[i+2], a = data[i+3];
-          if (a === 0) continue; // skip transparent
-          // optionally skip near-white or near-black if you want
+          if (a === 0) continue;
           const lab = rgbToLab(r, g, b);
           samples.push({ lab, r, g, b, x, y });
         }
@@ -1787,11 +2272,9 @@ export default function ColorExtractor() {
         return;
       }
 
-      // Run k-means on LAB (k = topColors)
-      const k = Math.min(topColors, 40, Math.floor(samples.length / 5) || 1); // prevent too-large clusters
+      const k = Math.min(topColors, 40, Math.floor(samples.length / 5) || 1);
       const { centers, clusters } = kmeans(samples, k, 30);
 
-      // Build cluster summary: count & representative sample (closest to center)
       const clusterSummaries = centers.map((center, idx) => {
         const indices = clusters[idx];
         let bestIdx = indices[0];
@@ -1802,57 +2285,34 @@ export default function ColorExtractor() {
           if (d < bestDist) { bestDist = d; bestIdx = sIdx; }
         }
         const sample = samples[bestIdx];
-        return {
-          center,
-          count: indices.length,
-          sample, // representative pixel (r,g,b,x,y)
-        };
+        return { center, count: indices.length, sample };
       });
 
-      // sort clusters by count desc and pick topColors
       clusterSummaries.sort((a,b)=> b.count - a.count);
       const chosen = clusterSummaries.slice(0, topColors);
 
-      // map representative to original image coordinates
       const imgNaturalW = img.naturalWidth;
       const imgNaturalH = img.naturalHeight;
       const scaleX = imgNaturalW / targetWidth;
       const scaleY = imgNaturalH / targetHeight;
 
-      const pickedColors = chosen.map((c, i) => {
+      const pickedColors = chosen.map((c) => {
         const px = Math.round(c.sample.x * scaleX);
         const py = Math.round(c.sample.y * scaleY);
         const hex = rgbToHex(c.sample.r, c.sample.g, c.sample.b);
-        return {
-          hex,
-          count: c.count,
-          coord: { x: px, y: py }, // natural image coordinates
-          samplePixel: { r: c.sample.r, g: c.sample.g, b: c.sample.b },
-        };
+        return { hex, count: c.count, coord: { x: px, y: py }, samplePixel: { r: c.sample.r, g: c.sample.g, b: c.sample.b } };
       });
 
       setPicked(pickedColors);
 
-      // prepare overlay markers in displayed coordinates
-      // compute displayed image size & position
       const rect = img.getBoundingClientRect();
       const displayedW = rect.width;
       const displayedH = rect.height;
-      const left = rect.left + window.scrollX;
-      const top = rect.top + window.scrollY;
 
       const markersOut = pickedColors.map((p, idx) => {
         const leftPos = (p.coord.x / imgNaturalW) * displayedW;
         const topPos = (p.coord.y / imgNaturalH) * displayedH;
-        return {
-          hex: p.hex,
-          x: left + leftPos,
-          y: top + topPos,
-          relX: leftPos,
-          relY: topPos,
-          idx,
-          coordNatural: p.coord,
-        };
+        return { hex: p.hex, x: rect.left + leftPos, y: rect.top + topPos, relX: leftPos, relY: topPos, idx, coordNatural: p.coord };
       });
 
       setMarkers(markersOut);
@@ -1865,18 +2325,15 @@ export default function ColorExtractor() {
     }
   };
 
-  // Click handler on image -> pick that pixel color (exact)
   const handleImageClick = (e) => {
     const img = imgRef.current;
     if (!img) return;
     const rect = img.getBoundingClientRect();
     const clickX = e.clientX - rect.left;
     const clickY = e.clientY - rect.top;
-    // map to natural coordinates
     const nx = Math.round((clickX / rect.width) * img.naturalWidth);
     const ny = Math.round((clickY / rect.height) * img.naturalHeight);
 
-    // draw small canvas to read exact pixel
     const c = document.createElement("canvas");
     c.width = img.naturalWidth;
     c.height = img.naturalHeight;
@@ -1885,10 +2342,8 @@ export default function ColorExtractor() {
       ctx.drawImage(img, 0, 0, c.width, c.height);
       const d = ctx.getImageData(nx, ny, 1, 1).data;
       const hex = rgbToHex(d[0], d[1], d[2]);
-      // add this color to top of picked
       const newPicked = [{ hex, count: 1, coord: { x: nx, y: ny }, samplePixel: {r:d[0],g:d[1],b:d[2]} }, ...picked];
       setPicked(newPicked.slice(0, topColors));
-      // add marker at click pos
       const rectD = img.getBoundingClientRect();
       const leftPos = (nx / img.naturalWidth) * rectD.width;
       const topPos = (ny / img.naturalHeight) * rectD.height;
@@ -1899,7 +2354,6 @@ export default function ColorExtractor() {
     }
   };
 
-  // Random-sample like Coolors "random circles" — picks N random pixel coords and reads their hex
   const randomPick = (n = 5) => {
     if (!imgRef.current) return;
     const img = imgRef.current;
@@ -1918,7 +2372,6 @@ export default function ColorExtractor() {
         results.push({ hex: rgbToHex(d[0], d[1], d[2]), coord: { x: nx, y: ny }, samplePixel: {r:d[0],g:d[1],b:d[2]} });
       }
       setPicked(results);
-      // update markers
       const rect = img.getBoundingClientRect();
       const marks = results.map((r, idx) => ({
         hex: r.hex,
@@ -1935,8 +2388,8 @@ export default function ColorExtractor() {
     }
   };
 
-  // copy, export same as your original but now using picked array
   const copyHex = (hex) => navigator.clipboard.writeText(hex).catch(() => alert("Copy failed"));
+
   const exportCSS = () => {
     if (!picked.length) return alert("No colors to export");
     const css = picked.map((c, i) => `--color-${i + 1}: ${c.hex};`).join("\n");
@@ -1948,6 +2401,7 @@ export default function ColorExtractor() {
     a.click();
     URL.revokeObjectURL(url);
   };
+
   const exportImage = () => {
     if (!picked.length) return alert("No colors to export");
     const canvas = document.createElement("canvas");
@@ -1967,7 +2421,6 @@ export default function ColorExtractor() {
 
   useEffect(() => {
     if (imageSrc) {
-      // small delay to allow image to layout for accurate marker placement
       setTimeout(() => extractColors({ stride: 2 }), 100);
     } else {
       setPicked([]);
@@ -1979,7 +2432,7 @@ export default function ColorExtractor() {
   return (
     <div className="ip-container">
       <header className="ip-header">
-        <h1>Extract Top Dominant Colors (quantized + markers)</h1>
+        <h1>Extract Beautifull Palatte Form Your Image......!</h1>
       </header>
 
       <div className="ip-main">
@@ -1998,13 +2451,12 @@ export default function ColorExtractor() {
             <label>
               Top Colors:
               <select value={topColors} onChange={(e) => setTopColors(Number(e.target.value))}>
-                {[5, 10, 15, 20, 30, 50].map((n) => (
-                  <option key={n} value={n}>{n}</option>
-                ))}
+                {[5, 10, 15, 20, 30, 50].map((n) => <option key={n} value={n}>{n}</option>)}
               </select>
             </label>
             <button onClick={() => extractColors({ stride: 2 })} className="primary">Extract Colors</button>
-            <button onClick={() => randomPick(6)}>Random Pick</button>
+         <button onClick={() => randomPick(topColors)}>Random Pick</button>
+
           </div>
 
           <div className="ip-exports">
@@ -2020,12 +2472,8 @@ export default function ColorExtractor() {
               {picked.map((p, idx) => (
                 <div key={`${p.hex}-${idx}`} className="swatch" style={{ background: p.hex }}>
                   <div className="swatch-hex">{p.hex}</div>
-                  {/* <div style={{ fontSize: 11 }}>
-                    from: {p.coord ? `${p.coord.x}, ${p.coord.y}` : "unknown"}
-                  </div> */}
                   <div style={{ display:'flex', gap:6, marginTop:6 }}>
                     <button onClick={() => copyHex(p.hex)}>Copy</button>
-                    {/* <button onClick={() => { navigator.clipboard.writeText(`${p.hex} @ ${p.coord ? `${p.coord.x},${p.coord.y}` : ''}`) }}>Copy with pos</button> */}
                   </div>
                 </div>
               ))}
@@ -2045,7 +2493,6 @@ export default function ColorExtractor() {
                   onClick={handleImageClick}
                   style={{ maxWidth: "100%", height: "auto", display: "block" }}
                 />
-                {/* overlay markers */}
                 <div style={{ position: "absolute", left: 0, top: 0, right: 0, bottom: 0, pointerEvents: "none" }}>
                   {markers.map((m, i) => (
                     <div
@@ -2053,7 +2500,7 @@ export default function ColorExtractor() {
                       title={`${m.hex} (${Math.round(m.coordNatural?.x || 0)}, ${Math.round(m.coordNatural?.y || 0)})`}
                       style={{
                         position: "absolute",
-                        left: m.relX - 10, // center marker
+                        left: m.relX - 10,
                         top: m.relY - 10,
                         width: 20,
                         height: 20,
