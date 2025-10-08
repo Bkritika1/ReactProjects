@@ -1,0 +1,33 @@
+.gallery {
+  text-align: center;
+  padding: 3rem 1rem;
+  background-color: #fff0f6; /* Soft pink background */
+}
+
+.gallery h2 {
+  font-size: 2rem;
+  color: #ff4da6; /* Cute pink */
+  margin-bottom: 2rem;
+  font-family: 'Comic Sans MS', cursive;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  padding: 0 2rem;
+}
+
+.grid img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(255, 77, 166, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.grid img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(255, 77, 166, 0.5);
+}

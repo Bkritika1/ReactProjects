@@ -316,7 +316,7 @@
 
 
 import React, { useState } from "react";
-import Palettes from "../Data";
+import Palettes from "../data.js";
 import { FaPaw, FaEllipsisV } from "react-icons/fa";
 import "./PaletteGenerator.css";
 import ColorExtractor from "../ColorExtractor";

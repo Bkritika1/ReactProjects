@@ -1436,13 +1436,13 @@
 //     setPicked([]);
 //   };
 
-//   const handleURLSubmit = (e) => {
-//     e.preventDefault();
-//     const url = e.target.elements.url.value.trim();
-//     if (!url) return;
-//     setImageSrc(url);
-//     setPicked([]);
-//   };
+  // const handleURLSubmit = (e) => {
+  //   e.preventDefault();
+  //   const url = e.target.elements.url.value.trim();
+  //   if (!url) return;
+  //   setImageSrc(url);
+  //   setPicked([]);
+  // };
 
 //   const extractColors = () => {
 //     if (!imgRef.current) return;
@@ -2354,39 +2354,39 @@
 //     }
 //   };
 
-//   const randomPick = (n = 5) => {
-//     if (!imgRef.current) return;
-//     const img = imgRef.current;
-//     if (!(img.complete && img.naturalWidth > 0)) return;
-//     const c = document.createElement("canvas");
-//     c.width = img.naturalWidth;
-//     c.height = img.naturalHeight;
-//     const ctx = c.getContext("2d");
-//     try {
-//       ctx.drawImage(img, 0, 0, c.width, c.height);
-//       const results = [];
-//       for (let i = 0; i < n; i++) {
-//         const nx = Math.floor(Math.random() * img.naturalWidth);
-//         const ny = Math.floor(Math.random() * img.naturalHeight);
-//         const d = ctx.getImageData(nx, ny, 1, 1).data;
-//         results.push({ hex: rgbToHex(d[0], d[1], d[2]), coord: { x: nx, y: ny }, samplePixel: {r:d[0],g:d[1],b:d[2]} });
-//       }
-//       setPicked(results);
-//       const rect = img.getBoundingClientRect();
-//       const marks = results.map((r, idx) => ({
-//         hex: r.hex,
-//         x: rect.left + (r.coord.x / img.naturalWidth) * rect.width,
-//         y: rect.top + (r.coord.y / img.naturalHeight) * rect.height,
-//         relX: (r.coord.x / img.naturalWidth) * rect.width,
-//         relY: (r.coord.y / img.naturalHeight) * rect.height,
-//         idx
-//       }));
-//       setMarkers(marks);
-//     } catch (err) {
-//       console.error(err);
-//       alert("Can't random-pick (CORS?). Try local upload.");
-//     }
-//   };
+  // const randomPick = (n = 5) => {
+  //   if (!imgRef.current) return;
+  //   const img = imgRef.current;
+  //   if (!(img.complete && img.naturalWidth > 0)) return;
+  //   const c = document.createElement("canvas");
+  //   c.width = img.naturalWidth;
+  //   c.height = img.naturalHeight;
+  //   const ctx = c.getContext("2d");
+  //   try {
+  //     ctx.drawImage(img, 0, 0, c.width, c.height);
+  //     const results = [];
+  //     for (let i = 0; i < n; i++) {
+  //       const nx = Math.floor(Math.random() * img.naturalWidth);
+  //       const ny = Math.floor(Math.random() * img.naturalHeight);
+  //       const d = ctx.getImageData(nx, ny, 1, 1).data;
+  //       results.push({ hex: rgbToHex(d[0], d[1], d[2]), coord: { x: nx, y: ny }, samplePixel: {r:d[0],g:d[1],b:d[2]} });
+  //     }
+  //     setPicked(results);
+  //     const rect = img.getBoundingClientRect();
+  //     const marks = results.map((r, idx) => ({
+  //       hex: r.hex,
+  //       x: rect.left + (r.coord.x / img.naturalWidth) * rect.width,
+  //       y: rect.top + (r.coord.y / img.naturalHeight) * rect.height,
+  //       relX: (r.coord.x / img.naturalWidth) * rect.width,
+  //       relY: (r.coord.y / img.naturalHeight) * rect.height,
+  //       idx
+  //     }));
+  //     setMarkers(marks);
+  //   } catch (err) {
+  //     console.error(err);
+  //     alert("Can't random-pick (CORS?). Try local upload.");
+  //   }
+  // };
 
 //   const copyHex = (hex) => navigator.clipboard.writeText(hex).catch(() => alert("Copy failed"));
 
@@ -2636,6 +2636,8 @@ export default function ColorExtractor() {
   const [picked, setPicked] = useState([]);
   const [topColors, setTopColors] = useState(10);
   const [markers, setMarkers] = useState([]);
+  const [copied, setCopied] = useState(false); 
+  const [copiedIdx, setCopiedIdx] = useState(null);
   const imgRef = useRef(null);
   const dragRef = useRef(null);
 
@@ -2663,10 +2665,8 @@ export default function ColorExtractor() {
     e.preventDefault();
     const url = e.target.elements.url.value.trim();
     if (!url) return;
-    const safeURL = `http://localhost:4000/proxy?url=${encodeURIComponent(url)}`;
-    setImageSrc(safeURL);
+    setImageSrc(url);
     setPicked([]);
-    setMarkers([]);
   };
 
   const extractColors = (options = {}) => {
@@ -2803,6 +2803,39 @@ export default function ColorExtractor() {
 
   const copyHex = (hex) => navigator.clipboard.writeText(hex).catch(() => alert("Copy failed"));
 
+  const randomPick = (n = 5) => {
+    if (!imgRef.current) return;
+    const img = imgRef.current;
+    if (!(img.complete && img.naturalWidth > 0)) return;
+    const c = document.createElement("canvas");
+    c.width = img.naturalWidth;
+    c.height = img.naturalHeight;
+    const ctx = c.getContext("2d");
+    try {
+      ctx.drawImage(img, 0, 0, c.width, c.height);
+      const results = [];
+      for (let i = 0; i < n; i++) {
+        const nx = Math.floor(Math.random() * img.naturalWidth);
+        const ny = Math.floor(Math.random() * img.naturalHeight);
+        const d = ctx.getImageData(nx, ny, 1, 1).data;
+        results.push({ hex: rgbToHex(d[0], d[1], d[2]), coord: { x: nx, y: ny }, samplePixel: {r:d[0],g:d[1],b:d[2]} });
+      }
+      setPicked(results);
+      const rect = img.getBoundingClientRect();
+      const marks = results.map((r, idx) => ({
+        hex: r.hex,
+        x: rect.left + (r.coord.x / img.naturalWidth) * rect.width,
+        y: rect.top + (r.coord.y / img.naturalHeight) * rect.height,
+        relX: (r.coord.x / img.naturalWidth) * rect.width,
+        relY: (r.coord.y / img.naturalHeight) * rect.height,
+        idx
+      }));
+      setMarkers(marks);
+    } catch (err) {
+      console.error(err);
+      alert("Can't random-pick (CORS?). Try local upload.");
+    }
+  };
   const exportCSS = () => {
     if (!picked.length) return alert("No colors to export");
     const css = picked.map((c, i) => `--color-${i + 1}: ${c.hex};`).join("\n");
@@ -2844,6 +2877,7 @@ export default function ColorExtractor() {
   return (
     <div className="ip-container">
       <header className="ip-header">
+        <h1 style={{fontSize:'3rem',fontStyle:'bolder'}}>Image Picker</h1>
         <h1>Extract Beautifull Palatte Form Your Image......!</h1>
       </header>
 
@@ -2867,6 +2901,7 @@ export default function ColorExtractor() {
               </select>
             </label>
             <button onClick={() => extractColors({ stride: 2 })} className="primary">Extract Colors</button>
+                 <button onClick={() => randomPick(topColors)}>Random Pick</button>
           </div>
 
           <div className="ip-exports">
@@ -2875,20 +2910,42 @@ export default function ColorExtractor() {
             <button onClick={() => navigator.clipboard.writeText(picked.map(p=>p.hex).join(", "))}>Copy all HEX</button>
           </div>
 
-          <div className="ip-picked-list">
-            <h3>Top Colors</h3>
-            <div className="swatches-row">
-              {picked.length === 0 && <div>No colors yet.</div>}
-              {picked.map((p, idx) => (
-                <div key={`${p.hex}-${idx}`} className="swatch" style={{ background: p.hex }}>
-                  <div className="swatch-hex">{p.hex}</div>
-                  <div style={{ display:'flex', gap:6, marginTop:6 }}>
-                    <button onClick={() => copyHex(p.hex)}>Copy</button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+       <div className="ip-picked-list">
+  <h3>Top Colors</h3>
+  <div className="swatches-row">
+    {picked.length === 0 && <div>No colors yet.</div>}
+   {picked.map((p, idx) => {
+  const handleClick = () => {
+    copyHex(p.hex);
+    setCopiedIdx(idx);
+    setTimeout(() => setCopiedIdx(null), 500); // hide tick after 0.5s
+  };
+  return (
+    <div
+      key={`${p.hex}-${idx}`}
+      className="swatch"
+      style={{ background: p.hex, position: 'relative' }}
+      onClick={handleClick}
+    >
+      <div className="swatch-hex">{p.hex}</div>
+      {copiedIdx === idx && (
+        <div style={{
+          position: "absolute",
+          right: 4,
+          top: 4,
+          fontSize: 14,
+          color: "white",
+          fontWeight: "bold",
+        }}>
+          ✓
+        </div>
+      )}
+    </div>
+  );
+})}
+  </div>
+</div>
+
         </div>
 
         <div className="ip-right">
