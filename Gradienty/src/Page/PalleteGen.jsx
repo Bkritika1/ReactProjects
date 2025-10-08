@@ -7,15 +7,18 @@ import {Copy, Cross, RemoveFormatting, X} from 'lucide-react';
 import "./PaletteGenerator.css";
 import ColorExtractor from "../ColorExtractor";
 import Header from '../Header.jsx';
-import { BiCloset } from "react-icons/bi";
+import BottomToolbar from "../BottomToolbar.jsx";
 
-export default function PaletteGenerator() {
+
+export default function PaletteGenerator({ changeTheme, currentTheme, toggleTheme,sidebarOpen, setSidebarOpen }) {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedPalette, setSelectedPalette] = useState(null);
   const [selectedColorIndex, setSelectedColorIndex] = useState(0);
   const [colorWheelValue, setColorWheelValue] = useState("#ffffff");
   const [gradient, setGradient] = useState({ color1: "#ffffff", color2: "#000000" });
   const [modalPalette, setModalPalette] = useState(null); // modal state
+  const [copied, setCopied] = useState(false);
+
 
   const palettesToShow =
     selectedCategory === "all"
@@ -33,16 +36,24 @@ export default function PaletteGenerator() {
     }
   };
 
-  // const copyPaletteColors = (palette) => {
-  //   navigator.clipboard.writeText(palette.colors.join(", "));
-  //   alert("Palette colors copied!");
-  // };
+  const copyPaletteColors = (palette) => {
+    navigator.clipboard.writeText(palette.colors.join(", "));
+    setCopied(true)
+     setTimeout(() => setCopied(false), 1000);
+    // alert("Palette colors copied!");
+  };
 console.log("Extracted colors:", palettesToShow);
   return (
 <>
 <Header/>
  <div className="container">
-
+       <BottomToolbar
+       toggleTheme={toggleTheme}
+          darkMode={currentTheme === "dark"}
+          changeTheme={changeTheme}
+        sidebarOpen={sidebarOpen}        // ✅ pass state
+          setSidebarOpen={setSidebarOpen}  // ✅ pass setter
+       />
       <ColorExtractor/>
       <h1>Color Mesh Palette Generator</h1>
 
@@ -127,7 +138,7 @@ console.log("Extracted colors:", palettesToShow);
                 </div>
               ))}
             </div>
-            <button className="btnn" onClick={() => copyPaletteColors(modalPalette)}>Copy All Colors</button>
+            <button className="btnn" onClick={() => copyPaletteColors(modalPalette)}> {copied ? " ✓   Copied!" : "Copy All Colors"}</button>
             <button onClick={() => setModalPalette(null)} style={{position:'relative', top:'-8rem',left:'5rem',background:'transparent',border:'none'}}><X style={{background:'transparent', border:'none'}}/></button>
           </div>
         </div>
@@ -188,3 +199,11 @@ console.log("Extracted colors:", palettesToShow);
    
   );
 }
+
+
+
+// copy karne ka ui sahi nhi h 
+// router sahi nahi chal rahe hai ...!
+// drawer jo hai theme apply karne ki  woh drawwer aye next page mai bhi ...!
+// ek button add ho like ki ...!  generate you own pallate pe ki like ...! ek button ho jis se bottom toolbar bhi and ajaye and us[e click karke same cheje  ajye maltab botton toolbar ajaye..!
+// an jo choosen pallte hai woh hum apply kar paye apne over all project mai...!

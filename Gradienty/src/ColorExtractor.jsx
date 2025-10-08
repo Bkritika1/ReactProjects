@@ -382,7 +382,19 @@ export default function ColorExtractor() {
           <div className="ip-exports">
             <button onClick={exportCSS}>Export CSS</button>
             <button onClick={exportImage}>Export Image</button>
-            <button onClick={() => navigator.clipboard.writeText(picked.map(p=>p.hex).join(", "))}>Copy all HEX</button>
+            <button
+  onClick={() => {
+    navigator.clipboard.writeText(picked.map(p => p.hex).join(", "))
+      .then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000); // ✅ show tick for 2 sec
+      })
+      .catch(() => alert("Copy failed"));
+  }}
+>
+  {copied ? " ✓  Copied!" : "Copy all HEX"}
+</button>
+
           </div>
 
        <div className="ip-picked-list">
@@ -393,7 +405,7 @@ export default function ColorExtractor() {
   const handleClick = () => {
     copyHex(p.hex);
     setCopiedIdx(idx);
-    setTimeout(() => setCopiedIdx(null), 500); // hide tick after 0.5s
+    setTimeout(() => setCopiedIdx(null), 500); 
   };
   return (
     <div

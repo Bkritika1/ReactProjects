@@ -93,7 +93,7 @@ export default function LandPage() {
         <Hero setSidebarOpen={setSidebarOpen} /> {/* ✅ pass function */}
         <HeroSection />
         <PaletteGuide />
-        {/* <PaletteGenerator/> */}
+        {/* <PaletteGenerator /> */}
         <Footer />
       </div>
     </>
