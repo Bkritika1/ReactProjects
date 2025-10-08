@@ -8,6 +8,7 @@
 h1 {
   text-align: center;
   margin-bottom: 20px;
+  margin-top: 10rem;
 }
 
 .categories {
@@ -37,6 +38,7 @@ h1 {
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 16px;
   margin-bottom: 30px;
+  background-color: #f7f7f8;
 }
 
 .palette-card {
@@ -54,14 +56,21 @@ h1 {
 
 .color-bars {
   display: flex;
-  height: 60px;
   margin-bottom: 6px;
+  overflow: hidden;
+  border-radius: 8px;
 }
 
 .color-block {
   flex: 1;
-  border-radius: 4px;
-  margin-right: 4px;
+  height: 85px;
+
+  /* border-radius: 4px; */
+  /* margin-right: 4px; */
+   transition: transform 0.2s ease
+}
+.color-block:hover{
+    transform: scale(1.5);
 }
 
 .color-block:last-child {
@@ -156,4 +165,16 @@ h1 {
   color: #000;
   font-size: 12px;
   font-weight: bold;
+}
+
+.menu-dot{
+  position: relative;
+     top: 7.5rem;
+    left: 21rem;
+}
+.btnn{
+  background: #e3e3e6;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
 }
