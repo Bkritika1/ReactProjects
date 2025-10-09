@@ -376,7 +376,7 @@ export default function ColorExtractor() {
               </select>
             </label>
             <button onClick={() => extractColors({ stride: 2 })} className="primary">Extract Colors</button>
-                 <button onClick={() => randomPick(topColors)}>Random Pick</button>
+                 <button onClick={() => randomPick(topColors)} className="primary">Random Pick</button>
           </div>
 
           <div className="ip-exports">
