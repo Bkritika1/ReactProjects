@@ -3,12 +3,22 @@ import { Palette, Sun, Moon, Dice6,Share2  } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { HexColorPicker } from "react-colorful";
 import { themeData } from "../src/themeData";
+import { useUI } from "../src/context/UIContext";
+import CustomThemeModal from "../src/CustomThemeModal"; 
     import { PaintbrushVertical, ExternalLink,RefreshCw,Copy  } from "lucide-react";
 
 
-export default function BottomToolbar({ changeTheme, currentTheme,sidebarOpen, setSidebarOpen  }) {
+export default function BottomToolbar( ) {
+   const {
+    toggleTheme,
+    currentTheme,
+    toggleSidebar,
+    changeTheme,
+     applyCustomPalette 
+  } = useUI();
+   const [showCustomModal, setShowCustomModal] = useState(false);
     const [shareOpen, setShareOpen] = useState(false);
-    // const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [sidebarOpen, setSidebarOpen] = useState(false);
     const [activeColor, setActiveColor] = useState(null);
     const [colorValue, setColorValue] = useState("#000000");
     const [pickerPos, setPickerPos] = useState({ left: 0, top: 0 });
@@ -412,64 +422,31 @@ console.log(filterThemesByName("pastel"));
             {/* Sidebar for Themes */}
             <div className={`theme-sidebar ${sidebarOpen ? "open" : ""}`}>
                  <div style={{display:'flex',justifyContent:'space-between', fontFamily: "sans-serif",alignItems:'center',color:'#fff' }}>
-     {/* <h3 style={{fontSize:'15px',display:'flex',alignItems:'center',gap:'.5rem'}}>Generate Your Own Palettes   <ExternalLink width='20px'/> </h3> */}
-{/* <div style={{ marginTop: "1rem" }}>
-  <button
-    onClick={toggleGradients}
-    style={{
-      padding: "8px 12px",
-      borderRadius: "8px",
-      background: "#2e2c2c",
-      color: "#fff",
-      cursor: "pointer",
-      fontSize: "13px",
-    }}
-  >
-    🎨 Show Background Gradients
-  </button>
-
-  {showGradients && (
-    <div
-      style={{
-        marginTop: "10px",
-        display: "grid",
-        gridTemplateColumns: "repeat(3, 60px)",
-        gap: "10px",
-      }}
-    >
-      {Object.entries(themeData).map(([key, theme]) => {
-        const gradient = theme["--card-bg-gradient"] || `linear-gradient(135deg, ${theme["--color-primary"]}, ${theme["--color-secondary"]})`;
-        return (
-          <div
-            key={key}
-            onClick={() => {
-              document.documentElement.style.setProperty("--color-bg", theme["--color-bg"]);
-              document.documentElement.style.setProperty("--color-primary", theme["--color-primary"]);
-              document.documentElement.style.setProperty("--color-secondary", theme["--color-secondary"]);
-              document.documentElement.style.setProperty("--color-accent", theme["--color-accent"]);
-            }}
-            style={{
-              width: "60px",
-              height: "60px",
-              borderRadius: "8px",
-              background: gradient,
-              cursor: "pointer",
-              border: "2px solid #444",
-            }}
-            title={theme.themeName || key}
-          />
-        );
-      })}
-    </div>
-  )}
-</div> */}
-
+     
 {/* Sidebar for Themes */}
 <div className={`theme-sidebar ${sidebarOpen ? "open" : ""}`}>
 
   {/* 🔝 Fixed Controls */}
   <div style={{ display:'flex', flexDirection:"row", gap:"1rem",alignItems:'center', color:'#fff' }}>
-    
+    <button
+  onClick={() => setShowCustomModal(true)}
+  style={{
+    padding: "8px 12px",
+    borderRadius: "8px",
+    background: "#444",
+    color: "#fff",
+    fontSize: "13px",
+    cursor: "pointer"
+  }}
+>
+  🎨 Custom Palette
+</button>
+
+
+{showCustomModal && (
+  <CustomThemeModal close={() => setShowCustomModal(false)} />
+)}
+
     {/* Reset Background */}
     <button
       onClick={resetBackground}
@@ -604,39 +581,7 @@ console.log(filterThemesByName("pastel"));
           marginLeft:'86px'
         }}
       >
-        {/* {Object.entries(themeData).map(([key, theme]) => (
-          <div key={key} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
-            <div
-              onClick={() => {
-                document.body.style.background = themeGradients[key];
-                document.documentElement.style.setProperty("--color-primary", theme["--color-primary"]);
-                document.documentElement.style.setProperty("--color-secondary", theme["--color-secondary"]);
-                document.documentElement.style.setProperty("--color-accent", theme["--color-accent"]);
-              }}
-              style={{
-                width: "230px",
-                height: "230px",
-                borderRadius: "8px",
-                background: themeGradients[key],
-                cursor: "pointer",
-                border: "2px solid #444",
-              }}
-            />
-            <button
-              onClick={() => shuffleGradient(key)}
-              style={{
-                fontSize: "10px",
-                padding: "2px 6px",
-                borderRadius: "4px",
-                cursor: "pointer",
-                background: "#222",
-                color: "#fff",
-              }}
-            >
-              🔀
-            </button>
-          </div>
-        ))} */}
+      
      {Object.entries(themeData).map(([key, theme]) => (
         <div
           key={key}
@@ -825,15 +770,7 @@ console.log(filterThemesByName("pastel"));
           </option>
         ))}
       </select>
-      {/* <select
-  value={selectedColor}
-  onChange={(e) => setSelectedColor(e.target.value)}
->
-  <option value="">Filter by Color</option>
-  {uniqueColors.map((color) => (
-    <option key={color} value={color}>{color}</option>
-  ))}
-</select> */}
+   
 <div style={{ position: "relative", display: "inline-flex", alignItems: "center", gap: "8px" }}>
   
   {/* Main Button */}
@@ -937,7 +874,7 @@ justifyContent:'center',
 
      </div>
     </div>
-              {/* <div className="theme-palettes">
+{/* <div className="theme-palettes">
   {Object.entries(themeData)
     .filter(([themeKey, vars]) => {
       // agar selectedTag empty hai → sab themes dikhao

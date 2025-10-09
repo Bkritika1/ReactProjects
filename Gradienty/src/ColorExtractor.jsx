@@ -437,7 +437,10 @@ export default function ColorExtractor() {
 
         <div className="ip-right">
           <div className="image-preview" style={{ position: "relative" }}>
-            {imageSrc ? (
+          <div style={{width:'100%',
+  maxWidth:'620px',
+  minHeight:'auto'}}>
+              {imageSrc ? (
               <>
                 <img
                   ref={imgRef}
@@ -472,6 +475,7 @@ export default function ColorExtractor() {
             ) : (
              <div className="placeholder">Browse or drop an image</div>
             )}
+          </div>
           </div>
         </div>
       </div>

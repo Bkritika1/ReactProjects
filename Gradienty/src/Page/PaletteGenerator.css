@@ -178,3 +178,17 @@ h1 {
   padding: 10px;
   border-radius: 5px;
 }
+
+body, .container {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.palette-grid {
+  background-color: var(--card-bg);
+}
+
+.palette-card {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}

@@ -47,13 +47,7 @@ console.log("Extracted colors:", palettesToShow);
 <>
 <Header/>
  <div className="container">
-       <BottomToolbar
-       toggleTheme={toggleTheme}
-          darkMode={currentTheme === "dark"}
-          changeTheme={changeTheme}
-        sidebarOpen={sidebarOpen}        // ✅ pass state
-          setSidebarOpen={setSidebarOpen}  // ✅ pass setter
-       />
+      
       <ColorExtractor/>
       <h1>Color Mesh Palette Generator</h1>
 
@@ -195,6 +189,13 @@ console.log("Extracted colors:", palettesToShow);
         </div>
       )}
     </div>
+     <BottomToolbar
+       toggleTheme={toggleTheme}
+          darkMode={currentTheme === "dark"}
+          changeTheme={changeTheme}
+        sidebarOpen={sidebarOpen}        // ✅ pass state
+          setSidebarOpen={setSidebarOpen}  // ✅ pass setter
+       />
 </>
    
   );

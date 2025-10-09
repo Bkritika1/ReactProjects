@@ -206,9 +206,7 @@
 }
 
 .image-preview{
-  width:100%;
-  max-width:620px;
-  min-height:420px;
+ 
   background:linear-gradient(180deg,#fff,#f6f7fb);
   border-radius:12px;
   display:flex;
