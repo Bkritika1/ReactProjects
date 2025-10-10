@@ -8,7 +8,7 @@ import CustomThemeModal from "../src/CustomThemeModal";
     import { PaintbrushVertical, ExternalLink,RefreshCw,Copy  } from "lucide-react";
 
 
-export default function BottomToolbar( ) {
+export default function BottomToolbar() {
    const {
     toggleTheme,
     currentTheme,

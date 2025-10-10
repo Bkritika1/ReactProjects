@@ -10,8 +10,17 @@
     { type: "text", text: "500+ Companies" },
   ];
 import './Hero.css';
+import { useUI } from "../src/context/UIContext";
+
 import { Link } from "react-router-dom";
-export default function Hero({setSidebarOpen}){
+export default function Hero(){
+    const {
+      toggleTheme,
+      currentTheme,
+      toggleSidebar,
+      changeTheme,
+       applyCustomPalette 
+    } = useUI();
     
     return(
            <section className="hero-section">

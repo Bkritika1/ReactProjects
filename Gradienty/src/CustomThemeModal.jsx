@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useUI } from "../src/context/UIContext";
 
 export default function CustomThemeModal({ close }) {
-  const { applyCustomPalette } = useUI();
+  const { applyCustomPalette,saveCustomPalette } = useUI();
 
   const [paletteName, setPaletteName] = useState("");
   const [inputValue, setInputValue] = useState(""); // user paste input
@@ -73,14 +73,17 @@ export default function CustomThemeModal({ close }) {
   };
 
   // Apply palette
-  const handleApply = () => {
-    if (colors.every(isValidHex)) {
-      applyCustomPalette(colors, paletteName);
-      close();
-    } else {
-      alert("Please enter 5 valid hex colors!");
-    }
-  };
+const handleApply = () => {
+  if (colors.every(isValidHex)) {
+    const newPalette = { name: paletteName || "Untitled Palette", colors };
+    saveCustomPalette(newPalette);
+    applyCustomPalette(colors);
+    close();
+  } else {
+    alert("Please enter 5 valid hex colors!");
+  }
+};
+
 
   return (
     <div

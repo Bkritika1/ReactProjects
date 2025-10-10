@@ -6,7 +6,21 @@ const UIContext = createContext();
 export const UIProvider = ({ children }) => {
   const [currentTheme, setCurrentTheme] = useState("light");
   const [sidebarOpen, setSidebarOpen] = useState(false);
- const [customPalette, setCustomPalette] = useState([]);
+const [customPalettes, setCustomPalettes] = useState(() => {
+  const saved = localStorage.getItem("customPalettes");
+  return saved ? JSON.parse(saved) : [];
+});
+
+// Save to localStorage whenever updated
+useEffect(() => {
+  localStorage.setItem("customPalettes", JSON.stringify(customPalettes));
+}, [customPalettes]);
+
+// Add function to save new palette
+const saveCustomPalette = (newPalette) => {
+  setCustomPalettes((prev) => [...prev, newPalette]);
+  localStorage.setItem("customPalettes", JSON.stringify([...customPalettes, newPalette]));
+};
 
 
   // 🌈 on mount — load saved theme
@@ -31,13 +45,22 @@ export const UIProvider = ({ children }) => {
     localStorage.setItem("theme", theme);
   };
     const applyCustomPalette = (colors) => {
-    setCustomPalette(colors);
-    localStorage.setItem("customPalette", JSON.stringify(colors));
-    colors.forEach((c, i) => {
-      const varName = ["--color-primary","--color-secondary","--color-accent","--color-bg","--color-text"][i];
-      document.documentElement.style.setProperty(varName, c);
-    });
-  };
+  // Apply to CSS variables
+  const vars = [
+    "--color-primary",
+    "--color-text",
+    "--color-bg",
+    "--color-secondary",
+    "--color-accent"
+  ];
+
+  colors.forEach((c, i) => {
+    document.documentElement.style.setProperty(vars[i], c);
+  });
+
+  // Save last used palette to localStorage
+  localStorage.setItem("activeCustomPalette", JSON.stringify(colors));
+};
 
   const toggleSidebar = () => setSidebarOpen(prev => !prev);
   const closeSidebar = () => setSidebarOpen(false);
@@ -53,8 +76,9 @@ export const UIProvider = ({ children }) => {
         closeSidebar,
         toggleTheme,
         changeTheme,
-         customPalette,
-        applyCustomPalette
+         customPalettes,
+        applyCustomPalette,
+         saveCustomPalette
       }}
     >
       {children}

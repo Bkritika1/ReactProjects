@@ -93,7 +93,7 @@ console.log("Extracted colors:", palettesToShow);
                 setModalPalette(palette);
               }}
             >
-              <Copy style={{width:'20px'}}/>
+              <Copy style={{width:'20px', color:"var(--color-text)"}}/>
             </div>
 
             <div className="color-bars">
