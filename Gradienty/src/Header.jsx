@@ -1,14 +1,14 @@
 import './Header.css';
-
+import { Link } from "react-router-dom";
 export default function Header() {
   return (
     <header className="site-header">
       <div  className="container header-inner">
         <div className="brand">
           
-          <div className="logo-mark" style={{listStyle:'none', textDecoration:'none'}}> <a href="/"> CM</a></div>
+          <div className="logo-mark" style={{listStyle:'none', textDecoration:'none'}}> <Link href="/">CM</Link>  </div>
          
-          <span className="brand-title">  <a href="/"> Color Mesh</a></span>
+          <span className="brand-title">    <Link to="/">Color Mesh</Link></span>
         </div>
 
         {/* Navigation */}

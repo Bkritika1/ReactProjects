@@ -90,16 +90,16 @@
 
 
 /* ImagePicker.css - simple, modern UI similar to Coolors Image Picker */
-:root{
+/* :root{
   --bg:#f7f7f8;
   --panel:#ffffff;
   --muted:#666;
   --primary:#2f80ed;
-}
+} */
 
 .ip-container {
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  background: var(--bg);
+  background: var(--color-primary);
   min-height: 100vh;
   color: #111;
 }
@@ -107,7 +107,7 @@
 .ip-header{
   background: linear-gradient(90deg,#ffffff00,#ffffff00);
   padding: 20px 24px;
-  border-bottom: 1px solid #e6e6e9;
+  border-bottom: 1px solid  var(--color-text);
 }
 .ip-header h1{
   margin:0;
@@ -166,8 +166,8 @@
   padding:8px 12px;
   border-radius:8px;
   border:none;
-  background:var(--primary);
-  color:white;
+  background:var(--color-bg);
+  color:var(--color-text);
   cursor:pointer;
 }
 
@@ -183,12 +183,13 @@
   border:1px solid #eee;
 }
 .primary{
-  background:var(--primary);
-  color:white;
+  background:var(--color-bg);
+  color: var(--color-text);
   border:none;
   padding:8px 12px;
   border-radius:8px;
   cursor:pointer;
+  
 }
 
 .ip-exports{
