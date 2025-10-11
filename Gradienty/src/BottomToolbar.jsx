@@ -14,7 +14,8 @@ export default function BottomToolbar() {
     currentTheme,
     toggleSidebar,
     changeTheme,
-     applyCustomPalette 
+     applyCustomPalette,
+      customPalettes
   } = useUI();
    const [showCustomModal, setShowCustomModal] = useState(false);
     const [shareOpen, setShareOpen] = useState(false);

@@ -74,7 +74,7 @@ function kmeans(samplesLab, k, maxIters = 30) {
       }
       if (assignments[i] !== best) { assignments[i] = best; changed = true; }
     }
-    const sums = new Array(centers.length).fill(0).map(() => ({ L:0,a:0,b:0,count:0 }));
+    const sums = new Array(centers.length).fill(0).map(() => ({ L: 0, a: 0, b: 0, count: 0 }));
     for (let i = 0; i < samplesLab.length; i++) {
       const c = assignments[i];
       const s = samplesLab[i].lab;
@@ -111,8 +111,10 @@ export default function ColorExtractor() {
   const [picked, setPicked] = useState([]);
   const [topColors, setTopColors] = useState(5);
   const [markers, setMarkers] = useState([]);
-  const [copied, setCopied] = useState(false); 
+  const [copied, setCopied] = useState(false);
   const [copiedIdx, setCopiedIdx] = useState(null);
+  const [highlightIdx, setHighlightIdx] = useState(null);
+  const [draggingIdx, setDraggingIdx] = useState(null);
   const imgRef = useRef(null);
   const dragRef = useRef(null);
 
@@ -169,7 +171,7 @@ export default function ColorExtractor() {
       for (let y = 0; y < targetHeight; y += stride) {
         for (let x = 0; x < targetWidth; x += stride) {
           const i = (y * targetWidth + x) * 4;
-          const r = data[i], g = data[i+1], b = data[i+2], a = data[i+3];
+          const r = data[i], g = data[i + 1], b = data[i + 2], a = data[i + 3];
           if (a === 0) continue;
           const lab = rgbToLab(r, g, b);
           samples.push({ lab, r, g, b, x, y });
@@ -197,7 +199,7 @@ export default function ColorExtractor() {
         return { center, count: indices.length, sample };
       });
 
-      clusterSummaries.sort((a,b)=> b.count - a.count);
+      clusterSummaries.sort((a, b) => b.count - a.count);
       const chosen = clusterSummaries.slice(0, topColors);
 
       const imgNaturalW = img.naturalWidth;
@@ -237,6 +239,9 @@ export default function ColorExtractor() {
   const handleDrag = (e, idx) => {
     e.preventDefault();
     if (!imgRef.current) return;
+
+    setDraggingIdx(idx); // ✅ marker is being dragged
+
     const img = imgRef.current;
     const rect = img.getBoundingClientRect();
 
@@ -244,7 +249,6 @@ export default function ColorExtractor() {
       const x = clamp(moveEvent.clientX - rect.left, 0, rect.width);
       const y = clamp(moveEvent.clientY - rect.top, 0, rect.height);
 
-      // get pixel color at this point
       const c = document.createElement("canvas");
       c.width = img.naturalWidth;
       c.height = img.naturalHeight;
@@ -256,13 +260,13 @@ export default function ColorExtractor() {
       const hex = rgbToHex(d[0], d[1], d[2]);
 
       setMarkers((prev) =>
-        prev.map((m, mi) =>
-          mi === idx ? { ...m, relX: x, relY: y, hex } : m
-        )
+        prev.map((m, mi) => (mi === idx ? { ...m, relX: x, relY: y, hex } : m))
       );
       setPicked((prev) =>
         prev.map((p, pi) =>
-          pi === idx ? { ...p, hex, coord: { x: nx, y: ny }, samplePixel: {r:d[0],g:d[1],b:d[2]} } : p
+          pi === idx
+            ? { ...p, hex, coord: { x: nx, y: ny }, samplePixel: { r: d[0], g: d[1], b: d[2] } }
+            : p
         )
       );
     };
@@ -270,6 +274,7 @@ export default function ColorExtractor() {
     const up = () => {
       window.removeEventListener("mousemove", move);
       window.removeEventListener("mouseup", up);
+      setDraggingIdx(null); // ✅ reset dragging
     };
 
     window.addEventListener("mousemove", move);
@@ -293,7 +298,7 @@ export default function ColorExtractor() {
         const nx = Math.floor(Math.random() * img.naturalWidth);
         const ny = Math.floor(Math.random() * img.naturalHeight);
         const d = ctx.getImageData(nx, ny, 1, 1).data;
-        results.push({ hex: rgbToHex(d[0], d[1], d[2]), coord: { x: nx, y: ny }, samplePixel: {r:d[0],g:d[1],b:d[2]} });
+        results.push({ hex: rgbToHex(d[0], d[1], d[2]), coord: { x: nx, y: ny }, samplePixel: { r: d[0], g: d[1], b: d[2] } });
       }
       setPicked(results);
       const rect = img.getBoundingClientRect();
@@ -352,7 +357,7 @@ export default function ColorExtractor() {
   return (
     <div className="ip-container">
       <header className="ip-header">
-        <h1 style={{fontSize:'3rem',fontStyle:'bolder'}}>Image Picker</h1>
+        <h1 style={{ fontSize: '3rem', fontStyle: 'bolder' }}>Image Picker</h1>
         <h1>Extract Beautifull Palatte Form Your Image......!</h1>
       </header>
 
@@ -376,106 +381,117 @@ export default function ColorExtractor() {
               </select>
             </label>
             <button onClick={() => extractColors({ stride: 2 })} className="primary">Extract Colors</button>
-                 <button onClick={() => randomPick(topColors)} className="primary">Random Pick</button>
+            <button onClick={() => randomPick(topColors)} className="primary">Random Pick</button>
           </div>
 
           <div className="ip-exports">
             <button onClick={exportCSS}>Export CSS</button>
             <button onClick={exportImage}>Export Image</button>
             <button
-  onClick={() => {
-    navigator.clipboard.writeText(picked.map(p => p.hex).join(", "))
-      .then(() => {
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000); // ✅ show tick for 2 sec
-      })
-      .catch(() => alert("Copy failed"));
-  }}
->
-  {copied ? " ✓  Copied!" : "Copy all HEX"}
-</button>
+              onClick={() => {
+                navigator.clipboard.writeText(picked.map(p => p.hex).join(", "))
+                  .then(() => {
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 2000); // ✅ show tick for 2 sec
+                  })
+                  .catch(() => alert("Copy failed"));
+              }}
+            >
+              {copied ? " ✓  Copied!" : "Copy all HEX"}
+            </button>
 
           </div>
 
-       <div className="ip-picked-list">
-  <h3>Top Colors</h3>
-  <div className="swatches-row">
-    {picked.length === 0 && <div>No colors yet.</div>}
-   {picked.map((p, idx) => {
-  const handleClick = () => {
-    copyHex(p.hex);
-    setCopiedIdx(idx);
-    setTimeout(() => setCopiedIdx(null), 500); 
-  };
-  return (
-    <div
-      key={`${p.hex}-${idx}`}
-      className="swatch"
-      style={{ background: p.hex, position: 'relative' }}
-      onClick={handleClick}
-    >
-      <div className="swatch-hex">{p.hex}</div>
-      {copiedIdx === idx && (
-        <div style={{
-          position: "absolute",
-          right: 4,
-          top: 4,
-          fontSize: 14,
-          color: "white",
-          fontWeight: "bold",
-        }}>
-          ✓
-        </div>
-      )}
-    </div>
-  );
-})}
-  </div>
-</div>
+          <div className="ip-picked-list">
+            <h3>Top Colors</h3>
+            <div className="swatches-row">
+              {picked.length === 0 && <div>No colors yet.</div>}
+              {picked.map((p, idx) => {
+                const handleClick = () => {
+                  copyHex(p.hex);
+                  setCopiedIdx(idx);
+                  setTimeout(() => setCopiedIdx(null), 500);
+                  setHighlightIdx(idx);   // ✅ highlight marker when clicked
+                };
+                return (
+                  <div
+                    key={`${p.hex}-${idx}`}
+                    className="swatch"
+                    style={{ background: p.hex, position: 'relative' }}
+                    onClick={handleClick}
+                    onMouseEnter={() => setHighlightIdx(idx)}   // ✅ highlight on hover
+                    onMouseLeave={() => setHighlightIdx(null)} // ✅ reset on leave
+                  >
+                    <div className="swatch-hex">{p.hex}</div>
+                    {copiedIdx === idx && (
+                      <div style={{
+                        position: "absolute",
+                        right: 4,
+                        top: 4,
+                        fontSize: 14,
+                        color: "white",
+                        fontWeight: "bold",
+                      }}>
+                        ✓
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+
+            </div>
+          </div>
 
         </div>
 
         <div className="ip-right">
           <div className="image-preview" style={{ position: "relative" }}>
-          <div style={{width:'100%',
-  maxWidth:'620px',
-  minHeight:'auto'}}>
+            <div style={{
+              width: '100%',
+              maxWidth: '620px',
+              minHeight: 'auto'
+            }}>
               {imageSrc ? (
-              <>
-                <img
-                  ref={imgRef}
-                  src={imageSrc}
-                  alt="preview"
-                  crossOrigin="anonymous"
-                  style={{ maxWidth: "100%", height: "auto", display: "block" }}
-                />
-                <div style={{ position: "absolute", left: 0, top: 0, right: 0, bottom: 0, pointerEvents: "none" }}>
-                  {markers.map((m, i) => (
-                    <div
-                      key={`${m.hex}-${i}`}
-                      title={m.hex}
-                      onMouseDown={(e) => handleDrag(e, i)}
-                      style={{
-                        position: "absolute",
-                        left: m.relX - 10,
-                        top: m.relY - 10,
-                        width: 20,
-                        height: 20,
-                        borderRadius: "50%",
-                        border: "2px solid white",
-                        boxShadow: "0 1px 3px rgba(0,0,0,0.4)",
-                        background: m.hex,
-                        cursor: "grab",
-                        pointerEvents: "auto",
-                      }}
-                    />
-                  ))}
-                </div>
-              </>
-            ) : (
-             <div className="placeholder">Browse or drop an image</div>
-            )}
-          </div>
+                <>
+                  <img
+                    ref={imgRef}
+                    src={imageSrc}
+                    alt="preview"
+                    crossOrigin="anonymous"
+                    style={{ maxWidth: "100%", height: "auto", display: "block" }}
+                  />
+                  <div style={{ position: "absolute", left: 0, top: 0, right: 0, bottom: 0, pointerEvents: "none" }}>
+                    {markers.map((m, i) => (
+                      <div
+                        key={`${m.hex}-${i}`}
+                        title={m.hex}
+                        onMouseDown={(e) => handleDrag(e, i)}
+                        onMouseEnter={() => setHighlightIdx(i)} // optional: hover on marker highlights
+                        onMouseLeave={() => setHighlightIdx(null)}
+                        style={{
+                          position: "absolute",
+                          left: m.relX - 10,
+                          top: m.relY - 10,
+                          width: highlightIdx === i || draggingIdx === i ? 38 : 20,
+                          height: highlightIdx === i || draggingIdx === i ? 38 : 20,
+                          borderRadius: "50%",
+                          border: highlightIdx === i || draggingIdx === i ? "3px solid yellow" : "2px solid white",
+                          boxShadow: highlightIdx === i || draggingIdx === i ? "0 0 10px yellow" : "0 1px 3px rgba(0,0,0,0.4)",
+                          background: m.hex,
+                          cursor: "grab",
+                          pointerEvents: "auto",
+                          transition: "all 0.15s ease"
+                        }}
+                      />
+                    ))}
+
+
+                  </div>
+                </>
+              ) : (
+                <div className="placeholder">Browse or drop an image</div>
+              )}
+            </div>
           </div>
         </div>
       </div>
