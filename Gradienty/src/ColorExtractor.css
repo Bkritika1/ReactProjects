@@ -292,9 +292,9 @@
   transition: transform 0.2s ease;
 }
 
-.dot:hover {
+/* .dot:hover {
   transform: translate(-50%, -50%) scale(1.4);
   z-index: 10;
-}
+} */
 
 
