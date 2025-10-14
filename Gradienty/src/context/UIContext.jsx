@@ -18,8 +18,11 @@ useEffect(() => {
 
 // Add function to save new palette
 const saveCustomPalette = (newPalette) => {
-  setCustomPalettes((prev) => [...prev, newPalette]);
-  localStorage.setItem("customPalettes", JSON.stringify([...customPalettes, newPalette]));
+  setCustomPalettes((prev) => {
+    const updated = [...prev, newPalette];
+    localStorage.setItem("customPalettes", JSON.stringify(updated));
+    return updated;
+  });
 };
 
 

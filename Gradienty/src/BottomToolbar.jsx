@@ -26,7 +26,8 @@ export default function BottomToolbar() {
     const [darkMode, setDarkMode] = useState(false);
     const [toast, setToast] = useState(false);
     const [copied, setCopied] = useState(false);
-    const [selectedTag,setselectedTag] = useState('');
+   const [selectedTag, setSelectedTag] = useState("");
+
     const [selectedColor, setSelectedColor] = useState('');
     const [colorFilterOpen, setColorFilterOpen] = useState(false);
     const [showGradients, setShowGradients] = useState(false);
@@ -77,24 +78,55 @@ const filterColors = [
 
 
 
-const filteredThemes = Object.entries(themeData).filter(([themeKey, vars]) => {
-  // 1️⃣ If no tag & no color selected → show all
-  if (!selectedTag && !selectedColor) return true;
+// const filteredThemes = Object.entries(themeData).filter(([themeKey, vars]) => {
+//   // 1️⃣ If no tag & no color selected → show all
+//   if (!selectedTag && !selectedColor) return true;
 
-  // 2️⃣ Check tag match if selected
-  const matchesTag = selectedTag
-    ? vars.themeName?.toLowerCase() === selectedTag.toLowerCase()
-    : true;
+//   // 2️⃣ Check tag match if selected
+//   const matchesTag = selectedTag
+//     ? vars.themeName?.toLowerCase() === selectedTag.toLowerCase()
+//     : true;
 
-  // 3️⃣ Check color match if selected
-  const matchesColor = selectedColor
-    ? [vars["--color-primary"], vars["--color-secondary"]]
-        .map(c => c?.toLowerCase()?.replace(/\s/g, ''))
-        .includes(selectedColor.toLowerCase())
-    : true;
+//   // 3️⃣ Check color match if selected
+//   const matchesColor = selectedColor
+//     ? [vars["--color-primary"], vars["--color-secondary"]]
+//         .map(c => c?.toLowerCase()?.replace(/\s/g, ''))
+//         .includes(selectedColor.toLowerCase())
+//     : true;
 
-  return matchesTag && matchesColor;
-})
+//   return matchesTag && matchesColor;
+// })
+// Replace your existing filteredThemes with this
+const filteredThemes = selectedTag === "custom"
+  ? customPalettes.map((p, index) => {
+      // Ensure each custom palette has an id and colors array
+      return [
+        p.name || `custom-${index}`, 
+        {
+          "--color-primary": p.colors[0] || "#000000",
+          "--color-text": p.colors[1] || "#000000",
+          "--color-bg": p.colors[2] || "#ffffff",
+          "--color-secondary": p.colors[3] || "#000000",
+          "--color-accent": p.colors[4] || "#000000"
+        }
+      ];
+    })
+  : Object.entries(themeData).filter(([themeKey, vars]) => {
+      if (!selectedTag && !selectedColor) return true;
+
+      const matchesTag = selectedTag
+        ? vars.themeName?.toLowerCase() === selectedTag.toLowerCase()
+        : true;
+
+      const matchesColor = selectedColor
+        ? [vars["--color-primary"], vars["--color-secondary"]]
+            .map(c => c?.toLowerCase()?.replace(/\s/g, ''))
+            .includes(selectedColor.toLowerCase())
+        : true;
+
+      return matchesTag && matchesColor;
+    });
+
 
 const toggleGradients = () => {
   setShowGradients((prev) => !prev);
@@ -192,7 +224,15 @@ const toggleGradients = () => {
         setTimeout(() => setCopied(false), 1000);
     };
 
-     const themeNames = themeData.themeName || [];
+  const themeNames = [
+  ...new Set(
+    Object.values(themeData)
+      .map(t => t.themeName)
+      .filter(Boolean) // remove undefined
+  )
+];
+
+
 function filterThemesByName(name) {
   // Object.entries se hum [key, value] pairs nikalenge
   return Object.entries(themeData).filter(([key, value]) => {
@@ -480,23 +520,27 @@ console.log(filterThemesByName("pastel"));
     </button>
 
     {/* Filter by Tag */}
-    <select
-      style={{
-        background:'#2e2c2c',
-        color:'#fff',
-        padding: '8px 12px',
-        borderRadius:'8px',
-        fontSize:'13px'
-      }}
-      id="tags"
-      value={selectedTag}
-      onChange={(e) => setselectedTag(e.target.value)}
-    >
-      <option value="">Filter by Tag</option>
-      {themeNames.map((name) => (
-        <option key={name} value={name}>{name}</option>
-      ))}
-    </select>
+   <select
+  style={{
+    background:'#2e2c2c',
+    color:'#fff',
+    padding: '8px 12px',
+    borderRadius:'8px',
+    fontSize:'13px'
+  }}
+  id="tags"
+  value={selectedTag}
+  onChange={(e) => setSelectedTag(e.target.value)}
+>
+  <option value="">Filter by Tag</option>
+  <option value="custom">My Palette</option> {/* lowercase matches filter */}
+  {themeNames.map((name) => (
+    <option key={name} value={name}>
+      {name}
+    </option>
+  ))}
+</select>
+
 
     {/* Filter by Color */}
     <div style={{ position: "relative" }}>
@@ -729,21 +773,32 @@ console.log(filterThemesByName("pastel"));
       </div>
     ) : (
       /* Palettes List */
-      <div className="theme-palettes">
-        {filteredThemes.map(([themeKey, vars]) => (
-          <div
-            key={themeKey}
-            className="palette-block"
-            onClick={() => { changeTheme(themeKey); setSidebarOpen(false); }}
-          >
-            <div className="color-square" style={{ background: vars["--color-primary"] }} />
-            <div className="color-square" style={{ background: vars["--color-text"] }} />
-            <div className="color-square" style={{ background: vars["--color-bg"] }} />
-            <div className="color-square" style={{ background: vars["--color-secondary"] }} />
-            <div className="color-square" style={{ background: vars["--color-accent"] }} />
-          </div>
-        ))}
-      </div>
+     <div className="theme-palettes">
+  {filteredThemes.map(([themeKey, vars]) => (
+    <div
+      key={themeKey}
+      className="palette-block"
+      onClick={() => {
+        // Agar custom palette hai to applyCustomPalette
+        if (selectedTag === "custom") {
+          applyCustomPalette(vars); // UIContext ka function
+        } else {
+          changeTheme(themeKey);
+        }
+        setSidebarOpen(false);
+      console.log(applyCustomPalette)
+
+      }}
+    >
+      <div className="color-square" style={{ background: vars["--color-primary"] }} />
+      <div className="color-square" style={{ background: vars["--color-text"] }} />
+      <div className="color-square" style={{ background: vars["--color-bg"] }} />
+      <div className="color-square" style={{ background: vars["--color-secondary"] }} />
+      <div className="color-square" style={{ background: vars["--color-accent"] }} />
+    </div>
+  ))}
+</div>
+
     )}
   </div>
 </div>
@@ -765,6 +820,7 @@ console.log(filterThemesByName("pastel"));
         }}
       >
         <option value="">Filter by Tag</option>
+         <option value="Custom">My Palatte</option>
         {themeNames.map((name) => (
           <option key={name} value={name}>
             {name}
@@ -875,62 +931,36 @@ justifyContent:'center',
 
      </div>
     </div>
-{/* <div className="theme-palettes">
-  {Object.entries(themeData)
-    .filter(([themeKey, vars]) => {
-      // agar selectedTag empty hai → sab themes dikhao
-      if (!selectedTag) return true;
-      // sirf unhi ko dikhao jinka themeName match kare
-      return (
-        typeof vars === "object" &&
-        vars.themeName?.toLowerCase() === selectedTag.toLowerCase()
-      );
-    })
-    .map(([themeKey, vars]) => (
-      <div
-        key={themeKey}
-        className="palette-block"
-        onClick={() => {
-          changeTheme(themeKey);
-          setSidebarOpen(false);
-          console.log("Selected Theme Object:", vars);
-        }}
-      >
-        <div
-          className="color-square"
-          style={{ background: vars["--color-primary"] }}
-        ></div>
-        <div
-          className="color-square"
-          style={{ background: vars["--color-text"] }}
-        ></div>
-        <div
-          className="color-square"
-          style={{ background: vars["--color-bg"] }}
-        ></div>
-        <div
-          className="color-square"
-          style={{ background: vars["--color-secondary"] }}
-        ></div>
-        <div
-          className="color-square"
-          style={{ background: vars["--color-accent"] }}
-        ></div>
-      </div>
-    ))}
-</div> */}
 
 <div className="theme-palettes">
-  {filteredThemes.map(([themeKey, vars]) => (
-    <div key={themeKey} className="palette-block"
-      onClick={() => { changeTheme(themeKey); setSidebarOpen(false); }}>
-      <div className="color-square" style={{ background: vars["--color-primary"] }} />
-      <div className="color-square" style={{ background: vars["--color-text"] }} />
-      <div className="color-square" style={{ background: vars["--color-bg"] }} />
-      <div className="color-square" style={{ background: vars["--color-secondary"] }} />
-      <div className="color-square" style={{ background: vars["--color-accent"] }} />
-    </div>
-  ))}
+{filteredThemes.map(([themeKey, vars]) => (
+  <div
+    key={themeKey}
+    className="palette-block"
+    onClick={() => {
+      if (selectedTag === "custom") {
+        // Apply the custom palette colors to document
+        applyCustomPalette([
+          vars["--color-primary"],
+          vars["--color-text"],
+          vars["--color-bg"],
+          vars["--color-secondary"],
+          vars["--color-accent"]
+        ]);
+      } else {
+        changeTheme(themeKey);
+      }
+      setSidebarOpen(false);
+    }}
+  >
+    <div className="color-square" style={{ background: vars["--color-primary"] }} />
+    <div className="color-square" style={{ background: vars["--color-text"] }} />
+    <div className="color-square" style={{ background: vars["--color-bg"] }} />
+    <div className="color-square" style={{ background: vars["--color-secondary"] }} />
+    <div className="color-square" style={{ background: vars["--color-accent"] }} />
+  </div>
+))}
+
 </div>
 
 
