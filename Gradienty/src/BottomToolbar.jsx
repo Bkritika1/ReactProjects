@@ -781,8 +781,15 @@ console.log(filterThemesByName("pastel"));
       onClick={() => {
         // Agar custom palette hai to applyCustomPalette
         if (selectedTag === "custom") {
-          applyCustomPalette(vars); // UIContext ka function
-        } else {
+      // vars is your object containing custom colors
+      applyCustomPalette([
+        vars["--color-primary"],
+        vars["--color-text"],
+        vars["--color-bg"],
+        vars["--color-secondary"],
+        vars["--color-accent"]
+      ]);
+    } else {
           changeTheme(themeKey);
         }
         setSidebarOpen(false);
@@ -938,16 +945,16 @@ justifyContent:'center',
     key={themeKey}
     className="palette-block"
     onClick={() => {
-      if (selectedTag === "custom") {
-        // Apply the custom palette colors to document
-        applyCustomPalette([
-          vars["--color-primary"],
-          vars["--color-text"],
-          vars["--color-bg"],
-          vars["--color-secondary"],
-          vars["--color-accent"]
-        ]);
-      } else {
+     if (selectedTag === "custom") {
+      // vars is your object containing custom colors
+      applyCustomPalette([
+        vars["--color-primary"],
+        vars["--color-text"],
+        vars["--color-bg"],
+        vars["--color-secondary"],
+        vars["--color-accent"]
+      ]);
+    } else {
         changeTheme(themeKey);
       }
       setSidebarOpen(false);

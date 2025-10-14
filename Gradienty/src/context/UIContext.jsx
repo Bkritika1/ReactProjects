@@ -47,23 +47,31 @@ const saveCustomPalette = (newPalette) => {
     setCurrentTheme(theme);
     localStorage.setItem("theme", theme);
   };
-    const applyCustomPalette = (colors) => {
-  // Apply to CSS variables
-  const vars = [
-    "--color-primary",
-    "--color-text",
-    "--color-bg",
-    "--color-secondary",
-    "--color-accent"
-  ];
+    useEffect(() => {
+    localStorage.setItem("customPalettes", JSON.stringify(customPalettes));
+  }, [customPalettes]);
 
-  colors.forEach((c, i) => {
-    document.documentElement.style.setProperty(vars[i], c);
-  });
+  // Apply a custom palette (array of colors)
+  const applyCustomPalette = (colors) => {
+    if (!Array.isArray(colors)) {
+      console.error("applyCustomPalette expects an array of colors", colors);
+      return;
+    }
 
-  // Save last used palette to localStorage
-  localStorage.setItem("activeCustomPalette", JSON.stringify(colors));
-};
+    const keys = [
+      "--color-primary",
+      "--color-text",
+      "--color-bg",
+      "--color-secondary",
+      "--color-accent"
+    ];
+
+    colors.forEach((color, i) => {
+      if (color) {
+        document.documentElement.style.setProperty(keys[i], color);
+      }
+    });
+  };
 
   const toggleSidebar = () => setSidebarOpen(prev => !prev);
   const closeSidebar = () => setSidebarOpen(false);
