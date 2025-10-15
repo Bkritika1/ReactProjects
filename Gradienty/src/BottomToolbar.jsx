@@ -461,32 +461,27 @@ console.log(filterThemesByName("pastel"));
             )}
 
             {/* Sidebar for Themes */}
-            <div className={`theme-sidebar ${sidebarOpen ? "open" : ""}`}>
-                 <div style={{display:'flex',justifyContent:'space-between', fontFamily: "sans-serif",alignItems:'center',color:'#fff' }}>
-     
-{/* Sidebar for Themes */}
-<div className={`theme-sidebar ${sidebarOpen ? "open" : ""}`}>
+           <div className={`theme-sidebar ${sidebarOpen ? "open" : ""}`}>
 
   {/* 🔝 Fixed Controls */}
-  <div style={{ display:'flex', flexDirection:"row", gap:"1rem",alignItems:'center', color:'#fff' }}>
+  <div style={{ display: 'flex', flexDirection: "row", gap: "1rem", alignItems: 'center', color: '#fff' }}>
     <button
-  onClick={() => setShowCustomModal(true)}
-  style={{
-    padding: "8px 12px",
-    borderRadius: "8px",
-    background: "#444",
-    color: "#fff",
-    fontSize: "13px",
-    cursor: "pointer"
-  }}
->
-  🎨 Custom Palette
-</button>
+      onClick={() => setShowCustomModal(true)}
+      style={{
+        padding: "8px 12px",
+        borderRadius: "8px",
+        background: "#444",
+        color: "#fff",
+        fontSize: "13px",
+        cursor: "pointer"
+      }}
+    >
+      🎨 Custom Palette
+    </button>
 
-
-{showCustomModal && (
-  <CustomThemeModal close={() => setShowCustomModal(false)} />
-)}
+    {showCustomModal && (
+      <CustomThemeModal close={() => setShowCustomModal(false)} />
+    )}
 
     {/* Reset Background */}
     <button
@@ -520,43 +515,47 @@ console.log(filterThemesByName("pastel"));
     </button>
 
     {/* Filter by Tag */}
-   <select
-  style={{
-    background:'#2e2c2c',
-    color:'#fff',
-    padding: '8px 12px',
-    borderRadius:'8px',
-    fontSize:'13px'
-  }}
-  id="tags"
-  value={selectedTag}
-  onChange={(e) => setSelectedTag(e.target.value)}
->
-  <option value="">Filter by Tag</option>
-  <option value="custom">My Palette</option> {/* lowercase matches filter */}
-  {themeNames.map((name) => (
-    <option key={name} value={name}>
-      {name}
-    </option>
-  ))}
-</select>
+    <select
+      style={{
+        background: '#2e2c2c',
+        color: '#fff',
+        padding: '8px 12px',
+        borderRadius: '8px',
+        fontSize: '13px'
+      }}
+      id="tags"
+      value={selectedTag}
+      onChange={(e) => setSelectedTag(e.target.value)}
+    >
+      <option value="">Filter by Tag</option>
+      <option value="custom">My Palette</option>
+      {themeNames.map((name) => (
+        <option key={name} value={name}>
+          {name}
+        </option>
+      ))}
+    </select>
 
+    {/* 🔘 Filter by Color - UPDATED */}
+    <div style={{ position: "relative", display: "inline-flex", alignItems: "center", gap: "8px" }}>
 
-    {/* Filter by Color */}
-    <div style={{ position: "relative" }}>
+      {/* Main Button */}
       <div
+        className="filter-by-color-toggle"
         onClick={() => setColorFilterOpen(!colorFilterOpen)}
         style={{
           padding: "8px 12px",
           border: "1px solid #ccc",
           borderRadius: "8px",
           backgroundColor: "#2e2c2c",
-          color:'#fff',
+          color: '#fff',
           cursor: "pointer",
-          fontSize:'13px',
+          fontWeight: "500",
           display: "flex",
-          alignItems:'center',
-          gap:"8px"
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: "8px",
+          fontSize: '13px'
         }}
       >
         {selectedColor ? (
@@ -568,18 +567,37 @@ console.log(filterThemesByName("pastel"));
               backgroundColor: selectedColor,
               border: "1px solid #aaa",
             }}
-          ></div>
+          />
         ) : (
-          <span style={{display:'flex',alignItems:'center'}}><PaintbrushVertical/> Filter by Color</span>
+          <span style={{ display: 'flex', alignItems: 'center' }}><PaintbrushVertical /> Filter by Color</span>
         )}
       </div>
 
+      {/* Reset Button - only show if a color is selected */}
+      {selectedColor && (
+        <button
+          onClick={() => setSelectedColor("")}
+          style={{
+            padding: "6px 10px",
+            border: "1px solid #ccc",
+            borderRadius: "6px",
+            background: "#eee",
+            cursor: "pointer",
+            fontSize: "0.9rem",
+          }}
+        >
+          Reset
+        </button>
+      )}
+
+      {/* Popup with color swatches */}
       {colorFilterOpen && (
         <div
+          className="color-swatch-popup"
           style={{
             position: "absolute",
             top: "110%",
-            left: 0,
+            left: "-50px",
             background: "#000",
             border: "1px solid #ddd",
             borderRadius: "8px",
@@ -587,12 +605,14 @@ console.log(filterThemesByName("pastel"));
             display: "grid",
             gridTemplateColumns: "repeat(4, 21px)",
             gap: "16px",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
             zIndex: 100,
           }}
         >
           {filterColors.map((color) => (
             <div
               key={color}
+              className={`color-swatch ${selectedColor === color ? "active" : ""}`}
               style={{
                 backgroundColor: color,
                 width: "30px",
@@ -605,13 +625,14 @@ console.log(filterThemesByName("pastel"));
               title={color}
               onClick={() => {
                 setSelectedColor(color);
-                setColorFilterOpen(false);
+                setColorFilterOpen(false); // close popup immediately
               }}
             />
           ))}
         </div>
       )}
     </div>
+
   </div>
 
   {/* 🔄 Toggle Area (Palettes OR Gradients) */}
@@ -623,355 +644,177 @@ console.log(filterThemesByName("pastel"));
           display: "grid",
           gridTemplateColumns: "repeat(3, 100px)",
           gap: "9rem",
-          marginLeft:'86px'
+          marginLeft: '86px'
         }}
       >
-      
-     {Object.entries(themeData).map(([key, theme]) => (
-        <div
-          key={key}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: "4px",
-          }}
-        >
-          {/* Gradient Preview */}
+        {Object.entries(themeData).map(([key, theme]) => (
           <div
-            onClick={() => {
-              document.body.style.background = themeGradients[key];
-              document.documentElement.style.setProperty("--color-primary", theme["--color-primary"]);
-              document.documentElement.style.setProperty("--color-secondary", theme["--color-secondary"]);
-              document.documentElement.style.setProperty("--color-accent", theme["--color-accent"]);
-            }}
+            key={key}
             style={{
-              width: "230px",
-              height: "230px",
-              borderRadius: "8px",
-              background: themeGradients[key],
-              cursor: "pointer",
-              border: "2px solid #444",
-            }}
-          />
-
-          {/* 🔘 Shuffle & Copy Buttons Side by Side */}
-          <div style={{ display: "flex", gap: "6px" }}>
-            <button
-              onClick={() => shuffleGradient(key)}
-              style={{
-                fontSize: "10px",
-                padding: "2px 6px",
-                borderRadius: "4px",
-                cursor: "pointer",
-                background: "#222",
-                color: "#fff",
-              }}
-            >
-             <RefreshCw width="18px"/>
-            </button>
-
-            <button
-              onClick={() => {
-                const css = `background: ${themeGradients[key]};`;
-                setCurrentCss(css);     // save css
-                setShowModal(true);     // open modal
-              }}
-              style={{
-                fontSize: "10px",
-                padding: "2px 6px",
-                borderRadius: "4px",
-                cursor: "pointer",
-                background: "#444",
-                color: "#fff",
-              }}
-            >
-              <Copy width="18px"/>
-            </button>
-          </div>
-        </div>
-      ))}
-
-      {/* 🪟 Modal */}
-      {showModal && (
-        <div
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100vw",
-            height: "100vh",
-            background: "rgba(0,0,0,0.6)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            zIndex: 1000,
-          }}
-        >
-          <div
-            style={{
-              background: "#1e1e1e",
-              color: "#fff",
-              padding: "20px",
-              borderRadius: "10px",
-              width: "500px",
-              maxWidth: "90%",
-              boxShadow: "0 5px 15px rgba(0,0,0,0.5)",
-              position: "relative",
-              right:'317px',
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "4px",
             }}
           >
-            {/* Close button */}
-            <button
-              onClick={() => setShowModal(false)}
-              style={{
-                position: "absolute",
-                top: "10px",
-                right: "10px",
-                background: "transparent",
-                border: "none",
-                fontSize: "18px",
-                color: "#fff",
-                cursor: "pointer",
+            <div
+              onClick={() => {
+                document.body.style.background = themeGradients[key];
+                document.documentElement.style.setProperty("--color-primary", theme["--color-primary"]);
+                document.documentElement.style.setProperty("--color-secondary", theme["--color-secondary"]);
+                document.documentElement.style.setProperty("--color-accent", theme["--color-accent"]);
               }}
-            >
-              ❌
-            </button>
-
-            <h3 style={{ marginBottom: "10px" }}>CSS Code</h3>
-
-            <pre
               style={{
-                background: "#2d2d2d",
-                padding: "10px",
+                width: "230px",
+                height: "230px",
                 borderRadius: "8px",
-                fontSize: "13px",
-                overflowX: "auto",
-              }}
-            >
-              {currentCss}
-            </pre>
-
-            <button
-              onClick={() => navigator.clipboard.writeText(currentCss)}
-              style={{
-                marginTop: "15px",
-                background: "#4CAF50",
-                color: "#fff",
-                border: "none",
-                padding: "8px 16px",
-                borderRadius: "6px",
+                background: themeGradients[key],
                 cursor: "pointer",
+                border: "2px solid #444",
+              }}
+            />
+            <div style={{ display: "flex", gap: "6px" }}>
+              <button
+                onClick={() => shuffleGradient(key)}
+                style={{
+                  fontSize: "10px",
+                  padding: "2px 6px",
+                  borderRadius: "4px",
+                  cursor: "pointer",
+                  background: "#222",
+                  color: "#fff",
+                }}
+              >
+                <RefreshCw width="18px" />
+              </button>
+              <button
+                onClick={() => {
+                  const css = `background: ${themeGradients[key]};`;
+                  setCurrentCss(css);
+                  setShowModal(true);
+                }}
+                style={{
+                  fontSize: "10px",
+                  padding: "2px 6px",
+                  borderRadius: "4px",
+                  cursor: "pointer",
+                  background: "#444",
+                  color: "#fff",
+                }}
+              >
+                <Copy width="18px" />
+              </button>
+            </div>
+          </div>
+        ))}
+
+        {/* 🪟 Modal */}
+        {showModal && (
+          <div
+            style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              width: "100vw",
+              height: "100vh",
+              background: "rgba(0,0,0,0.6)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              zIndex: 1000,
+            }}
+          >
+            <div
+              style={{
+                background: "#1e1e1e",
+                color: "#fff",
+                padding: "20px",
+                borderRadius: "10px",
+                width: "500px",
+                maxWidth: "90%",
+                boxShadow: "0 5px 15px rgba(0,0,0,0.5)",
+                position: "relative",
+                right: '317px',
               }}
             >
-              Copy to Clipboard
-            </button>
+              <button
+                onClick={() => setShowModal(false)}
+                style={{
+                  position: "absolute",
+                  top: "10px",
+                  right: "10px",
+                  background: "transparent",
+                  border: "none",
+                  fontSize: "18px",
+                  color: "#fff",
+                  cursor: "pointer",
+                }}
+              >
+                ❌
+              </button>
+              <h3 style={{ marginBottom: "10px" }}>CSS Code</h3>
+              <pre
+                style={{
+                  background: "#2d2d2d",
+                  padding: "10px",
+                  borderRadius: "8px",
+                  fontSize: "13px",
+                  overflowX: "auto",
+                }}
+              >
+                {currentCss}
+              </pre>
+              <button
+                onClick={() => navigator.clipboard.writeText(currentCss)}
+                style={{
+                  marginTop: "15px",
+                  background: "#4CAF50",
+                  color: "#fff",
+                  border: "none",
+                  padding: "8px 16px",
+                  borderRadius: "6px",
+                  cursor: "pointer",
+                }}
+              >
+                Copy to Clipboard
+              </button>
+            </div>
           </div>
-        </div>
-      )}
-    
+        )}
       </div>
     ) : (
       /* Palettes List */
-     <div className="theme-palettes">
-  {filteredThemes.map(([themeKey, vars]) => (
-    <div
-      key={themeKey}
-      className="palette-block"
-      onClick={() => {
-        // Agar custom palette hai to applyCustomPalette
-        if (selectedTag === "custom") {
-      // vars is your object containing custom colors
-      applyCustomPalette([
-        vars["--color-primary"],
-        vars["--color-text"],
-        vars["--color-bg"],
-        vars["--color-secondary"],
-        vars["--color-accent"]
-      ]);
-    } else {
-          changeTheme(themeKey);
-        }
-        setSidebarOpen(false);
-      console.log(applyCustomPalette)
-
-      }}
-    >
-      <div className="color-square" style={{ background: vars["--color-primary"] }} />
-      <div className="color-square" style={{ background: vars["--color-text"] }} />
-      <div className="color-square" style={{ background: vars["--color-bg"] }} />
-      <div className="color-square" style={{ background: vars["--color-secondary"] }} />
-      <div className="color-square" style={{ background: vars["--color-accent"] }} />
-    </div>
-  ))}
-</div>
-
-    )}
-  </div>
-</div>
-
-
-
-
- <div style={{display:'flex',gap:'.5rem'}}>
-
-
-      
-          <select
-          style={{background:'#2e2c2c',display:'flex',alignItems:'center',color:'#fff',padding: '8px 12px',borderRadius:'8px',fontSize:'13px'}}
-        id="tags"
-        value={selectedTag}
-        onChange={(e) => {
-          setselectedTag(e.target.value);
-          console.log("Selected:", e.target.value);
-        }}
-      >
-        <option value="">Filter by Tag</option>
-         <option value="Custom">My Palatte</option>
-        {themeNames.map((name) => (
-          <option key={name} value={name}>
-            {name}
-          </option>
+      <div className="theme-palettes">
+        {filteredThemes.map(([themeKey, vars]) => (
+          <div
+            key={themeKey}
+            className="palette-block"
+            onClick={() => {
+              if (selectedTag === "custom") {
+                applyCustomPalette([
+                  vars["--color-primary"],
+                  vars["--color-text"],
+                  vars["--color-bg"],
+                  vars["--color-secondary"],
+                  vars["--color-accent"]
+                ]);
+              } else {
+                changeTheme(themeKey);
+              }
+              setSidebarOpen(false);
+            }}
+          >
+            <div className="color-square" style={{ background: vars["--color-primary"] }} />
+            <div className="color-square" style={{ background: vars["--color-text"] }} />
+            <div className="color-square" style={{ background: vars["--color-bg"] }} />
+            <div className="color-square" style={{ background: vars["--color-secondary"] }} />
+            <div className="color-square" style={{ background: vars["--color-accent"] }} />
+          </div>
         ))}
-      </select>
-   
-<div style={{ position: "relative", display: "inline-flex", alignItems: "center", gap: "8px" }}>
-  
-  {/* Main Button */}
-  <div
-    className="filter-by-color-toggle"
-    onClick={() => setColorFilterOpen(!colorFilterOpen)}
-    style={{
-      padding: "8px 12px",
-      border: "1px solid #ccc",
-      borderRadius: "8px",
-      backgroundColor: "#2e2c2c",
-      color:'#fff',
-      cursor: "pointer",
-      fontWeight: "500",
-      display: "flex",
-      alignItems:'center',
-justifyContent:'center',
-      gap: "8px",
-      fontSize:'13px'
-    }}
-  >
-    {selectedColor ? (
-      <>
-        <div
-          style={{
-            width: "18px",
-            height: "18px",
-            borderRadius: "50%",
-            backgroundColor: selectedColor,
-            border: "1px solid #aaa",
-          }}
-        ></div>
-      
-      </>
-    ) : (
-      <span style={{display:'flex',alignItems:'center'}}><PaintbrushVertical/> Filter by Color</span>
+      </div>
     )}
   </div>
-
-  {/* Reset Button - only show if a color is selected */}
-  {selectedColor && (
-    <button
-      onClick={() => setSelectedColor("")}
-      style={{
-        padding: "6px 10px",
-        border: "1px solid #ccc",
-        borderRadius: "6px",
-        background: "#eee",
-        cursor: "pointer",
-        fontSize: "0.9rem",
-      }}
-    >
-      Reset
-    </button>
-  )}
-
-  {/* Popup with color swatches */}
-  {colorFilterOpen && (
-    <div
-      className="color-swatch-popup"
-      style={{
-        position: "absolute",
-        top: "110%",
-        left: "-50px",
-        background: "#000",
-        border: "1px solid #ddd",
-        borderRadius: "8px",
-        padding: "15px",
-        display: "grid",
-        gridTemplateColumns: "repeat(4, 21px)",
-        gap: "16px",
-        boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
-        zIndex: 100,
-      }}
-    >
-      {filterColors.map((color) => (
-        <div
-          key={color}
-          className={`color-swatch ${selectedColor === color ? "active" : ""}`}
-          style={{
-            backgroundColor: color,
-            width: "30px",
-            height: "30px",
-            borderRadius: "50%",
-            border: "1px solid #aaa",
-            cursor: "pointer",
-            boxShadow: selectedColor === color ? "0 0 0 3px #000" : "none",
-          }}
-          title={color}
-          onClick={() => {
-            setSelectedColor(color);
-            setColorFilterOpen(false); // close popup immediately
-          }}
-        />
-      ))}
-    </div>
-  )}
 </div>
-
-
-
-     </div>
-    </div>
-
-<div className="theme-palettes">
-{filteredThemes.map(([themeKey, vars]) => (
-  <div
-    key={themeKey}
-    className="palette-block"
-    onClick={() => {
-     if (selectedTag === "custom") {
-      // vars is your object containing custom colors
-      applyCustomPalette([
-        vars["--color-primary"],
-        vars["--color-text"],
-        vars["--color-bg"],
-        vars["--color-secondary"],
-        vars["--color-accent"]
-      ]);
-    } else {
-        changeTheme(themeKey);
-      }
-      setSidebarOpen(false);
-    }}
-  >
-    <div className="color-square" style={{ background: vars["--color-primary"] }} />
-    <div className="color-square" style={{ background: vars["--color-text"] }} />
-    <div className="color-square" style={{ background: vars["--color-bg"] }} />
-    <div className="color-square" style={{ background: vars["--color-secondary"] }} />
-    <div className="color-square" style={{ background: vars["--color-accent"] }} />
-  </div>
-))}
-
-</div>
-
-
-            </div>
         </div>
     );
 }

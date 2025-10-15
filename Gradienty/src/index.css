@@ -245,3 +245,11 @@ body {
   opacity: 0;
 }
 
+.theme-sidebar {
+  overflow-y: auto;      /* scroll inside instead of whole page */
+  max-height: 100vh;     /* prevent sidebar from overflowing window */
+  scrollbar-width: none; /* hide scrollbar in Firefox */
+}
+.theme-sidebar::-webkit-scrollbar {
+  display: none;         /* hide scrollbar in Chrome/Safari */
+}
