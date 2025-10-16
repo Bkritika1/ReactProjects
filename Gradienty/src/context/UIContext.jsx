@@ -17,8 +17,25 @@ useEffect(() => {
 }, [customPalettes]);
 
 // Add function to save new palette
+// const saveCustomPalette = (newPalette) => {
+//   setCustomPalettes((prev) => {
+//     const updated = [...prev, newPalette];
+//     localStorage.setItem("customPalettes", JSON.stringify(updated));
+//     return updated;
+//   });
+// };
+
 const saveCustomPalette = (newPalette) => {
   setCustomPalettes((prev) => {
+    // Check if the palette already exists
+    const exists = prev.some(
+      (p) => JSON.stringify(p.colors) === JSON.stringify(newPalette.colors)
+    );
+
+    if (exists) {
+      return prev; // Do not add duplicates
+    }
+
     const updated = [...prev, newPalette];
     localStorage.setItem("customPalettes", JSON.stringify(updated));
     return updated;

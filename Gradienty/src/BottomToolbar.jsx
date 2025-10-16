@@ -27,6 +27,8 @@ export default function BottomToolbar() {
     const [toast, setToast] = useState(false);
     const [copied, setCopied] = useState(false);
    const [selectedTag, setSelectedTag] = useState("");
+   const [gradientApplied, setGradientApplied] = useState(false);
+
 
     const [selectedColor, setSelectedColor] = useState('');
     const [colorFilterOpen, setColorFilterOpen] = useState(false);
@@ -37,6 +39,7 @@ const themeVarss = themeData[currentTheme] || {};
 const resetBackground = () => {
   const defaultBg = themeVarss["--color-bg"] || "";
   document.body.style.background = defaultBg;
+  setGradientApplied(false); // ✅ hide the reset button after reset
 };
 
     const [themeGradients, setThemeGradients] = useState(() => {
@@ -78,25 +81,7 @@ const filterColors = [
 
 
 
-// const filteredThemes = Object.entries(themeData).filter(([themeKey, vars]) => {
-//   // 1️⃣ If no tag & no color selected → show all
-//   if (!selectedTag && !selectedColor) return true;
 
-//   // 2️⃣ Check tag match if selected
-//   const matchesTag = selectedTag
-//     ? vars.themeName?.toLowerCase() === selectedTag.toLowerCase()
-//     : true;
-
-//   // 3️⃣ Check color match if selected
-//   const matchesColor = selectedColor
-//     ? [vars["--color-primary"], vars["--color-secondary"]]
-//         .map(c => c?.toLowerCase()?.replace(/\s/g, ''))
-//         .includes(selectedColor.toLowerCase())
-//     : true;
-
-//   return matchesTag && matchesColor;
-// })
-// Replace your existing filteredThemes with this
 const filteredThemes = selectedTag === "custom"
   ? customPalettes.map((p, index) => {
       // Ensure each custom palette has an id and colors array
@@ -464,51 +449,54 @@ console.log(filterThemesByName("pastel"));
            <div className={`theme-sidebar ${sidebarOpen ? "open" : ""}`}>
 
   {/* 🔝 Fixed Controls */}
-  <div style={{ display: 'flex', flexDirection: "row", gap: "1rem", alignItems: 'center', color: '#fff' }}>
+  <div style={{ display: 'flex', flexDirection: "row", gap: "1rem", alignItems: 'center', color: '#fff',justifyContent:'center' }}>
     <button
-      onClick={() => setShowCustomModal(true)}
-      style={{
-        padding: "8px 12px",
-        borderRadius: "8px",
-        background: "#444",
-        color: "#fff",
-        fontSize: "13px",
-        cursor: "pointer"
-      }}
-    >
-      🎨 Custom Palette
-    </button>
+    onClick={() => setShowCustomModal(true)}
+    style={{
+      background: '#2e2c2c',
+      color: '#fff',
+      padding: '8px 12px',
+      borderRadius: '8px',
+      fontSize: '13px',
+      border: "1px solid #ccc"
+    }}
+  >
+    🎨 Custom Palette
+  </button>
 
-    {showCustomModal && (
-      <CustomThemeModal close={() => setShowCustomModal(false)} />
-    )}
+  {showCustomModal && (
+    <CustomThemeModal close={() => setShowCustomModal(false)} />
+  )}
 
+ 
     {/* Reset Background */}
-    <button
-      onClick={resetBackground}
-      style={{
-        padding: "8px 12px",
-        borderRadius: "8px",
-        background: "#2e2c2c",
-        color: "#fff",
-        cursor: "pointer",
-        fontSize: "13px",
-        border: "1px solid #555"
-      }}
-    >
-      🔄 Reset Background
-    </button>
+    {gradientApplied && (
+  <button
+    onClick={resetBackground}
+    style={{
+      background: '#2e2c2c',
+        color: '#fff',
+        padding: '8px 12px',
+        borderRadius: '8px',
+        fontSize: '13px',
+        border: "1px solid #ccc"
+    }}
+  >
+    🔄 Reset Background
+  </button>
+)}
+
 
     {/* Toggle Gradients */}
     <button
       onClick={toggleGradients}
       style={{
-        padding: "8px 12px",
-        borderRadius: "8px",
-        background: "#2e2c2c",
-        color: "#fff",
-        cursor: "pointer",
-        fontSize: "13px",
+        background: '#2e2c2c',
+        color: '#fff',
+        padding: '8px 12px',
+        borderRadius: '8px',
+        fontSize: '13px',
+        border: "1px solid #ccc"
       }}
     >
       {showGradients ? "🎨 Hide Background Gradients" : "🎨 Show Background Gradients"}
@@ -521,7 +509,8 @@ console.log(filterThemesByName("pastel"));
         color: '#fff',
         padding: '8px 12px',
         borderRadius: '8px',
-        fontSize: '13px'
+        fontSize: '13px',
+        border: "1px solid #ccc"
       }}
       id="tags"
       value={selectedTag}
@@ -544,18 +533,12 @@ console.log(filterThemesByName("pastel"));
         className="filter-by-color-toggle"
         onClick={() => setColorFilterOpen(!colorFilterOpen)}
         style={{
-          padding: "8px 12px",
-          border: "1px solid #ccc",
-          borderRadius: "8px",
-          backgroundColor: "#2e2c2c",
-          color: '#fff',
-          cursor: "pointer",
-          fontWeight: "500",
-          display: "flex",
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: "8px",
-          fontSize: '13px'
+          background: '#2e2c2c',
+        color: '#fff',
+        padding: '8px 12px',
+        borderRadius: '8px',
+        fontSize: '13px',
+          border: "1px solid #ccc"
         }}
       >
         {selectedColor ? (
@@ -659,11 +642,12 @@ console.log(filterThemesByName("pastel"));
           >
             <div
               onClick={() => {
-                document.body.style.background = themeGradients[key];
-                document.documentElement.style.setProperty("--color-primary", theme["--color-primary"]);
-                document.documentElement.style.setProperty("--color-secondary", theme["--color-secondary"]);
-                document.documentElement.style.setProperty("--color-accent", theme["--color-accent"]);
-              }}
+  document.body.style.background = themeGradients[key];
+  document.documentElement.style.setProperty("--color-primary", theme["--color-primary"]);
+  document.documentElement.style.setProperty("--color-secondary", theme["--color-secondary"]);
+  document.documentElement.style.setProperty("--color-accent", theme["--color-accent"]);
+  setGradientApplied(true); // ✅ gradient is now active
+}}
               style={{
                 width: "230px",
                 height: "230px",
