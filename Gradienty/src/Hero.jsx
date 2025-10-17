@@ -23,15 +23,17 @@ export default function Hero(){
     } = useUI();
     
     return(
-           <section className="hero-section">
+           <section className="hero-sectionmain">
         <div className="container hero-inner">
           <div className="hero-left">
-            <div className="eyebrow">This website helps you pick the perfect color palette for your design</div>
-            <h1 className="hero-title">
-              Choose  <br />
-            Your Website  <strong>Theme</strong>
+             <h1 className="hero-title">
+              Choose  Your Website
+               <br />
+            <strong className='primarycolor'>Theme</strong>
             </h1>
-            <p className="hero-sub">Save and share your favorite palettes with one click..</p>
+            <div className="eyebrow">This website helps you pick the perfect color palette for your design Save and share your favorite palettes with one click..</div>
+           
+            {/* <p className="hero-sub">Save and share your favorite palettes with one click..</p> */}
 
             <div className="hero-ctas">
              <button className='btn btn-primary'  onClick={() => setSidebarOpen(true)}>Get Started</button>

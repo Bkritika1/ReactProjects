@@ -6,13 +6,14 @@ export default function Header() {
       <div  className="container header-inner">
         <div className="brand">
           
-            <svg
+          {/* <div className="logo-mark" style={{listStyle:'none', textDecoration:'none'}}> <Link href="/">CM</Link>  </div> */}
+           <svg
       width="44"
       height="44"
       viewBox="0 0 44 44"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      style={{ borderRadius: '50%', backgroundColor: '#DFF6DD', padding: '6px' }}
+      style={{ borderRadius: '50%', backgroundColor: 'var(--color-primary)', padding: '6px' }}
     >
       <circle cx="22" cy="22" r="22" fill="#DFF6DD" />
       <line x1="22" y1="8" x2="22" y2="36" stroke="#000" strokeWidth="2"/>
@@ -20,13 +21,12 @@ export default function Header() {
       <line x1="12" y1="12" x2="32" y2="32" stroke="#000" strokeWidth="2"/>
       <line x1="32" y1="12" x2="12" y2="32" stroke="#000" strokeWidth="2"/>
     </svg>
-         
           <span className="brand-title">    <Link to="/">Color Mesh</Link></span>
         </div>
 
         {/* Navigation */}
         <nav className="main-nav" aria-label="Main">
-          <a href="#">Features</a>
+        <Link to="/Features">Features</Link>
           <a href="#">Solutions</a>
           <a href="#">Resources</a>
           <a href="#">Pricing</a>
