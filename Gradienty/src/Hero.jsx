@@ -26,7 +26,7 @@ export default function Hero(){
            <section className="hero-sectionmain">
         <div className="container hero-inner">
           <div className="hero-left">
-             <h1 className="hero-title">
+             <h1 className="hero-titlemain">
               Choose  Your Website
                <br />
             <strong className='primarycolor'>Theme</strong>
