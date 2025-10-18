@@ -5,7 +5,7 @@ export default function ModeranLanding1() {
   return (
     <div className="homepage">
       {/* Header */}
-      <header className="headerMod">
+      <header className="header">
         <div className="header-left">
           <span className="logo">Tiro.ai</span>
           <nav className="nav-links">
@@ -21,9 +21,9 @@ export default function ModeranLanding1() {
       </header>
 
       {/* Hero Section */}
-      <main className="heroMod">
+      <main className="hero">
         {/* Left Hero */}
-        <div className="heroMod-left">
+        <div className="hero-left">
           <div className="trustpilot">
             <span>⭐ 4.7</span> on TrusPilot
           </div>
@@ -41,7 +41,7 @@ export default function ModeranLanding1() {
         </div>
 
         {/* Right Hero */}
-        <div className="heroMod-right">
+        <div className="hero-right">
           <div className="chat-card">
             <div className="chat-message bot">
               <span className="user">Tiro.ai</span>

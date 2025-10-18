@@ -22,7 +22,7 @@ body {
   color: var(--color-text);
 }
 
-.headerMod {
+.header {
   display: flex;
   justify-content: space-between;
   padding: 1.5rem 4rem;
@@ -56,14 +56,14 @@ body {
   color:#ffff;
 }
 
-.heroMod {
+.hero {
   display: flex;
   justify-content: space-between;
   padding: 4rem;
   gap: 3rem;
 }
 
-.heroMod-left {
+.hero-left {
   flex: 1;
   max-width: 50%;
 }
@@ -106,7 +106,7 @@ body {
   cursor: pointer;
 }
 
-.heroMod-right {
+.hero-right {
   flex: 1;
   background: var(--gradient-text);
   border-radius: 16px;
@@ -131,6 +131,7 @@ body {
   padding: 0.6rem 1rem;
   border-radius: 12px;
   max-width: 80%;
+  color: #000;
 }
 
 .chat-message.bot {
