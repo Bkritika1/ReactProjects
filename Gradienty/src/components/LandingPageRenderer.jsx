@@ -29,6 +29,8 @@ export default function LandingPageRenderer() {
       <Header theme={theme} logo={logo} nav={nav} />
       {renderHero()}
       {/* <FeatureGrid features={features} theme={theme} /> */}
+      {/* <FeatureGrid features={features} theme={theme} /> */}
+
       <Footer theme={theme} />
     </div>
   );
