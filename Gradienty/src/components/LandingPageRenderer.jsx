@@ -30,6 +30,8 @@ export default function LandingPageRenderer() {
       {renderHero()}
       {/* <FeatureGrid features={features} theme={theme} /> */}
       {/* <FeatureGrid features={features} theme={theme} /> */}
+      {/* <FeatureGrid features={features} theme={theme} /> */}
+
 
       <Footer theme={theme} />
     </div>
