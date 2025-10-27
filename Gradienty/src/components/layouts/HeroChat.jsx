@@ -1,11 +1,11 @@
-export default function HeroChat({ hero, theme }) {
+export default function HeroChat({ data, theme }) {
   return (
     <section style={{ display: "flex", padding: "5rem 10%", color: theme.text }}>
       <div style={{ flex: 1, paddingRight: "2rem" }}>
-        <h1 style={{ color: theme.primary }}>{hero.title}</h1>
-        <p>{hero.subtitle}</p>
+        <h1 style={{ color: theme.primary }}>{data?.title}</h1>
+        <p>{data?.subtitle}</p>
         <div style={{ marginTop: "1rem" }}>
-          {hero.buttons.map((b, i) => (
+          {data.buttons.map((b, i) => (
             <button
               key={i}
               style={{
@@ -26,7 +26,7 @@ export default function HeroChat({ hero, theme }) {
 
       <div style={{ flex: 1 }}>
         <div className="chat-card">
-          {hero.chatMessages.map((m, i) => (
+          {data.chatMessages.map((m, i) => (
             <div key={i} className={`chat-message ${m.from}`}>
               <p>{m.text}</p>
             </div>
@@ -34,19 +34,19 @@ export default function HeroChat({ hero, theme }) {
 
           <div className="contact-card">
             <div className="contact-info">
-              <img src={hero.contactCard.avatar} alt={hero.contactCard.name} />
+              <img src={data.contactCard.avatar} alt={data.contactCard.name} />
               <div>
-                <h3>{hero.contactCard.name}</h3>
-                <span>{hero.contactCard.location}</span>
+                <h3>{data.contactCard.name}</h3>
+                <span>{data.contactCard.location}</span>
               </div>
             </div>
             <div>
-              <span>📞 {hero.contactCard.phone}</span>
-              <span>✉️ {hero.contactCard.email}</span>
+              <span>📞 {data.contactCard.phone}</span>
+              <span>✉️ {data.contactCard.email}</span>
             </div>
           </div>
         </div>
-        <div>{hero.tagLine}</div>
+        <div>{data.tagLine}</div>
       </div>
     </section>
   );

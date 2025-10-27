@@ -1,10 +1,9 @@
 export default function Footer({ theme }) {
   return (
-    <footer style={{ backgroundColor: theme?.primary || "#222", color: "#fff", textAlign: "center", padding: "2rem 1rem", marginTop: "2rem" }}>
+    <footer style={{ backgroundColor: "var(--color-bg)" , color: "var(--color-text)", textAlign: "center", padding: "2rem", marginTop: "18rem" }}>
       <p>© 2025 MyBrand. All rights reserved.</p>
-      <p>© 2025 MyBrand. All rights reserved.</p>
-      <p>© 2025 MyBrand. All rights reserved.</p>
-
+   
+     <console className="log">hhh</console>
 
     </footer>
   );
