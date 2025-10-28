@@ -784,5 +784,199 @@ export const landingPagesData = [
       },
       { type: "footer", layout: "default" }
     ]
-  }
+  },
+  {
+    id: "modern-aii",
+    name: "Modern AI Landing",
+    theme: {
+      bg: "#f8f9fc",
+      primary: "#3b82f6",
+      text: "#111827",
+    },
+    logo: "data:image/png;base64,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",
+    nav: [
+      { name: "Product", route: "/product" },
+      { name: "Solutions", route: "/solutions" },
+      { name: "Resources", route: "/resources" },
+      { name: "Pricing", route: "/pricing" },
+    ],
+    sections: [
+      {
+        type: "hero",
+        layout: "hero-modern",
+        data: {
+          title: "Verified Emails. Accurate Phone Numbers.",
+          subtitle: "The first prospecting tool that pulls live data in real-time.",
+          tagLine: "Extract customers with AI",
+          buttons: [
+            { text: "Try for free", type: "primary" },
+            { text: "Book demo", type: "secondary" },
+          ],
+          chatMessages: [
+            { from: "bot", text: "Hi—what can I help you with today?" },
+            { from: "user", text: "Show me leads for Product Managers in India." },
+          ],
+          contactCard: {
+            name: "Emilia Smith",
+            location: "California, USA",
+            avatar: "https://via.placeholder.com/40",
+            phone: "880-2999-872",
+            email: "emilia@example.com",
+          },
+          image: "/assets/images/hero-ai.png",
+        },
+      },
+      {
+        type: "logos",
+        layout: "scroll",
+        data: [
+          { src: "https://via.placeholder.com/80x40?text=Rakuten", alt: "Rakuten" },
+          { src: "https://via.placeholder.com/80x40?text=NCR", alt: "NCR" },
+          { src: "https://via.placeholder.com/80x40?text=Disney", alt: "Disney" },
+          { src: "https://via.placeholder.com/80x40?text=Netflix", alt: "Netflix" },
+          { src: "https://via.placeholder.com/80x40?text=Figma", alt: "Figma" },
+        ],
+      },
+      {
+        type: "features",
+        layout: "cards",
+        data: [
+          {
+            icon: "💬",
+            title: "AI Chat Prospecting",
+            desc: "Find and verify prospects instantly using conversational AI.",
+          },
+          {
+            icon: "⚡",
+            title: "Real-time Data",
+            desc: "Our system pulls live verified information in seconds.",
+          },
+          {
+            icon: "🔒",
+            title: "Secure & Private",
+            desc: "We protect your data with enterprise-grade security.",
+          },
+        ],
+      },
+      {
+        type: "pricing",
+        layout: "table",
+        data: {
+          plans: [
+            {
+              name: "Starter",
+              price: "₹0",
+              bullets: ["Up to 100 credits", "Community support"],
+              button: "Start Free",
+            },
+            {
+              name: "Pro",
+              price: "₹1999/mo",
+              bullets: ["10k credits", "Email & Chat support"],
+              button: "Upgrade",
+            },
+            {
+              name: "Enterprise",
+              price: "Custom",
+              bullets: ["Dedicated account", "SLA & Integrations"],
+              button: "Contact Us",
+            },
+          ],
+        },
+      },
+      {
+        type: "testimonials",
+        layout: "default",
+        data: [
+          {
+            name: "James Carter",
+            role: "Product Manager at Syncify",
+            quote:
+              "This AI tool changed the way we find leads. Verified data in seconds — absolutely amazing!",
+            avatar: "https://via.placeholder.com/60",
+          },
+          {
+            name: "Ava Brown",
+            role: "Growth Lead at Nova",
+            quote:
+              "We cut down 70% of manual search time. The accuracy is unbelievable!",
+            avatar: "https://via.placeholder.com/60",
+          },
+        ],
+      },
+      {
+        type: "cta",
+        layout: "center",
+        data: {
+          title: "Ready to extract customers with AI?",
+          subtitle: "Start for free — no credit card required.",
+          buttonText: "Get Started",
+        },
+      },
+      {
+        type: "footer",
+        layout: "default",
+        data: {
+          links: [
+            { name: "Privacy Policy", route: "/privacy" },
+            { name: "Terms of Service", route: "/terms" },
+            { name: "Contact", route: "/contact" },
+          ],
+          social: [
+            { name: "Twitter", icon: "fa-brands fa-twitter" },
+            { name: "LinkedIn", icon: "fa-brands fa-linkedin" },
+          ],
+        },
+      },
+    ],
+  },
+   {
+    id: "color-mesh-premium",
+    name: "Color Mesh Premium Landing",
+    theme: {
+      bgGradient: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
+      text: "#1a1a1a",
+      button: {
+        bg: "#ff4d6d",
+        hover: "#ff758f",
+        text: "#ffffff"
+      }
+    },
+    sections: [
+      {
+        type: "hero",
+        layout: "blobGradient",
+        data: {
+          title: "Design Beyond Colors",
+          subtitle: "Create stunning, mesh-gradient landing pages effortlessly.",
+          buttonText: "Get Started",
+          image:
+            "https://cdn.pixabay.com/photo/2016/03/09/09/17/woman-1245817_1280.jpg"
+        }
+      },
+      {
+        type: "features",
+        layout: "gradientCards",
+        data: {
+          heading: "Why Choose Color Mesh?",
+          features: [
+            {
+              title: "🎨 Gradient Power",
+              desc: "Beautiful color meshes that feel alive."
+            },
+            {
+              title: "⚡ Fast Performance",
+              desc: "Optimized for speed and smooth animations."
+            },
+            {
+              title: "🧩 Modular Design",
+              desc: "Completely data-driven and reusable layouts."
+            }
+          ]
+        }
+      }
+    ]
+  },
+  
+  
 ];
