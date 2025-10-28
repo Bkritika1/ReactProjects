@@ -44,10 +44,11 @@ import Footer from "./Footer";
 import HeroLeft from "./layouts/HeroLeft";
 import HeroCenter from "./layouts/HeroCenter";
 import HeroChat from './layouts/HeroChat';
-// import FeatureGrid from "./layouts/FeatureGrid";
-// import FeatureCards from "./layouts/FeatureCards";
-// import CTASection from "./layouts/CTASection";
-// import LogosScroll from "./layouts/LogosScroll";
+import FeatureGrid from "./layouts/FeatureGrid";
+import FeatureCards from "./layouts/FeatureCards";
+import CTASection from "./layouts/CTASection";
+import LogosScroll from "./layouts/LogosScroll";
+import Testimonials from "./layouts/Testimonials";
 
 const sectionRegistry = {
   hero: {
@@ -55,17 +56,20 @@ const sectionRegistry = {
     "hero-center": HeroCenter,
     "hero-chat": HeroChat
   },
-  // features: {
-  //   "grid-3": FeatureGrid,
-  //   // "cards": FeatureCards
-  // },
-  // cta: {
-  //   center: CTASection,
-  //   gradient: CTASection
-  // },
-  // logos: {
-  //   scroll: LogosScroll
-  // },
+  features: {
+    "grid-3": FeatureGrid,
+    "cards": FeatureCards
+  },
+  testimonials:{
+   default:Testimonials
+  },
+  cta: {
+    center: CTASection,
+    gradient: CTASection
+  },
+  logos: {
+    scroll: LogosScroll
+  },
   footer: {
     default: Footer
   }

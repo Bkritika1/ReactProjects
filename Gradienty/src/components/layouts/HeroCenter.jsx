@@ -9,6 +9,7 @@
 //   );
 // }
 
+import "../LandingPages.css";
 
 export default function HeroCenter({ data, theme }) {
   return (
