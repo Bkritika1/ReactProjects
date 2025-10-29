@@ -11,7 +11,7 @@
 
 import "../LandingPages.css";
 
-export default function HeroCenter({ data, theme }) {
+export default function HeroCenter({ data }) {
   return (
     <section
       className="hero hero-center"

@@ -51,10 +51,17 @@ import FeatureCards from "./layouts/FeatureCards";
 import CTASection from "./layouts/CTASection";
 import LogosScroll from "./layouts/LogosScroll";
 import Testimonials from "./layouts/Testimonials";
-import HeroBlobGradient from "./layouts/HeroBlobGradient"
-import FeatureGradientCards from "./layouts/FeatureGradientCards"
-
+import HeroBlobGradient from "./layouts/HeroBlobGradient";
+import FeatureGradientCards from "./layouts/FeatureGradientCards";
+import StatsSection from './layouts/StatsSection';
+import  InfoSection from './layouts/InfoSection';
+import FeatureShowcase from './layouts/FeatureShowcase'
 const sectionRegistry = {
+  // header:{
+  //   "header-1": HeaderRound,
+  //   "header-2": HeaderGlassy,
+
+  // },
   hero: {
     "hero-left": HeroLeft,
     "hero-center": HeroCenter,
@@ -65,6 +72,7 @@ const sectionRegistry = {
   features: {
     "grid-3": FeatureGrid,
     "cards": FeatureCards,
+    "showcase": FeatureShowcase,
     "gradientCards": FeatureGradientCards
   },
   pricing: {
@@ -77,6 +85,12 @@ const sectionRegistry = {
   cta: {
     center: CTASection,
     gradient: CTASection
+  },
+  stats:{
+    default: StatsSection
+  },
+  info:{
+    default: InfoSection
   },
   logos: {
     scroll: LogosScroll

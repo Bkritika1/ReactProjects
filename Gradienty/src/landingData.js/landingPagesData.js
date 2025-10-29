@@ -283,9 +283,7 @@
 // ];
 
 
-// src/landingData.js/landingPagesData.js
 export const landingPagesData = [
-  // 1) E-Commerce Landing
   {
     id: "ecommerce",
     name: "E-Commerce Landing",
@@ -377,57 +375,167 @@ export const landingPagesData = [
   },
 
   // 3) Modern AI Landing
-  {
-    id: "modern1",
-    name: "Modern AI Landing",
-    theme: { bg: "var(--color-bg)", primary: "var(--color-primary)", text: "var(--color-text)" },
-    logo: "/assets/logos/modern1-logo.png",
-    nav: [
-      { name: "Product", route: "/product" },
-      { name: "Solutions", route: "/solutions" },
-      { name: "Resources", route: "/resources" },
-      { name: "Pricing", route: "/pricing" }
-    ],
-    sections: [
-      {
-        type: "hero",
-        layout: "hero-chat",
-        data: {
-          type: "chat",
-          title: "Verified emails. Accurate Phone Numbers",
-          subtitle: "The first prospecting tool that pulls live data in real-time.",
-          buttons: [{ text: "Try for free", type: "primary" }, { text: "Book demo", type: "secondary" }],
-          chatMessages: [
-            { from: "bot", text: "Hi—what can I help you with today?" },
-            { from: "user", text: "Show me leads for Product Managers in India." }
-          ],
-          contactCard: { name: "Emilia Smith", location: "California, USA", avatar: "https://via.placeholder.com/40", phone: "880-2999-872", email: "emilia@example.com" },
-          tagLine: "Extract customers with AI"
-        }
-      },
-      {
-        type: "logos",
-        layout: "scroll",
-        data: [
-          { src: "https://via.placeholder.com/80x40?text=Rakuten", alt: "Rakuten" },
-          { src: "https://via.placeholder.com/80x40?text=NCR", alt: "NCR" },
-          { src: "https://via.placeholder.com/80x40?text=Disney", alt: "Disney" }
-        ]
-      },
-      {
-        type: "pricing",
-        layout: "table",
-        data: {
-          plans: [
-            { name: "Starter", price: "₹0", bullets: ["Up to 100 credits", "Community support"] },
-            { name: "Pro", price: "₹1999/mo", bullets: ["10k credits", "Email & Chat support"] },
-            { name: "Enterprise", price: "Custom", bullets: ["Dedicated account", "SLA & Integrations"] }
-          ]
-        }
-      },
-      { type: "footer", layout: "default" }
-    ]
+{
+  id: "modern1",
+  name: "Modern AI Landing",
+  theme: { 
+    bg: "var(--color-bg)", 
+    primary: "var(--color-primary)", 
+    text: "var(--color-text)" 
   },
+  logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHtkaFc9zaGeJVxG0WuJXycSZd5fGknK8W-w&s",
+  nav: [
+    { name: "Features", route: "/features" },
+    { name: "Solutions", route: "/solutions" },
+    { name: "Resources", route: "/resources" },
+    { name: "Pricing", route: "/pricing" }
+  ],
+  sections: [
+    {
+      type: "hero",
+      layout: "hero-chat",
+      data: {
+       title: "Your Complete Rewarding Ad Network",
+    subtitle:
+      "Increase revenue, boost engagement, and maximize conversions with our reward-based ad solution.",
+    button1: "Monetize",
+    button2: "Advertise",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtcdA_i5Oo9aVAQLRwI08sbNdd4xvDxqqWag&s" ,
+        chatMessages: [
+          { from: "bot", text: "👋 Hi there! Looking for high-intent leads today?" },
+          { from: "user", text: "Yes, find B2B decision-makers in the US." },
+          { from: "bot", text: "Got it. Fetching verified emails & phone numbers..." }
+        ],
+        contactCard: { 
+          name: "Sophia Turner", 
+          location: "New York, USA", 
+          avatar: "https://randomuser.me/api/portraits/women/44.jpg", 
+          phone: "+1-202-334-9982", 
+          email: "sophia.ai@leadgen.com" 
+        },
+        tagLine: "Smart AI Prospecting Made Effortless ⚡"
+      }
+    },
+
+    {
+  type: "stats",
+  layout: "default",
+  data: {
+    items: [
+      { label: "Total Companies", value: "657,786+", icon: "FaBuilding" },
+      { label: "Active Users", value: "987,890+", icon: "FaUsers" },
+      { label: "Happy Clients", value: "997,098+", icon: "FaStar" }
+    ]
+  }
+},
+{
+  type: "info",
+  layout: "default",
+  data: {
+    subtitle: "Learn More About",
+    highlight: "Lootably",
+    paragraph:
+      "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt culpa qui officia deserunt mollit anim id est laborum.",
+    buttonText: "Learn More",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIbttKhfvYx6G5-0KSd1skU4fwbEh9Ydlo-g&s"
+  }
+},
+{
+  type: "features",
+  layout: "grid-3",
+  data: {
+    title: "Why Work With Us?",
+    subtitle: "Duis aute irure dolor in reprehenderit in voluptate",
+    items: [
+      {
+        icon: "fa-solid fa-plug",
+        title: "Easy Integration",
+        desc: "Easily integrate with your existing workflow in minutes.",
+      },
+      {
+        icon: "fa-solid fa-chart-line",
+        title: "High eCPMs",
+        desc: "Maximize your revenue with top-performing campaigns.",
+      },
+      {
+        icon: "fa-solid fa-gift",
+        title: "Exclusive Offers",
+        desc: "Access premium offers and deals curated just for you.",
+      },
+      {
+        icon: "fa-solid fa-shield-halved",
+        title: "Fraud Protection",
+        desc: "Keep your data and transactions secure with advanced protection.",
+      },
+      {
+        icon: "fa-solid fa-wallet",
+        title: "Monthly Payments",
+        desc: "Get paid on time, every month, without any hassle.",
+      },
+      {
+        icon: "fa-solid fa-user-tie",
+        title: "Dedicated Account Manager",
+        desc: "Get personalized support from your own account manager.",
+      },
+    ],
+    buttonText: "Browse All Categories",
+  },
+},
+{
+  type: "features",
+  layout: "showcase",
+  data: [
+    {
+      title: "Offerwall",
+      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      link: "View Documentation →",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpnn9BWnMx4Qpx1XlHYdOCFDhZZ3vYJyik6Q&s"
+    },
+    {
+       image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpnn9BWnMx4Qpx1XlHYdOCFDhZZ3vYJyik6Q&s",
+      title: "Loot.tv",
+      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      link: "Visit Loot.tv →",
+     
+    }
+  ]
+},
+
+
+
+
+
+   
+   
+    {
+      type: "footer",
+      layout: "default",
+      data: {
+        columns: [
+          {
+            title: "Product",
+            links: ["Features", "Integrations", "Updates"]
+          },
+          {
+            title: "Company",
+            links: ["About Us", "Careers", "Contact"]
+          },
+          {
+            title: "Resources",
+            links: ["Blog", "Help Center", "Developers"]
+          }
+        ],
+        social: [
+          { icon: "fa-twitter", url: "https://twitter.com" },
+          { icon: "fa-linkedin", url: "https://linkedin.com" },
+          { icon: "fa-github", url: "https://github.com" }
+        ],
+        copyright: "© 2025 ModernAI. All rights reserved."
+      }
+    }
+  ]
+},
+
 
   // 4) SaaS Product Landing
   {
