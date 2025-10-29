@@ -43,7 +43,6 @@ import {
 const Section = styled.section`
   padding: 80px 10%;
   text-align: center;
-  background: #f9faff;
 `;
 
 const Title = styled.h2`
