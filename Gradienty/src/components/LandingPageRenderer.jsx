@@ -45,7 +45,7 @@ import HeroLeft from "./layouts/HeroLeft";
 import HeroCenter from "./layouts/HeroCenter";
 import HeroChat from './layouts/HeroChat';
 import HeroModern from "./layouts/HeroModern";
-import FeatureGrid from "./layouts/FeatureGrid";
+// import FeatureGrid from "./layouts/FeatureGrid";
 import PricingTable from "./layouts/PricingTable";
 import FeatureCards from "./layouts/FeatureCards";
 import CTASection from "./layouts/CTASection";
@@ -56,21 +56,26 @@ import FeatureGradientCards from "./layouts/FeatureGradientCards";
 import StatsSection from './layouts/StatsSection';
 import  InfoSection from './layouts/InfoSection';
 import FeatureShowcase from './layouts/FeatureShowcase'
+import HeroSection from "./layouts/HeroSection";
 const sectionRegistry = {
   // header:{
   //   "header-1": HeaderRound,
   //   "header-2": HeaderGlassy,
 
   // },
+header: {
+  default: Header,
+},
   hero: {
     "hero-left": HeroLeft,
     "hero-center": HeroCenter,
     "hero-chat": HeroChat,
+    "hero-section": HeroSection,
       "hero-modern": HeroModern,
       "blobGradient": HeroBlobGradient 
   },
   features: {
-    "grid-3": FeatureGrid,
+    // "grid-3": FeatureGrid,
     "cards": FeatureCards,
     "showcase": FeatureShowcase,
     "gradientCards": FeatureGradientCards
@@ -109,7 +114,7 @@ export default function LandingPageRenderer() {
 
   return (
     <div style={{ backgroundColor: theme.bg, color: theme.text }}>
-      <Header theme={theme} logo={logo} nav={nav} />
+     {/* <Header data={{ logo, nav, buttons: page.buttons }} theme={theme} /> */}
       {sections.map((section, index) => {
         const Component = sectionRegistry[section.type]?.[section.layout];
         return Component ? (
