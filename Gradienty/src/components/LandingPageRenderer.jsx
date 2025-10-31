@@ -57,6 +57,22 @@ import StatsSection from './layouts/StatsSection';
 import  InfoSection from './layouts/InfoSection';
 import FeatureShowcase from './layouts/FeatureShowcase'
 import HeroSection from "./layouts/HeroSection";
+import FeatureBelowHero from "./layouts/FeatureBelowHero";
+import FeatureProduct from "./layouts/FeatureProduct";
+import Footerone from "./layouts/Footerone"
+import ContactBox from "./layouts/ContactBox";
+import HeaderShopify from "./layouts/HeaderShopify";
+import HeroShop from "./layouts/HeroShopify";
+import HeroFeatureCards from "./layouts/HeroFeatureCards";
+import SubscribeBox from "./layouts/SubscribeBox";
+import FooterShop from "./layouts/FooterShop";
+import PopularProducts from "./layouts/PopularProducts";
+import CategoriesRow from "./layouts/CategoriesRow";
+import HeroShopify from "./layouts/HeroShopify";
+import FeatureShopify from "./layouts/FeatureShopify";
+import AchievementStats from "./layouts/AchievementStats";
+import AwesomeFeatures from "./layouts/AwesomeFeatures";
+import Footertwo from "./layouts/Footertwo";
 const sectionRegistry = {
   // header:{
   //   "header-1": HeaderRound,
@@ -65,9 +81,11 @@ const sectionRegistry = {
   // },
 header: {
   default: Header,
+  'shopify-style': HeaderShopify,
 },
   hero: {
     "hero-left": HeroLeft,
+    "shopify-style": HeroShopify,
     "hero-center": HeroCenter,
     "hero-chat": HeroChat,
     "hero-section": HeroSection,
@@ -78,10 +96,20 @@ header: {
     // "grid-3": FeatureGrid,
     "cards": FeatureCards,
     "showcase": FeatureShowcase,
-    "gradientCards": FeatureGradientCards
+    "gradientCards": FeatureGradientCards,
+     "below-hero": FeatureBelowHero, 
+     "hero-below": FeatureProduct,
+     "hero-cards": HeroFeatureCards,
+     "popular": PopularProducts,
+     "shopify-style":FeatureShopify,
+     "pink": AwesomeFeatures
   },
   pricing: {
     table: PricingTable,
+  },
+  categories: { default: CategoriesRow },
+  achievementStats:{
+    default:  AchievementStats
   },
 
   testimonials:{
@@ -89,7 +117,8 @@ header: {
   },
   cta: {
     center: CTASection,
-    gradient: CTASection
+    gradient: CTASection,
+    Subscribe:SubscribeBox
   },
   stats:{
     default: StatsSection
@@ -100,8 +129,14 @@ header: {
   logos: {
     scroll: LogosScroll
   },
+  contact:{
+    "contact-box":ContactBox
+  },
   footer: {
-    default: Footer
+    default: Footer,
+    "pet-footer": Footerone,
+    shopify: FooterShop,
+    footertwo: Footertwo
   }
 };
 

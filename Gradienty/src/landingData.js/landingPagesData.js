@@ -550,10 +550,10 @@ export const landingPagesData = [
   layout: "default",
   data: {
     logo: "Wagory",
-    nav: ["Home", "Features", "Blog*", "Contact"],
+    nav: ["Shop", "Food", "Journal", "Contact"],
     buttons: [
       { text: "Login", type: "secondary" },
-      { text: "Sign Up", type: "primary" }
+      { text: "Shop now ➜", type: "primary" }
     ]
   }
 },
@@ -594,11 +594,152 @@ export const landingPagesData = [
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPjLKgzAaXXKfnh1QYR8PPLJnYW3nKTlloHw&s", // Dog & cat combo
 }
     },
+   {
+  type: "features",
+  layout: "below-hero",
+  data: {
+    title: "We Help To Keep Your Pet Safe",
+    features: [
+      { title: "We Bring the Best Food!", image: "/images/pet-food.jpg" },
+      { title: "Healthy Pets, Always.", image: "/images/pet-cat.jpg" },
+      { title: "Best Toys for your Pets", image: "/images/pet-dog.jpg" },
+      { title: "Their Cozy Corner", image: "/images/pet-bed.jpg" }
+    ],
+    categories: [
+      { name: "Food", icon: "dogBowl" },
+      { name: "Toys", icon: "bone" },
+      { name: "Beds", icon: "house" },
+      { name: "Wellness", icon: "potion" },
+      { name: "Collars", icon: "dog" },
+      { name: "Bowls", icon: "cat" }
+    ]
+  }
+},
+{
+type:'features',
+layout:'hero-below',
+data:{
+   
+  tagline: "Products",
+  title: "Top Picks for Happy Healthy Pets",
+  products: [
+    {
+      name: "1st Choice Sterilized Cat Kibble",
+      price: 26,
+      oldPrice: 35,
+      rating: 4.9,
+      image: "/images/cat-food.png",
+    },
+    {
+      name: "Perfect Fit Junior Dog Formula",
+      price: 26,
+      oldPrice: 35,
+      rating: 4.9,
+      image: "/images/dog-food.png",
+    },
+    {
+      name: "Royal Canin Digest Sensitive Wet",
+      price: 26,
+      oldPrice: 35,
+      rating: 4.9,
+      image: "/images/cat-wet-food.png",
+    },
+    {
+      name: "Cozy Paws Plush Pet Bed",
+      price: 26,
+      oldPrice: 35,
+      rating: 4.9,
+      image: "/images/pet-bed.png",
+    },
+  ],
+}
+},
       {
         type: "stats",
         layout: "default",
         data: { items: [{ label: "Companies", value: "30k+" }, { label: "Active Users", value: "120k+" }, { label: "Uptime", value: "99.99%" }] }
       },
+      {
+type:'features',
+layout:'hero-below',
+data:{
+   
+  tagline: "Best Selling",
+  title: "Our Popular Picked",
+  products: [
+    {
+      name: "1st Choice Sterilized Cat Kibble",
+      price: 26,
+      oldPrice: 35,
+      rating: 4.9,
+      image: "/images/cat-food.png",
+    },
+    {
+      name: "Perfect Fit Junior Dog Formula",
+      price: 26,
+      oldPrice: 35,
+      rating: 4.9,
+      image: "/images/dog-food.png",
+    },
+    {
+      name: "Royal Canin Digest Sensitive Wet",
+      price: 26,
+      oldPrice: 35,
+      rating: 4.9,
+      image: "/images/cat-wet-food.png",
+    },
+    {
+      name: "Cozy Paws Plush Pet Bed",
+      price: 26,
+      oldPrice: 35,
+      rating: 4.9,
+      image: "/images/pet-bed.png",
+    },
+     {
+      name: "1st Choice Sterilized Cat Kibble",
+      price: 26,
+      oldPrice: 35,
+      rating: 4.9,
+      image: "/images/cat-food.png",
+    },
+    {
+      name: "Perfect Fit Junior Dog Formula",
+      price: 26,
+      oldPrice: 35,
+      rating: 4.9,
+      image: "/images/dog-food.png",
+    },
+     {
+      name: "Royal Canin Digest Sensitive Wet",
+      price: 26,
+      oldPrice: 35,
+      rating: 4.9,
+      image: "/images/cat-wet-food.png",
+    },
+    {
+      name: "Cozy Paws Plush Pet Bed",
+      price: 26,
+      oldPrice: 35,
+      rating: 4.9,
+      image: "/images/pet-bed.png",
+    },
+     {
+      name: "1st Choice Sterilized Cat Kibble",
+      price: 26,
+      oldPrice: 35,
+      rating: 4.9,
+      image: "/images/cat-food.png",
+    },
+    {
+      name: "Perfect Fit Junior Dog Formula",
+      price: 26,
+      oldPrice: 35,
+      rating: 4.9,
+      image: "/images/dog-food.png",
+    },
+  ],
+}
+},
       // {
       //   type: "features",
       //   layout: "grid-3",
@@ -613,48 +754,201 @@ export const landingPagesData = [
         layout: "center",
         data: { title: "Try SaaS free for 14 days", buttonText: "Start Free Trial" }
       },
-      { type: "footer", layout: "default" }
+      {
+  type: "contact",
+  layout: "contact-box",
+  data: {
+    title: "Get Tail-Wagging Updates in Your Inbox! 🐾",
+    description:
+      "Join our pack for exclusive offers, product launches, and pet care tips — no spam, just the good stuff.",
+    placeholder: "Enter your email",
+    buttonText: "Subscribe",
+    bgColor: "#c9e1ff"
+  }
+},
+     {
+  type: "footer",
+  layout: "pet-footer",
+  data: {
+    logo: "Wagory",
+    description:
+      "We’re on a mission to make mealtime the healthiest and happiest part of your pet’s day — with real ingredients, thoughtful care, and a whole lot of love.",
+    columns: [
+      {
+        title: "Shop",
+        links: ["Dog Products", "Cat Products", "Best Sellers", "New Arrivals", "Gift Cards"]
+      },
+      {
+        title: "Food",
+        links: ["Dry Food", "Wet Food", "Treats & Snacks", "Special Diets", "Puppy & Kitten Meals"]
+      },
+      {
+        title: "Journal",
+        links: ["Pet Care Tips", "Nutrition Advice", "Training Guides", "Behind the Brand", "Vet Q&A"]
+      },
+      {
+        title: "Contact",
+        links: ["Customer Support", "Track My Order", "Shipping & Returns", "Wholesale Inquiry", "FAQ"]
+      }
+    ],
+   socials: [
+  { icon: "FaFacebookF", link: "#" },
+  { icon: "FaTwitter", link: "#" },
+  { icon: "FaInstagram", link: "#" },
+  { icon: "FaLinkedinIn", link: "#" }
+]
+  }
+},
     ]
   },
 
-  // 5) Fitness App Landing
-  {
-    id: "fitness",
-    name: "Fitness App",
-    theme: { bg: "var(--color-bg)", primary: "var(--color-primary)", text: "var(--color-text)" },
-    logo: "/assets/logos/fitness-logo.png",
-    nav: [
-      { name: "Home", route: "/" },
-      { name: "Workouts", route: "/workouts" },
-      { name: "Plans", route: "/plans" },
-      { name: "Community", route: "/community" }
+
+{
+  id: "shopify",
+  name: "Shopify Landing",
+  theme: { bg: "#ffffff", primary: "#000000", text: "#111111" },
+  sections: [
+    {
+      type: "header",
+      layout: "shopify-style",
+      data: {
+        logo: "/images/shopify-logo.png",
+        navLinks: [
+          { label: "Products", dropdown: true },
+          { label: "Customer Stories" },
+          { label: "Resources" },
+          { label: "Pricing" }
+        ],
+        buttons: [
+          { text: "Book a Demo", primary: false },
+          { text: "Get Started", primary: true }
+        ]
+      }
+    },
+    {
+      type: "hero",
+      layout: "shopify-style",
+      data: {
+        tagline: "PRODUCTS / LIVE STREAM SHOPPING",
+        title: "Sell Live Products Globally Everywhere At One",
+        description:
+          "Enhance your shopping events by going live, boosting conversions, and fostering vibrant communities.",
+        ctaButtons: [
+          { text: "Get Started — For Free!", primary: true },
+          { text: "Book A Demo", primary: false }
+        ],
+        stats: "↑ 32% Uplift Conversions",
+        heroImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSF0dTREQ1UEfseAxK-UnMGzH3-6quumcnQKA&s"
+      }
+    },
+    {
+  type: "features",
+  layout: "shopify-style",
+  data: [
+    {
+      step: "STEP 2",
+      title: "AI-Driven Livestream Chat",
+      description:
+        "Loaded with an array of captivating widgets designed to enhance immersive shopping videos on your store, including video carousels.",
+      image: "/images/feature-yellow.png",
+      bgColor: "#FFF480", // Yellow
+      textColor: "#111111"
+    },
+    {
+      step: "STEP 3",
+      title: "Go Live Everywhere",
+      description:
+        "Loaded with an array of captivating widgets designed to showcase interactive shopping videos on store fronts, including video carousels, Instagram-style entries, pop-ups, video grids, and more.",
+      image: "/images/feature-purple.png",
+      bgColor: "#CDBAFF", // Purple
+      textColor: "#111111"
+    }
+  ]
+},
+{
+  type: "achievementStats",
+  layout: "default",
+  data: {
+    badgeText: "Product Stats",
+    title: "Get Achieving Superior Industry Marks",
+    subtitle: "ReelUp ranks No.1 app on the Shopify app store",
+    stats: [
+      { value: "392%", label: "Increased user engagement", bg: "#fce7f3", icon: "📈" },
+      { value: "11.17 mins", label: "Videos watch time by user", bg: "#fff7c2", icon: "🎥" },
+      { value: "20X", label: "Jump in product discovery", bg: "#e2d6ff", icon: "🔍" },
+      { value: "288%", label: "Uplift Conversions", bg: "#ccf6e5", icon: "⚡" },
     ],
-    sections: [
-      {
-        type: "hero",
-        layout: "hero-center",
-        data: { title: "Get fit with daily plans", subtitle: "Workout plans tailored to you.", image: "/assets/images/fitness-hero.png", buttonText: "Start Free" }
-      },
-      {
-        type: "features",
-        layout: "cards",
-        data: [
-          { title: "Personalized Plans", desc: "Based on goals & fitness level" },
-          { title: "Trainer Support", desc: "Chat with pro trainers" },
-          { title: "Nutrition Guides", desc: "Meal plans & recipes" }
-        ]
-      },
-      {
-        type: "testimonials",
-        layout: "default",
-        data: [
-          { name: "Ravi K.", role: "Student", quote: "I lost 8kg in 2 months.", avatar: "https://via.placeholder.com/48" },
-          { name: "Simran P.", role: "Designer", quote: "Plans fit my schedule perfectly.", avatar: "https://via.placeholder.com/48" }
-        ]
-      },
-      { type: "footer", layout: "default" }
-    ]
   },
+},
+ {
+  type: "features",
+  layout: "pink",
+  data: {
+    backgroundColor: "#f9c9e0",
+    heading: "Drive Higher Click Rates With Awesome Features",
+    tags: ["Coupons", "Polls", "Question & Answers", "Product Cards", "Pins", "Comments"],
+    imageSection: {
+      bgBoxOpacity: 0.08,
+      mainImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTB7c8QHYwXrqJRxaSRp3RDmake9f8BWRghkw&s",
+    },
+    contentSection: {
+      title: "Let users swipe through videos to find the products they love.",
+      subtitle: "Ideal for: UGC Videos, Influencers Videos, Video Reviews, and more...",
+      buttons: [
+        { text: "View Live Demo", type: "dark" },
+        { text: "Get Started — For Free!", type: "light" },
+      ],
+    },
+  },
+},
+  {
+        type: "cta",
+        layout: "center",
+        data: { title: "Try SaaS free for 14 days", buttonText: "Start Free Trial" }
+      },
+
+{
+  type: "footer",
+  layout: "footertwo",
+  data: {
+  logoText: "ReelUp",
+  company: {
+    title: "Company",
+    links: ["About Us", "Case Studies", "Blogs", "Book a Demo"],
+  },
+  resources: {
+    title: "Resources",
+    links: ["Integrations", "Blog", "Become a Partner", "Partners Directory", "Demo store"],
+  },
+  product: {
+    title: "Product",
+    links: [
+      "On-store Shoppable Videos",
+      "Interactive & Quiz Videos",
+      "Video Marketing",
+      "Live stream shopping",
+    ],
+  },
+  social: [
+    { name: "linkedin", url: "#" },
+    { name: "instagram", url: "#" },
+    { name: "facebook", url: "#" },
+    { name: "youtube", url: "#" },
+    { name: "twitter", url: "#" },
+  ],
+  copyright: "© 2023 ReelUp.io - All rights reserved.",
+  policies: ["Privacy Policy", "Security", "Terms of Use"],
+},
+}
+
+
+
+
+  ]
+},
+
+
+
 
   // 6) Travel Agency Landing
   {
