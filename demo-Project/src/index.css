@@ -1,0 +1,11 @@
+body {
+  margin: 0;
+  font-family: Inter, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: #f3f6fb;
+  color: #111;
+}
+
+a { color: inherit; text-decoration: none; }
+
+.ant-card { border-radius: 14px; }
+.ant-btn { border-radius: 999px; }
