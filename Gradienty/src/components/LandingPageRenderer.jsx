@@ -73,6 +73,10 @@ import FeatureShopify from "./layouts/FeatureShopify";
 import AchievementStats from "./layouts/AchievementStats";
 import AwesomeFeatures from "./layouts/AwesomeFeatures";
 import Footertwo from "./layouts/Footertwo";
+import { FlowbloxHeader } from "./layouts/FlowbloxHeader";
+import { FlowbloxHero } from "./layouts/FlowbloxHero";
+import { FlowbloxFeatures } from "./layouts/FlowbloxFeatures";
+import { FlowbloxFooter } from "./layouts/FlowbloxFooter";
 const sectionRegistry = {
   // header:{
   //   "header-1": HeaderRound,
@@ -82,6 +86,7 @@ const sectionRegistry = {
 header: {
   default: Header,
   'shopify-style': HeaderShopify,
+  'flowblox-style': FlowbloxHeader,
 },
   hero: {
     "hero-left": HeroLeft,
@@ -90,7 +95,8 @@ header: {
     "hero-chat": HeroChat,
     "hero-section": HeroSection,
       "hero-modern": HeroModern,
-      "blobGradient": HeroBlobGradient 
+      "blobGradient": HeroBlobGradient ,
+      'flowblox-hero': FlowbloxHero
   },
   features: {
     // "grid-3": FeatureGrid,
@@ -102,7 +108,8 @@ header: {
      "hero-cards": HeroFeatureCards,
      "popular": PopularProducts,
      "shopify-style":FeatureShopify,
-     "pink": AwesomeFeatures
+     "pink": AwesomeFeatures,
+     'flowblox-features': FlowbloxFeatures
   },
   pricing: {
     table: PricingTable,
@@ -136,7 +143,8 @@ header: {
     default: Footer,
     "pet-footer": Footerone,
     shopify: FooterShop,
-    footertwo: Footertwo
+    footertwo: Footertwo,
+    "flowblox-footer": FlowbloxFooter
   }
 };
 

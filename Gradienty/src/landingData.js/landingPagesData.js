@@ -947,6 +947,119 @@ data:{
   ]
 },
 
+{
+  id: "flowblox",
+  name: "Flowblox Landing",
+  theme: {
+    background: "#fdf8f5",
+    text: "#1a1a1a",
+    primary: "#111111",
+    accent: "#e9d8a6",
+  },
+  sections: [
+    {
+      type: "header",
+      layout: "flowblox-style",
+      data: {
+        logo: "Flowblox",
+        navLinks: [
+          { label: "Services", url: "#" },
+          { label: "Features", url: "#" },
+          { label: "Blog", url: "#" },
+          { label: "Solutions", url: "#" },
+        ],
+        rightLinks: [
+          { label: "About", url: "#" },
+          { label: "Pricing", url: "#" },
+          { label: "Contact", url: "#" },
+        ],
+        button: { text: "Get started", primary: true },
+      },
+    },
+
+    {
+      type: "hero",
+      layout: "flowblox-hero",
+      data: {
+        titleLine1: "Streamline Your Team,",
+        titleLine2: "Supercharge Your Workflow",
+        description:
+          "All-in-one platform to plan, collaborate, and deliver — faster and smarter.",
+        ctaButton: { text: "Get started for Free", primary: true },
+        cards: [
+          {
+            image:
+              "https://images.unsplash.com/photo-1614283626804-1a998f5d1b17?auto=format&fit=crop&w=400&q=60",
+            title: "Real-Time Collaboration",
+            description:
+              "Communicate seamlessly with your team and bring all your work together.",
+          },
+          {
+            image:
+              "https://images.unsplash.com/photo-1556745757-8d76bdb6984b?auto=format&fit=crop&w=400&q=60",
+            title: "Task & Project Tracking",
+            description:
+              "Assign tasks, monitor progress, and meet your deadlines faster.",
+          },
+          {
+            image:
+              "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=60",
+            title: "Performance Insights",
+            description:
+              "Make data-driven decisions with advanced analytics and workload balance.",
+          },
+        ],
+      },
+    },
+
+    {
+      type: "features",
+      layout: "flowblox-features",
+      data: {
+        heading: "Everything Your Team Needs to Work Smarter",
+        subtext:
+          "From task tracking to real-time chat, our features are built to keep your team connected, organized, and moving forward—together.",
+        cards: [
+          {
+            image:
+              "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=600&q=60",
+            label: "Built-In Team Chat",
+            description:
+              "Communicate with your team instantly and manage projects with built-in chat.",
+          },
+          {
+            image:
+              "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=600&q=60",
+            label: "Task Assignment",
+            description:
+              "Easily assign and track tasks, keeping everyone aligned and accountable.",
+          },
+          {
+            image:
+              "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=60",
+            label: "Performance Tracking",
+            description:
+              "Get instant insights into productivity and optimize your workflow effortlessly.",
+          },
+        ],
+      },
+    },
+
+    {
+      type: "footer",
+      layout: "flowblox-footer",
+      data: {
+        logoText: "Flowblox",
+        navLinks: [
+          { label: "Privacy Policy", url: "#" },
+          { label: "Terms", url: "#" },
+          { label: "Support", url: "#" },
+        ],
+        copyright: "© 2025 Flowblox Inc. All rights reserved.",
+      },
+    },
+  ],
+},
 
 
 
