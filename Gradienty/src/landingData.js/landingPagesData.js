@@ -1523,6 +1523,27 @@ data:{
             }
           ]
         }
+      },
+       {
+        type: "features",
+        layout: "gradientCards",
+        data: {
+          heading: "Why Choose Color Mesh?",
+          features: [
+            {
+              title: "🎨 Gradient Power",
+              desc: "Beautiful color meshes that feel alive."
+            },
+            {
+              title: "⚡ Fast Performance",
+              desc: "Optimized for speed and smooth animations."
+            },
+            {
+              title: "🧩 Modular Design",
+              desc: "Completely data-driven and reusable layouts."
+            }
+          ]
+        }
       }
     ]
   },
