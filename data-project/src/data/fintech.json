@@ -1,0 +1,140 @@
+{
+  "id": "fintech-01",
+  "theme": {
+    "primaryColor": "#233cff",
+    "accent": "#6bd3ff",
+    "background": "#ffffff",
+    "font": "Inter"
+  },
+  "sections": [
+   {
+  "type": "Header",
+  "props": {
+    "logo": "V",
+    "layout": "productStyle",
+    "nav": [
+      { "label": "Products", "href": "#" },
+      { "label": "Store", "href": "#" },
+      { "label": "Support", "href": "#" }
+    ],
+    "buttons": [
+      { "label": "Pro Neckband", "variant": "secondary" },
+      { "label": "BUY NOW", "color": "red" }
+    ]
+  }
+},
+    {
+      "type": "Hero",
+      "layout": "center",
+      "props": {
+        "title": "Manage your money freely with a digital card.",
+        "subtitle": "Send, receive, and store crypto and fiat in one simple app — with instant transfers & an intuitive interface.",
+        "ctaPrimary": "Get Started",
+        "ctaSecondary": "Watch Demo",
+        "image": "/images/fintech-hero.png"
+      }
+    },
+{
+  "type": "CardGrid",
+  "props": {
+    "columns": 3,
+    "cards": [
+      {
+        "type": "StatsCard",
+        "title": "Total Income",
+        "value": "$8500",
+        "subtext": "Increased from last month",
+        "growth": 35
+      },
+      {
+        "type": "ChartCard",
+        "title": "Transaction View",
+        "value": "$55,501",
+        "chartType": "donut",
+        "percentage": 70,
+        "label": "Growth"
+      },
+      {
+        "type": "ChartCard",
+        "title": "Performance",
+        "value": "USD",
+        "chartType": "pie",
+        "segments": [
+          { "label": "USD", "value": 40, "color": "#233cff" },
+          { "label": "GBP", "value": 30, "color": "#00ccff" },
+          { "label": "KIN", "value": 20, "color": "#e6e6e6" },
+          { "label": "GROWTH", "value": 18, "color": "red" }
+
+        ]
+      }
+    ]
+  }
+},
+
+
+    {
+      "type": "Features",
+      "props": {
+        "title": "Key Advantages",
+        "cards": [
+          {"title":"Easy Onboarding","desc":"Start in minutes with identity verification","image":"/images/fintech-card-1.png"},
+          {"title":"Real-Time Analytics","desc":"Track spending & crypto performance","image":"/images/fintech-card-2.png"},
+          {"title":"Security First","desc":"Two-factor and hardware-grade encryption","image":"/images/fintech-card-3.png"}
+        ]
+      }
+    },
+    {
+      "type": "Advantages",
+      "props": {
+        "title": "Built for Real-World Crypto Users",
+        "items": [
+          {"title":"Simple UX","desc":"Onboarding designed for everyone."},
+          {"title":"Low Fees","desc":"Transparent & fair pricing."},
+          {"title":"Trusted","desc":"Enterprise-grade security."}
+        ]
+      }
+    },
+    {
+      "type": "Testimonials",
+      "props": {
+        "title": "What Our Happy Customers Are Saying About Velo",
+        "items": [
+          {"quote":"This app changed how I pay. So smooth!","name":"Asha Patel","title":"Freelancer","avatar":"/images/customer1.jpg"},
+          {"quote":"Fast transfers and great support.","name":"Rahul Mehta","title":"Designer","avatar":"/images/customer2.jpg"},
+          {"quote":"Secure and easy to use.","name":"Nidhi Sharma","title":"Entrepreneur","avatar":"/images/customer3.jpg"}
+        ]
+      }
+    },
+    {
+      "type": "Pricing",
+      "props": {
+        "title": "Flexible Plans for Every Need",
+        "plans": [
+          {"name":"Starter","price":"$0/mo","desc":"For hobby users","features":["Basic wallet","Standard support"]},
+          {"name":"Pro","price":"$9/mo","desc":"For active users","features":["Priority support","Advanced analytics"]},
+          {"name":"Business","price":"$49/mo","desc":"For teams","features":["Team accounts","SLA support"]}
+        ]
+      }
+    },
+    {
+      "type": "FAQ",
+      "props": {
+        "title": "Got Questions? We've got answers",
+        "items": [
+          {"q":"Is Velo available worldwide?","a":"Yes — we support many countries but some features are region-locked."},
+          {"q":"How secure is my money?","a":"We use industry standard encryption and 2FA."}
+        ]
+      }
+    },
+    {
+      "type": "Footer",
+      "props": {
+        "brand":"Velo",
+        "copy":"© 2025 Velo. All rights reserved",
+        "socials":["Twitter","LinkedIn","Instagram"]
+      }
+    }
+  ]
+}
+
+

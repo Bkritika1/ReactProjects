@@ -1,0 +1,59 @@
+{
+  "id": "foodapp-01",
+  "theme": {
+    "primaryColor": "#ff6b3d",
+    "accent": "#ffd37a",
+    "background": "#fffef9",
+    "font": "Inter"
+  },
+  "sections": [
+    {
+      "type": "Header",
+      "props": {
+        "logo": "Foodly",
+        "nav": [{"label":"Home"},{"label":"Menu"},{"label":"Order"}],
+        "align":"left"
+      }
+    },
+    {
+      "type": "Hero",
+      "props": {
+        "title": "Delicious food delivered fast",
+        "subtitle": "Order from local restaurants and get fresh meals at your door.",
+        "ctaPrimary":"Order Now",
+        "ctaSecondary":"See Menu",
+        "image":"/images/food-hero.png"
+      }
+    },
+    {
+      "type": "Features",
+      "props": {
+        "title": "Why Foodly?",
+        "cards":[
+          {"title":"Fast Delivery","desc":"Meals in under 30 minutes"},
+          {"title":"Top Restaurants","desc":"Curated local favourites"},
+          {"title":"Easy Payments","desc":"Multiple secure options"}
+        ]
+      }
+    },
+    {
+      "type":"Testimonials",
+      "props":{
+        "title":"Loved by Foodies",
+        "items":[
+          {"quote":"Yummy and quick!","name":"Ankit","title":"Student","avatar":"/images/customer1.jpg"},
+          {"quote":"Best delivery service nearby","name":"Riya","title":"Designer","avatar":"/images/customer2.jpg"},
+          {"quote":"Great variety","name":"Sana","title":"Teacher","avatar":"/images/customer3.jpg"}
+        ]
+      }
+    },
+    {
+      "type":"Footer",
+      "props":{
+        "brand":"Foodly",
+        "copy":"© 2025 Foodly",
+        "socials":["Facebook","Instagram"]
+      }
+    }
+  ]
+}
