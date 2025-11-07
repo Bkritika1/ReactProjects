@@ -86,7 +86,7 @@ const Heading = styled.h2`
 
 const Tags = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wnrap;
   gap: 12px;
   justify-content: center;
   margin-bottom: 60px;

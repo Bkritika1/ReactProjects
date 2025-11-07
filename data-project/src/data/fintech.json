@@ -24,16 +24,22 @@
   }
 },
     {
-      "type": "Hero",
-      "layout": "center",
-      "props": {
-        "title": "Manage your money freely with a digital card.",
-        "subtitle": "Send, receive, and store crypto and fiat in one simple app — with instant transfers & an intuitive interface.",
-        "ctaPrimary": "Get Started",
-        "ctaSecondary": "Watch Demo",
-        "image": "/images/fintech-hero.png"
-      }
-    },
+  "type": "Hero",
+  "layout": "right-image",
+  "props": {
+    "content": [
+      { "tag": "h4", "text": "Early Access", "class": "tagline" },
+      { "tag": "h4", "text": "Limited Time Offer", "class": "tagline" },
+      { "tag": "h2", "text": "Grow your money smarter", "class": "title" },
+      { "tag": "p", "text": "Track, invest, and plan all in one dashboard.", "class": "subtitle" }
+    ],
+    "buttons": [
+      { "label": "Join Beta", "variant": "primary" },
+      { "label": "Learn More", "variant": "secondary" }
+    ],
+    "image": "/images/hero2.png"
+  }
+},
 {
   "type": "CardGrid",
   "props": {

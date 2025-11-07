@@ -75,18 +75,61 @@
 
 
 
-import React from "react";
+// import React from "react";
 
-export default function Hero({
-  title,
-  subtitle,
-  ctaPrimary,
-  ctaSecondary,
-  image,
-  layout = "right-image",
-  style
-}) {
-  // determine layout style
+// export default function Hero({
+//   title,
+//   subtitle,
+//   ctaPrimary,
+//   ctaSecondary,
+//   image,
+//   layout = "right-image",
+//   style
+// }) {
+//   // determine layout style
+//   const isCentered = layout === "center";
+//   const isLeft = layout === "left-image";
+
+//   const containerStyle = {
+//     display: "flex",
+//     flexDirection: isCentered ? "column" : isLeft ? "row-reverse" : "row",
+//     alignItems: "center",
+//     justifyContent: isCentered ? "center" : "space-between",
+//     gap: "40px",
+//     padding: "60px 20px",
+//   };
+
+//   return (
+//     <section className={`hero ${layout}`} style={style}>
+//       <div className="container" style={containerStyle}>
+//         {/* Left content */}
+//         <div className="hero-text" style={{ flex: 1, textAlign: isCentered ? "center" : "left" }}>
+//           <h1 className="title">{title}</h1>
+//           <p className="subtitle">{subtitle}</p>
+
+//           {ctaPrimary && (
+//             <div className="cta-row" style={{ marginTop: 20 }}>
+//               <button className="btn primary">{ctaPrimary}</button>
+//               {ctaSecondary && <button className="btn ghost">{ctaSecondary}</button>}
+//             </div>
+//           )}
+//         </div>
+
+//         {/* Right image */}
+//         {image && (
+//           <div className="hero-image" style={{ flex: 1 }}>
+//             <img src={image} alt="hero" style={{ width: "100%", borderRadius: "10px" }} />
+//           </div>
+//         )}
+//       </div>
+//     </section>
+//   );
+// }
+
+
+export default function Hero({ layout = "center", content = [], buttons = [], image, style }) {
+
+
   const isCentered = layout === "center";
   const isLeft = layout === "left-image";
 
@@ -100,22 +143,32 @@ export default function Hero({
   };
 
   return (
-    <section className={`hero ${layout}`} style={style}>
+    <section className={`hero ${layout}`}>
       <div className="container" style={containerStyle}>
-        {/* Left content */}
         <div className="hero-text" style={{ flex: 1, textAlign: isCentered ? "center" : "left" }}>
-          <h1 className="title">{title}</h1>
-          <p className="subtitle">{subtitle}</p>
+          {/* ✅ Dynamic text blocks */}
+          {content.map((item, i) => {
+            const Tag = item.tag || "p";
+            return (
+              <Tag key={i} className={item.class}>
+                {item.text}
+              </Tag>
+            );
+          })}
 
-          {ctaPrimary && (
+          {/* ✅ Dynamic buttons */}
+          {buttons.length > 0 && (
             <div className="cta-row" style={{ marginTop: 20 }}>
-              <button className="btn primary">{ctaPrimary}</button>
-              {ctaSecondary && <button className="btn ghost">{ctaSecondary}</button>}
+              {buttons.map((btn, i) => (
+                <button key={i} className={`btn ${btn.variant || "primary"}`}>
+                  {btn.label}
+                </button>
+              ))}
             </div>
           )}
         </div>
 
-        {/* Right image */}
+        {/* ✅ Optional image */}
         {image && (
           <div className="hero-image" style={{ flex: 1 }}>
             <img src={image} alt="hero" style={{ width: "100%", borderRadius: "10px" }} />

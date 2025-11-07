@@ -13,20 +13,16 @@
 //     </header>
 //   );
 // }
-
-
 import React from "react";
 
-export default function Header({ data }) {
-  const {
-    logo = "Brand",
-    nav = [],
-    align = "left",
-    style = {},
-    layout = "default",
-    buttons = []
-  } = data || {};
-
+export default function Header({
+  logo = "Brand",
+  nav = [],
+  align = "left",
+  style = {},
+  layout = "default",
+  buttons = [],
+}) {
   // Layouts: default | centered | productStyle etc.
   const isProductStyle = layout === "productStyle";
 
@@ -34,32 +30,36 @@ export default function Header({ data }) {
     <header
       className="header container"
       style={{
-        justifyContent: isProductStyle ? "space-between" : "space-between",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        padding: "16px 32px",
         ...style,
       }}
     >
       {/* Left logo */}
-      <div className="logo">{logo}</div>
+      <div className="logo" style={{ fontWeight: "bold", fontSize: "20px" }}>
+        {logo}
+      </div>
 
-      {/* Centered nav (if layout == productStyle) */}
+      {/* Centered nav */}
       <nav
         className="nav"
         style={{
-          justifyContent: align,
-          flex: isProductStyle ? 1 : "unset",
           display: "flex",
           gap: "24px",
-          justifyContent: isProductStyle ? "center" : "flex-end",
+          flex: isProductStyle ? 1 : "unset",
+          justifyContent: isProductStyle ? "center" : align === "right" ? "flex-end" : "flex-start",
         }}
       >
         {nav.map((n, i) => (
-          <a key={i} href={n.href || "#"}>
+          <a key={i} href={n.href || "#"} style={{ textDecoration: "none", color: "#333" }}>
             {n.label}
           </a>
         ))}
       </nav>
 
-      {/* Right buttons (only if provided in data) */}
+      {/* Right buttons */}
       {buttons.length > 0 && (
         <div style={{ display: "flex", gap: "10px" }}>
           {buttons.map((btn, i) => (
@@ -69,9 +69,11 @@ export default function Header({ data }) {
               style={{
                 background: btn.variant === "secondary" ? "#fff" : btn.color || "var(--primary)",
                 color: btn.variant === "secondary" ? "var(--primary)" : "#fff",
+                border: "1px solid var(--primary)",
                 borderRadius: "999px",
                 fontWeight: "600",
                 padding: "8px 16px",
+                cursor: "pointer",
               }}
             >
               {btn.label}
