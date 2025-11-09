@@ -77,6 +77,8 @@ export default function Hero(){
         <div className="shape shape-green"></div>
         <div className="shape shape-red"></div>
         <div className="shape shape-blue"></div>
+        <div className="shape shape-blue"></div>
+
       </div>
     </div>
         </div>
