@@ -363,10 +363,7 @@ export default function ColorExtractor() {
 
       <div className="ip-main">
         <div className="ip-left">
-          <label className="ip-upload">
-            <input type="file" accept="image/*" onChange={handleFileChange} />
-            Upload image
-          </label>
+        
 
           <form onSubmit={handleURLSubmit} className="ip-url-form">
             <input name="url" placeholder="Paste image URL" />
@@ -374,17 +371,32 @@ export default function ColorExtractor() {
           </form>
 
           <div className="ip-options">
-            <label>
+            {/* <label>
               Top Colors:
               <select value={topColors} onChange={(e) => setTopColors(Number(e.target.value))}>
                 {[5, 10, 15, 20, 30, 50].map((n) => <option key={n} value={n}>{n}</option>)}
               </select>
-            </label>
-            <button onClick={() => extractColors({ stride: 2 })} className="primary">Extract Colors</button>
-            <button onClick={() => randomPick(topColors)} className="primary">Random Pick</button>
+            </label> */}
+
+            <div className="ip-slider">
+  <div className="slider-label">
+    Number of Colors: <span>{topColors}</span>
+  </div>
+  <input
+    type="range"
+    min="1"
+    max="50"
+    step="1"
+    value={topColors}
+    onChange={(e) => setTopColors(Number(e.target.value))}
+  />
+</div>
+
+            {/* <button onClick={() => extractColors({ stride: 2 })} className="primary">Extract Colors</button> */}
+            {/* <button onClick={() => randomPick(topColors)} className="primary">Random Pick</button> */}
           </div>
 
-          <div className="ip-exports">
+          {/* <div className="ip-exports">
             <button onClick={exportCSS}>Export CSS</button>
             <button onClick={exportImage}>Export Image</button>
             <button
@@ -400,7 +412,7 @@ export default function ColorExtractor() {
               {copied ? " ✓  Copied!" : "Copy all HEX"}
             </button>
 
-          </div>
+          </div> */}
 
           <div className="ip-picked-list">
             <h3>Top Colors</h3>
@@ -493,6 +505,10 @@ export default function ColorExtractor() {
               )}
             </div>
           </div>
+            <label className="ip-upload">
+            <input type="file" accept="image/*" onChange={handleFileChange} />
+            Upload image
+          </label>
         </div>
       </div>
     </div>

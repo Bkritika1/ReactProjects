@@ -55,8 +55,8 @@
 .header-cta .btn-ghost {
   background: var(--color-primary);
   color: #fff;
-  padding: 8px 14px;
-  border-radius: 14px;
+  padding: 12px;
+  border-radius: 10px;
   border: none;
   cursor: pointer;
   font-weight: 700;

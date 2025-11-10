@@ -1,6 +1,8 @@
 import Header from "./Header";
 import { useContext } from "react";
 import { ThemeContext } from "./ThemeContext";
+import Countries from "./Countries";
+import LoginForm from "./Countries";
 export default function Wrapper(){
     const{Theme} = useContext(ThemeContext)
     return(
@@ -9,6 +11,8 @@ export default function Wrapper(){
         }}>
             
             <Header />
+            <Countries/>
+            <LoginForm/>
         </div>
     )
 }
