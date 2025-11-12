@@ -27,6 +27,8 @@ export default function Header() {
         {/* Navigation */}
         <nav className="main-nav" aria-label="Main">
         <Link to="/Features">Features</Link>
+        <Link to ="/Explore">Explore</Link>
+        <Link to= "/ColorExtractor">Extract</Link>
           <a href="#">Solutions</a>
           <a href="#">Resources</a>
           <a href="#">Pricing</a>

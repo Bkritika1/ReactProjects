@@ -355,14 +355,13 @@
 }
 
 .palette-card {
-  background: #141414;
+  /* background: #141414; */
   border-radius: 16px;
   padding: 1.5rem;
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.4);
   width: 280px;
   text-align: center;
   position: relative;
-  z-index: 2;
   transition: all 0.3s ease;
 }
 
@@ -381,7 +380,7 @@
 
 .palette-color {
   flex: 1;
-  height: 120px;
+  height: 200px;
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -409,20 +408,20 @@
 
 .blob {
   position: absolute;
-border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+border-radius: 50%;
   /* filter: blur(80px);
   opacity: 0.5; */
   transition: background 0.3s ease;
 }
 
-.blob-1 {
+.blob-2 {
   width: 140px;
   height: 140px;
-top: 62px;
+top: 95px;
     right: 276px;
 }
 
-.blob-2 {
+.blob-1 {
   width: 200px;
   height: 200px;
   bottom: -60px;

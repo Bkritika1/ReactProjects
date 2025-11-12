@@ -48,7 +48,7 @@ console.log("Extracted colors:", palettesToShow);
 <Header/>
  <div className="container">
       
-      <ColorExtractor/>
+      {/* <ColorExtractor/> */}
       <h1>Color Mesh Palette Generator</h1>
 
       {/* Category Tabs */}

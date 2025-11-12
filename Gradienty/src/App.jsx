@@ -115,6 +115,7 @@ import Features from "./Page/Features";
 import BottomToolbar from "./BottomToolbar";
  import PaletteGenerator from "../src/Page/PalleteGen";
 import LandingPageRenderer from "./components/LandingPageRenderer";
+import ColorExtractor from "./ColorExtractor";
 
 export default function App() {
   return (
@@ -125,6 +126,8 @@ export default function App() {
           <Route path="/palette-generator" element={<PaletteGenerator />} />
 
           <Route path="/features" element={<Features />} />
+          <Route path="/Explore" element={<PaletteGenerator />} />
+          <Route path="/ColorExtractor" element={<ColorExtractor/>} />
           <Route path="/landing/:id" element={<LandingPageRenderer />} />
         </Routes>
         <BottomToolbar />

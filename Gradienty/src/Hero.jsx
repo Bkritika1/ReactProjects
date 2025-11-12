@@ -109,9 +109,8 @@ export default function Hero() {
         {/* LEFT SIDE */}
         <div className="hero-left">
           <h1 className="hero-titlemain">
-            Craft stunning color palettes with
-            <br />
-            <strong className="primarycolor">AI</strong>
+            Craft stunning color palettes with AI
+            <strong className="primarycolor"></strong>
           </h1>
 
           <p className="eyebrow">
@@ -165,7 +164,7 @@ export default function Hero() {
             ></div>
             <div
               className="blob blob-2"
-              style={{ backgroundColor: activePalette[3] }}
+              style={{ backgroundColor: activePalette[1] }}
             ></div>
           </div>
         </div>

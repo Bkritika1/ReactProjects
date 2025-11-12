@@ -1,7 +1,9 @@
 
-
+import { FaHeart, FaCopy, FaCheck, FaDownload } from "react-icons/fa";
 import React, { useRef, useState, useEffect } from "react";
 import "./ColorExtractor.css";
+import Header from "./Header";
+import Footer from "./Footer";
 
 /* --- utility fns --- */
 function clamp(v, a = 0, b = 255) { return Math.max(a, Math.min(b, v)); }
@@ -355,28 +357,51 @@ export default function ColorExtractor() {
   }, [imageSrc, topColors]);
 
   return (
+    
+   <>
+   <Header/>
     <div className="ip-container">
       <header className="ip-header">
-        <h1 style={{ fontSize: '3rem', fontStyle: 'bolder' }}>Image Picker</h1>
-        <h1>Extract Beautifull Palatte Form Your Image......!</h1>
+        <h1 style={{ fontSize: '3rem', fontStyle: 'bolder' }}>Extract Palette From Image</h1>
+        <p style={{color:'var(--color-text)', textAlign:'center'}}> Upload an image to automatically generate a color palette....!</p>
       </header>
 
       <div className="ip-main">
         <div className="ip-left">
         
 
-          <form onSubmit={handleURLSubmit} className="ip-url-form">
-            <input name="url" placeholder="Paste image URL" />
-            <button type="submit">Use URL</button>
-          </form>
+        
 
           <div className="ip-options">
-            {/* <label>
-              Top Colors:
-              <select value={topColors} onChange={(e) => setTopColors(Number(e.target.value))}>
-                {[5, 10, 15, 20, 30, 50].map((n) => <option key={n} value={n}>{n}</option>)}
-              </select>
-            </label> */}
+      <div className="palette-header" style={{display:'flex',alignItems:'center',
+        justifyContent:'center',gap:'11rem'
+      }}>
+  <p className="palette-title">Extracted Palette</p>
+  <div className="ip-exports">
+    <button     className="icon-btn">
+      <FaHeart />
+    </button>
+
+    <button
+      className="icon-btn"
+      onClick={() => {
+        navigator.clipboard.writeText(picked.map(p => p.hex).join(", "))
+          .then(() => {
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+          })
+          .catch(() => alert("Copy failed"));
+      }}
+    >
+      {copied ? <FaCheck /> : <FaCopy />}
+    </button>
+
+    <button  onClick={exportCSS} className="icon-btn purple">
+      <FaDownload />
+    </button>
+  </div>
+</div>
+
 
             <div className="ip-slider">
   <div className="slider-label">
@@ -509,8 +534,15 @@ export default function ColorExtractor() {
             <input type="file" accept="image/*" onChange={handleFileChange} />
             Upload image
           </label>
+
+            <form onSubmit={handleURLSubmit}  className="ip-url-form">
+            <input name="url" placeholder="Paste image URL" />
+            <button type="submit">Use URL</button>
+          </form>
         </div>
       </div>
     </div>
+    <Footer/>
+   </>
   );
 }
