@@ -97,6 +97,7 @@ const styles = `
     font-weight: 600;
     color: #111827;
     margin: 0;
+    // margin-left:'30px'
   }
 
   .add-color-btn {
