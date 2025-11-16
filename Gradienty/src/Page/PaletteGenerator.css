@@ -47,6 +47,8 @@ h1 {
   cursor: pointer;
   transition: 0.3s;
   z-index: 999;
+  z-index: 9999;
+
   /* background: #fff; */
 }
 
