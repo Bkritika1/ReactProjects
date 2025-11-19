@@ -91,6 +91,8 @@ h1 {
   gap: 20px;
   flex-wrap: wrap;
   justify-content: center;
+  justify-content: center;
+
 }
 
 .color-wheel,
