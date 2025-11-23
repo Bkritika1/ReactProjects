@@ -14,6 +14,8 @@ export default function Features() {
           <Link key={page.id} to={`/landing/${page.id}`} className="landing-card">
             <div className="card-inner">
               <h3>{page.name}</h3>
+              <h3>{page.name}</h3>
+
             </div>
           </Link>
         ))}
@@ -23,3 +25,6 @@ export default function Features() {
 }
 
 // careers@teachedison.com
+
+//Email Address
+//info@peoplexm.ai
