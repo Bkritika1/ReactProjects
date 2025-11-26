@@ -1,0 +1,76 @@
+/* Section Styling */
+.faq-section {
+  padding: 80px 20px;
+  background: #ffffff;
+}
+
+/* Container */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Header */
+.faq-header {
+  text-align: center;
+}
+
+.faq-header h2 {
+  font-size: 36px;
+  font-weight: 800;
+}
+
+.faq-header p {
+  margin-top: 10px;
+  font-size: 18px;
+  opacity: 0.8;
+}
+
+/* FAQ Items */
+.faq-list {
+  margin-top: 40px;
+}
+
+.faq-item {
+  background: #f4f7ff;
+  padding: 20px 25px;
+  border-radius: 12px;
+  cursor: pointer;
+  border: none;
+  transition: 0.3s ease;
+  margin-bottom: 12px;
+}
+
+.faq-item:hover {
+  background: #e8ecff;
+}
+
+.faq-item summary {
+  font-size: 16px;
+  font-weight: bold;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Paragraph inside FAQ */
+.faq-item p {
+  margin-top: 10px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* Rotating Arrow */
+.arrow {
+  font-size: 16px;
+  transition: transform 0.3s ease;
+}
+
+details[open] .arrow {
+  transform: rotate(180deg);
+}
