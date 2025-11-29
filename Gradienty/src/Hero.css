@@ -318,6 +318,8 @@
   font-size: 1.1rem;
   opacity: 0.8;
   color: var(--color-text);
+  color: var(--color-text);
+
 }
 
 .hero-ctas {
