@@ -149,3 +149,98 @@ export default function LoginModal({ isOpen, onClose }) {
         </div>
     );
 }
+import React, { useState } from "react";
+import "./LoginModal.css";
+import { useAuth } from "../context/AuthContext"; 
+import { useNavigate } from "react-router-dom";
+
+export default function LoginModal({ isOpen, onClose }) {
+    const { login } = useAuth();
+    const navigate = useNavigate();
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
+
+    if (!isOpen) return null;
+
+    const handleLogin = async () => {
+        setLoading(true);
+        setError("");
+
+        const { error } = await login(email, password);
+
+        setLoading(false);
+
+        if (error) {
+            setError(error.message);
+            return;
+        }
+
+        navigate("/dashboard");
+        onClose();
+    };
+
+    return (
+        <div className="modal-overlay">
+            <div className="login-modal">
+                <button className="close-btn" onClick={onClose}>✖</button>
+
+                <div className="modal-header">
+                    <h1>Welcome Back</h1>
+                    <p>Log in to start creating your quiz.</p>
+                </div>
+
+                {error && <p className="error-msg">{error}</p>}
+
+                <div className="input-group">
+                    <label>Email Address</label>
+                    <input 
+                        type="email" 
+                        placeholder="Enter your email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                </div>
+
+                <div className="input-group">
+                    <label>Password</label>
+                    <input 
+                        type="password" 
+                        placeholder="Enter your password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                </div>
+
+                <div className="options">
+                    <label>
+                        <input type="checkbox" />
+                        Remember me
+                    </label>
+                    <a href="#">Forgot Password?</a>
+                </div>
+
+                <button 
+                    className="btn-primary w-full"
+                    onClick={handleLogin}
+                    disabled={loading}
+                >
+                    {loading ? "Logging in..." : "Log In"}
+                </button>
+
+                <div className="divider">OR</div>
+
+                <button className="btn-google">
+                    Continue with Google
+                </button>
+
+                <p className="signup-text">
+                    Don’t have an account?
+                    <a href="#"> Sign Up</a>
+                </p>
+            </div>
+        </div>
+    );
+}
