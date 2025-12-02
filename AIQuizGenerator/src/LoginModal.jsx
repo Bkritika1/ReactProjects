@@ -97,61 +97,10 @@
 // export default LoginModal;
 
 
-import React from "react";
-import "./LoginModal.css";
 
-export default function LoginModal({ isOpen, onClose }) {
-    if (!isOpen) return null;
-
-    return (
-        <div className="modal-overlay">
-            <div className="login-modal">
-                <button className="close-btn" onClick={onClose}>
-                    ✖
-                </button>
-
-                <div className="modal-header">
-                    <h1>Welcome Back</h1>
-                    <p>Log in to start creating your quiz.</p>
-                </div>
-
-                <div className="input-group">
-                    <label>Email Address</label>
-                    <input type="email" placeholder="Enter your email" />
-                </div>
-
-                <div className="input-group">
-                    <label>Password</label>
-                    <input type="password" placeholder="Enter your password" />
-                </div>
-
-                <div className="options">
-                    <label>
-                        <input type="checkbox" />
-                        Remember me
-                    </label>
-                    <a href="#">Forgot Password?</a>
-                </div>
-
-                <button className="btn-primary w-full">Log In</button>
-
-                <div className="divider">OR</div>
-
-                <button className="btn-google">
-                    Continue with Google
-                </button>
-
-                <p className="signup-text">
-                    Don’t have an account?
-                    <a href="#"> Sign Up</a>
-                </p>
-            </div>
-        </div>
-    );
-}
 import React, { useState } from "react";
 import "./LoginModal.css";
-import { useAuth } from "../context/AuthContext"; 
+import { useAuth } from "./context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 export default function LoginModal({ isOpen, onClose }) {
@@ -165,22 +114,21 @@ export default function LoginModal({ isOpen, onClose }) {
 
     if (!isOpen) return null;
 
-    const handleLogin = async () => {
-        setLoading(true);
-        setError("");
+   const handleLogin = async () => {
+    // setLoading(true);
+    // setError("");
 
-        const { error } = await login(email, password);
+    // const { error } = await login(email, password);
 
-        setLoading(false);
+    // setLoading(false);
 
-        if (error) {
-            setError(error.message);
-            return;
-        }
+    // if (error) {
+    //     setError(error.message);
+    //     return;
+    // }
 
-        navigate("/dashboard");
-        onClose();
-    };
+    navigate("/dashboard"); // Redirect to Dashboard 🚀
+};
 
     return (
         <div className="modal-overlay">

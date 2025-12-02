@@ -1,6 +1,9 @@
 
 
-// import { createClient } from '@supabase/supabase-js'
-const supabaseUrl = 'https://jqnqovlezhvfqzaofkkp.supabase.co'
-const supabaseKey = process.env.SUPABASE_KEY
-const supabase = createClient(supabaseUrl, supabaseKey)
+import { createClient } from "@supabase/supabase-js";
+
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseKey = import.meta.env.VITE_SUPABASE_KEY;
+console.log("Supabase URL:", supabaseUrl);
+console.log("Supabase Key:", supabaseKey ? "Loaded 🎯" : "Missing ❌");
+export const supabase = createClient(supabaseUrl, supabaseKey);

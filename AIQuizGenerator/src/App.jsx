@@ -12,31 +12,26 @@
 
 // export default App
 
-
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import LandingPage from "./pages/LandingPage";
-import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
+import { Routes, Route, Navigate } from "react-router-dom";
+import LandingPage from "./LandingPage";
+import LoginModal from "./LoginModal";
+import Dashboard from "./Dashboard";
 import { useAuth } from "./context/AuthContext";
 
 export default function App() {
   const { user } = useAuth();
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/login" element={<Login />} />
-        
-        {/* Protected Route */}
-        <Route 
-          path="/dashboard"
-          element={user ? <Dashboard /> : <Navigate to="/login" />}
-        />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/login" element={<LoginModal />} />
+
+      {/* Protected Route */}
+     <Route path="/dashboard" element={<Dashboard />} />
+    </Routes>
   );
 }
+
 
 
 //KITTU@844558

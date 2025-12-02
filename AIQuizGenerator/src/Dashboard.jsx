@@ -1,5 +1,5 @@
-import Sidebar from "./Sidebar";
-import { useAuth } from "../context/AuthContext";
+import Sidebar from "../src/Sidebar";
+import { useAuth } from "./context/AuthContext";
 
 export default function Dashboard() {
   const { user } = useAuth();
