@@ -104,7 +104,7 @@ import { useAuth } from "./context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 export default function LoginModal({ isOpen, onClose }) {
-    const { login } = useAuth();
+    const { login, loginWithGoogle } = useAuth();
     const navigate = useNavigate();
 
     const [email, setEmail] = useState("");
@@ -113,7 +113,16 @@ export default function LoginModal({ isOpen, onClose }) {
     const [error, setError] = useState("");
 
     if (!isOpen) return null;
+const handleGoogleLogin = async () => {
+  setLoading(true);
+  const { error } = await loginWithGoogle();
+  setLoading(false);
 
+  if (error) {
+    setError(error.message);
+  }
+   navigate("/dashboard"); 
+};
    const handleLogin = async () => {
     // setLoading(true);
     // setError("");
@@ -180,9 +189,9 @@ export default function LoginModal({ isOpen, onClose }) {
 
                 <div className="divider">OR</div>
 
-                <button className="btn-google">
-                    Continue with Google
-                </button>
+               <button className="btn-google" onClick={handleGoogleLogin}>
+  Continue with Google
+</button>
 
                 <p className="signup-text">
                     Don’t have an account?
@@ -192,3 +201,6 @@ export default function LoginModal({ isOpen, onClose }) {
         </div>
     );
 }
+
+
+//𝐡𝐫@𝐡𝐛𝐰𝐞𝐛𝐬𝐨𝐥.𝐜𝐨𝐦
