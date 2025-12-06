@@ -39,7 +39,9 @@ export default function Dashboard() {
           />
         )}
 
-        {/* <p>Email: {user?.email}</p> */}
+        <p>Email: {user?.email}</p>
+        <p>Email: {user?.email}</p>
+
       </div>
        <Sidebar />
     </div>
